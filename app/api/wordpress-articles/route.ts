@@ -1,9 +1,13 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { WordPressClient } from "@/lib/wordpress-client"
 
+// Кажи на Next, че route-ът винаги е динамичен
+export const dynamic = "force-dynamic"
+
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url)
+    const { searchParams } = request.nextUrl
+
     const page = parseInt(searchParams.get("page") || "1")
     const perPage = parseInt(searchParams.get("per_page") || "10")
     const category = searchParams.get("category")
@@ -24,7 +28,6 @@ export async function GET(request: NextRequest) {
       wordpressPassword
     )
 
-    // If slug is provided, get single post
     if (slug) {
       const post = await wordpressClient.getPostBySlug(slug)
       if (!post) {
@@ -33,12 +36,11 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ post })
     }
 
-    // Get posts with filters
     const result = await wordpressClient.getPosts({
       page,
       per_page: perPage,
       search,
-      status: 'publish'
+      status: "publish",
     })
 
     return NextResponse.json({
@@ -48,8 +50,8 @@ export async function GET(request: NextRequest) {
         page,
         per_page: perPage,
         total_pages: result.totalPages,
-        total: result.total
-      }
+        total: result.total,
+      },
     })
   } catch (error) {
     console.error("Error fetching WordPress articles:", error)
