@@ -2,17 +2,22 @@ import { type NextRequest, NextResponse } from "next/server"
 import { NewsAPIClient } from "@/lib/news-api"
 import { OpenAIClient } from "@/lib/openai-client"
 
+export const dynamic = "force-dynamic" // ✅ гарантира, че route-ът ще е динамичен и няма да чупи билда
+
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url)
+    // ✅ използваме request.nextUrl вместо new URL(request.url)
+    const { searchParams } = request.nextUrl
     const category = searchParams.get("category") || "cybersecurity"
 
-    // These would be set as environment variables in production
     const newsApiKey = process.env.NEWS_API_KEY
     const openaiApiKey = process.env.OPENAI_API_KEY
 
     if (!newsApiKey) {
-      return NextResponse.json({ error: "NEWS_API_KEY environment variable is required" }, { status: 500 })
+      return NextResponse.json(
+        { error: "NEWS_API_KEY environment variable is required" },
+        { status: 500 }
+      )
     }
 
     const newsClient = new NewsAPIClient(newsApiKey)
@@ -32,7 +37,9 @@ export async function GET(request: NextRequest) {
         try {
           const translatedTitle = await openaiClient.translateToBulgarian(article.title)
           const translatedDescription = await openaiClient.translateToBulgarian(article.description || "")
-          const summary = await openaiClient.summarizeArticle(article.content || article.description || "")
+          const summary = await openaiClient.summarizeArticle(
+            article.content || article.description || ""
+          )
 
           return {
             ...article,
@@ -51,7 +58,7 @@ export async function GET(request: NextRequest) {
             category: category === "seo" ? "SEO" : "Киберсигурност",
           }
         }
-      }),
+      })
     )
 
     return NextResponse.json({
@@ -60,6 +67,9 @@ export async function GET(request: NextRequest) {
     })
   } catch (error) {
     console.error("Error fetching news:", error)
-    return NextResponse.json({ error: "Failed to fetch news articles" }, { status: 500 })
+    return NextResponse.json(
+      { error: "Failed to fetch news articles" },
+      { status: 500 }
+    )
   }
 }
