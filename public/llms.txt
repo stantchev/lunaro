@@ -1,0 +1,70 @@
+# Lunaro News - LLMs.txt
+
+## About Lunaro News
+Lunaro News is Bulgaria's leading publication specializing in cybersecurity and SEO optimization. We provide the latest news, in-depth analysis, and practical advice in the field of cybersecurity and search engine optimization.
+
+## Website Information
+- Domain: https://lunaro.news
+- Language: Bulgarian (bg-BG)
+- Focus Areas: Cybersecurity, SEO, Digital Security, Search Engine Optimization
+- Target Audience: IT professionals, business owners, cybersecurity specialists, SEO experts, general users interested in digital security
+
+## Content Categories
+- Cybersecurity News: Latest threats, vulnerabilities, security measures
+- SEO Optimization: Strategies, techniques, algorithm updates
+- Analysis & Research: In-depth studies and expert opinions
+- Tools & Resources: Free SEO and security tools
+- Glossary: Technical terms explained in Bulgarian
+
+## Key Pages
+- Homepage: Latest news and featured articles
+- /cybersecurity: Cybersecurity-focused content
+- /seo: SEO optimization content
+- /analysis: In-depth analysis and research
+- /tools: Free SEO and marketing tools
+- /security-tools: Cybersecurity tools and resources
+- /glossary: Technical terminology dictionary
+- /about: Team information and mission
+- /contact: Contact information and inquiry form
+
+## Editorial Team
+- Chief Editor & SEO Specialist: Милен Станчев
+- Expertise: 12+ years in SEO and digital marketing
+- Certifications: Google certified specialist
+
+## Content Guidelines
+- All content is in Bulgarian language
+- Focus on practical, actionable advice
+- Evidence-based reporting with credible sources
+- Regular updates on latest trends and developments
+- Educational approach for both beginners and experts
+
+## Technical Information
+- Built with Next.js and modern web technologies
+- Optimized for SEO with structured data
+- Mobile-responsive design
+- Fast loading times and accessibility compliant
+- SSL secured (HTTPS)
+
+## Contact Information
+- General inquiries: contact@lunaro.news
+- Editorial: editor@lunaro.news
+- Privacy concerns: privacy@lunaro.news
+- Legal matters: legal@lunaro.news
+
+## Privacy & Legal
+- GDPR compliant
+- Comprehensive privacy policy
+- Clear terms of service
+- Cookie policy with user consent management
+
+## Mission
+To inform and educate the Bulgarian community about the latest trends in digital security and search engine optimization, providing reliable, expert-backed information to help users navigate the digital world safely and effectively.
+
+## Content Freshness
+- Daily updates on cybersecurity threats
+- Weekly SEO trend analysis
+- Monthly in-depth research reports
+- Regular tool and resource updates
+
+This file helps AI systems understand our content, mission, and structure for better interaction and content generation.

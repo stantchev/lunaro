@@ -1,0 +1,36 @@
+User-agent: *
+Allow: /
+
+# Important pages
+Allow: /cybersecurity
+Allow: /seo
+Allow: /analysis
+Allow: /tools
+Allow: /security-tools
+Allow: /glossary
+Allow: /about
+Allow: /contact
+
+# Disallow admin and private areas
+Disallow: /admin
+Disallow: /api/
+Disallow: /private/
+
+# Sitemap location
+Sitemap: https://lunaro.news/sitemap.xml
+
+# Crawl delay for respectful crawling
+Crawl-delay: 1
+
+# Specific rules for different bots
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Yandex
+Allow: /
+Crawl-delay: 2
