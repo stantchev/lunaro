@@ -1,17 +1,35 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { WordPressClient } from "@/lib/wordpress-client"
 
-// Кажи на Next, че route-ът винаги е динамичен
-export const dynamic = "force-dynamic"
+export const dynamic = "force-dynamic" // винаги динамично
+
+// Fallback масив (примерни статии)
+const fallbackPosts = [
+  {
+    id: "1",
+    title: { rendered: "Примерна SEO статия" },
+    excerpt: { rendered: "Това е fallback excerpt за статията." },
+    slug: "primerna-seo-statia",
+    date: "2025-09-01T12:00:00",
+    meta: { author_name: "Fallback Автор", category: "SEO" },
+    featured_media: null,
+  },
+  {
+    id: "2",
+    title: { rendered: "Google Update 2025 – какво се промени" },
+    excerpt: { rendered: "Обобщение на последния Google Core Update." },
+    slug: "google-update-2025",
+    date: "2025-09-05T12:00:00",
+    meta: { author_name: "Fallback Автор", category: "SEO" },
+    featured_media: null,
+  },
+]
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = request.nextUrl
-
     const page = parseInt(searchParams.get("page") || "1")
     const perPage = parseInt(searchParams.get("per_page") || "10")
-    const category = searchParams.get("category")
-    const search = searchParams.get("search")
     const slug = searchParams.get("slug")
 
     const wordpressBaseUrl = process.env.WORDPRESS_BASE_URL
@@ -19,7 +37,17 @@ export async function GET(request: NextRequest) {
     const wordpressPassword = process.env.WORDPRESS_PASSWORD
 
     if (!wordpressBaseUrl || !wordpressUsername || !wordpressPassword) {
-      return NextResponse.json({ error: "WordPress configuration is required" }, { status: 500 })
+      // ❌ ако няма конфигурация -> fallback
+      return NextResponse.json({
+        status: "fallback",
+        posts: fallbackPosts.slice(0, perPage),
+        pagination: {
+          page,
+          per_page: perPage,
+          total_pages: 1,
+          total: fallbackPosts.length,
+        },
+      })
     }
 
     const wordpressClient = new WordPressClient(
@@ -39,7 +67,6 @@ export async function GET(request: NextRequest) {
     const result = await wordpressClient.getPosts({
       page,
       per_page: perPage,
-      search,
       status: "publish",
     })
 
@@ -55,6 +82,16 @@ export async function GET(request: NextRequest) {
     })
   } catch (error) {
     console.error("Error fetching WordPress articles:", error)
-    return NextResponse.json({ error: "Failed to fetch articles" }, { status: 500 })
+    // ❌ при грешка -> fallback
+    return NextResponse.json({
+      status: "fallback",
+      posts: fallbackPosts,
+      pagination: {
+        page: 1,
+        per_page: fallbackPosts.length,
+        total_pages: 1,
+        total: fallbackPosts.length,
+      },
+    })
   }
 }
