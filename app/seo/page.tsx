@@ -7,11 +7,14 @@ import { TrendingUp, Search, BarChart3, Target } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "SEO Новини - Lunaro News",
-  description: "Най-новите SEO техники, алгоритмични промени и стратегии за подобряване на позициите в Google.",
-  keywords: "SEO, оптимизация, Google, алгоритъм, ключови думи, SERP, България, SEO Новини",
+  description:
+    "Най-новите SEO техники, алгоритмични промени и стратегии за подобряване на позициите в Google.",
+  keywords:
+    "SEO, оптимизация, Google, алгоритъм, ключови думи, SERP, България, SEO Новини",
   openGraph: {
     title: "SEO Новини - Lunaro News",
-    description: "Най-новите SEO техники и стратегии за подобряване на позициите в Google.",
+    description:
+      "Най-новите SEO техники и стратегии за подобряване на позициите в Google.",
     type: "website",
   },
 }
@@ -34,61 +37,34 @@ type Article = {
 }
 
 async function getSEOArticles(): Promise<Article[]> {
-  try {
-    const response = await fetch(
-      `${process.env.WORDPRESS_URL}/wp-json/wp/v2/posts?per_page=6`,
-      { next: { revalidate: 60 } } // ISR – обновява всеки 60 сек.
-    )
+  const response = await fetch(
+    `${process.env.WORDPRESS_URL}/wp-json/wp/v2/posts?categories=2&per_page=6&_embed`,
+    { next: { revalidate: 60 } } // ISR – обновява на 60 сек.
+  )
 
-    if (!response.ok) throw new Error("WordPress API error")
-
-    const data = await response.json()
-
-    const seoArticles =
-      data?.filter(
-        (article: any) =>
-          article.title?.rendered?.toLowerCase().includes("seo") ||
-          article.title?.rendered?.toLowerCase().includes("google") ||
-          article.title?.rendered?.toLowerCase().includes("алгоритъм")
-      ) || []
-
-    return seoArticles.map((article: any) => ({
-      id: article.id.toString(),
-      title: article.title.rendered,
-      translatedTitle: article.title.rendered,
-      description: article.excerpt.rendered.replace(/<[^>]*>/g, ""),
-      translatedDescription: article.excerpt.rendered.replace(/<[^>]*>/g, ""),
-      summary: article.excerpt.rendered.replace(/<[^>]*>/g, ""),
-      category: "SEO",
-      publishedAt: article.date,
-      urlToImage: article.featured_media
-        ? `${process.env.WORDPRESS_URL}/wp-content/uploads/featured-image-${article.slug}.jpg`
-        : "/placeholder.svg",
-      url: `/article/${article.slug}`,
-      author: article.meta?.author_name || "Автор",
-      source: { name: article.meta?.original_source || "Lunaro News" },
-    }))
-  } catch (error) {
-    console.error("⚠️ Error fetching SEO articles:", error)
-
-    // fallback dummy постове
-    return [
-      {
-        id: "1",
-        title: "Dummy SEO статия",
-        translatedTitle: "Dummy SEO статия",
-        description: "Това е примерна статия, показана като fallback.",
-        translatedDescription: "Това е примерна статия, показана като fallback.",
-        summary: "Това е примерна статия, показана като fallback.",
-        category: "SEO",
-        publishedAt: new Date().toISOString(),
-        urlToImage: "/placeholder.svg",
-        url: "#",
-        author: "Lunaro",
-        source: { name: "Lunaro News" },
-      },
-    ]
+  if (!response.ok) {
+    console.error("⚠️ WordPress API error:", response.statusText)
+    return []
   }
+
+  const data = await response.json()
+
+  return data.map((article: any) => ({
+    id: article.id.toString(),
+    title: article.title.rendered,
+    translatedTitle: article.title.rendered,
+    description: article.excerpt.rendered.replace(/<[^>]*>/g, ""),
+    translatedDescription: article.excerpt.rendered.replace(/<[^>]*>/g, ""),
+    summary: article.excerpt.rendered.replace(/<[^>]*>/g, ""),
+    category: article._embedded?.["wp:term"]?.[0]?.[0]?.name || "SEO",
+    publishedAt: article.date,
+    urlToImage:
+      article._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+      "/placeholder.svg",
+    url: `/article/${article.slug}`,
+    author: article._embedded?.author?.[0]?.name || "Автор",
+    source: { name: "Lunaro News" },
+  }))
 }
 
 export default async function SEOPage() {
