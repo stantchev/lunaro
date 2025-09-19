@@ -137,7 +137,9 @@ export default async function ArticlePage({ params }: { params: { slug: string }
               <div className="space-y-6">
                 <div className="space-y-4">
                   <Badge variant="secondary">{article.category}</Badge>
-                  <h1 className="text-4xl lg:text-5xl font-bold leading-tight text-balance">{article.title}</h1>
+                  <h1 className="text-4xl lg:text-5xl font-bold leading-tight text-balance">
+                    {article.title}
+                  </h1>
                   <p className="text-xl text-muted-foreground text-pretty">{article.description}</p>
                 </div>
 
@@ -196,7 +198,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
               <div
-                className="prose prose-lg max-w-none prose-headings:text-foreground prose-p:text-foreground prose-li:text-foreground prose-strong:text-foreground"
+                className="blog-content"
                 dangerouslySetInnerHTML={{ __html: article.content }}
               />
             </div>
