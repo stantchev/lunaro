@@ -9,56 +9,55 @@ import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
-// Fetch article from WordPress
+// 🔹 Fetch конкретна статия по slug от WP
 async function getArticle(slug: string) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/wordpress-articles?slug=${slug}`, {
-      cache: 'no-store' // Always fetch fresh data
-    })
+    const response = await fetch(
+      `https://lunaro.sofia-today.org/wp-json/wp/v2/posts?slug=${slug}&_embed`,
+      { next: { revalidate: 60 } }
+    )
 
     if (!response.ok) {
       return null
     }
 
     const data = await response.json()
-    const post = data.post
+    const post = data[0] // WP връща масив, първият е нашата статия
 
     if (!post) {
       return null
     }
 
-    // Transform WordPress post to our article format
     return {
       id: post.id.toString(),
       slug: post.slug,
       title: post.title.rendered,
-      description: post.excerpt.rendered.replace(/<[^>]*>/g, ''), // Strip HTML tags
+      description: post.excerpt.rendered.replace(/<[^>]*>/g, ""),
       content: post.content.rendered,
-      category: post.meta?.category || "Киберсигурност",
+      category: post._embedded?.["wp:term"]?.[0]?.[0]?.name || "Без категория",
       publishedAt: post.date,
       updatedAt: post.modified,
       author: {
-        name: post.meta?.author_name || "Автор",
-        bio: post.meta?.author_bio || "",
-        avatar: "/placeholder.svg?key=author1",
+        name: post._embedded?.author?.[0]?.name || "Автор",
+        bio: post._embedded?.author?.[0]?.description || "",
+        avatar: post._embedded?.author?.[0]?.avatar_urls?.["96"] || "/placeholder.svg",
       },
-      featuredImage: post.featured_media ? 
-        `${process.env.WORDPRESS_BASE_URL}/wp-content/uploads/featured-image-${post.slug}.jpg` : 
-        "/placeholder.svg",
-      tags: post.meta?.tags || [],
-      readingTime: post.meta?.reading_time || 5,
+      featuredImage:
+        post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/placeholder.svg",
+      tags: post._embedded?.["wp:term"]?.[1]?.map((tag: any) => tag.name) || [],
+      readingTime: Math.ceil(post.content.rendered.split(" ").length / 200), // грубо ~200 думи = 1 мин
       source: {
-        name: post.meta?.original_source || "Lunaro News",
-        url: post.meta?.original_url || "#",
+        name: "Lunaro News",
+        url: post.link,
       },
-      wordpressId: post.id
     }
   } catch (error) {
-    console.error('Error fetching article:', error)
+    console.error("Error fetching article:", error)
     return null
   }
 }
 
+// 🔹 Генерираме SEO данни динамично
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const article = await getArticle(params.slug)
 
@@ -73,8 +72,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     description: article.description,
     keywords: article.tags.join(", "),
     authors: [{ name: article.author.name }],
-    publishedTime: article.publishedAt,
-    modifiedTime: article.updatedAt,
     openGraph: {
       title: article.title,
       description: article.description,
@@ -131,8 +128,8 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                 Начало
               </Link>
               <span>/</span>
-              <Link href="/cybersecurity" className="hover:text-primary transition-colors">
-                Киберсигурност
+              <Link href={`/category/${article.category.toLowerCase()}`} className="hover:text-primary transition-colors">
+                {article.category}
               </Link>
               <span>/</span>
               <span className="text-foreground">{article.title}</span>
@@ -145,19 +142,17 @@ export default async function ArticlePage({ params }: { params: { slug: string }
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <Link
-                href="/cybersecurity"
+                href={`/category/${article.category.toLowerCase()}`}
                 className="inline-flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors mb-6"
               >
                 <ArrowLeft className="h-4 w-4" />
-                <span>Назад към Киберсигурност</span>
+                <span>Назад към {article.category}</span>
               </Link>
 
               <div className="space-y-6">
                 <div className="space-y-4">
                   <Badge variant="secondary">{article.category}</Badge>
-
                   <h1 className="text-4xl lg:text-5xl font-bold leading-tight text-balance">{article.title}</h1>
-
                   <p className="text-xl text-muted-foreground text-pretty">{article.description}</p>
                 </div>
 
@@ -167,12 +162,10 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                     <User className="h-4 w-4" />
                     <span>{article.author.name}</span>
                   </div>
-
                   <div className="flex items-center space-x-2">
                     <Clock className="h-4 w-4" />
                     <span>{formatDate(article.publishedAt)}</span>
                   </div>
-
                   <div className="flex items-center space-x-2">
                     <Clock className="h-4 w-4" />
                     <span>{article.readingTime} мин четене</span>
@@ -207,7 +200,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
             <div className="max-w-4xl mx-auto">
               <div className="aspect-[16/9] relative rounded-lg overflow-hidden">
                 <Image
-                  src={article.featuredImage || "/placeholder.svg"}
+                  src={article.featuredImage}
                   alt={article.title}
                   fill
                   className="object-cover"
@@ -237,9 +230,13 @@ export default async function ArticlePage({ params }: { params: { slug: string }
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
               <div className="flex items-start space-x-4 p-6 bg-muted/30 rounded-lg">
-                <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <User className="h-8 w-8 text-primary" />
-                </div>
+                <Image
+                  src={article.author.avatar}
+                  alt={article.author.name}
+                  width={64}
+                  height={64}
+                  className="rounded-full"
+                />
                 <div className="space-y-2">
                   <h3 className="font-semibold text-lg">{article.author.name}</h3>
                   <p className="text-muted-foreground">{article.author.bio}</p>
