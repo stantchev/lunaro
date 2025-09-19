@@ -1,5 +1,4 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { WordPressClient } from "@/lib/wordpress-client"
 
 export const dynamic = "force-dynamic" // винаги динамично
 
@@ -33,11 +32,8 @@ export async function GET(request: NextRequest) {
     const slug = searchParams.get("slug")
 
     const wordpressBaseUrl = process.env.WORDPRESS_BASE_URL
-    const wordpressUsername = process.env.WORDPRESS_USERNAME
-    const wordpressPassword = process.env.WORDPRESS_PASSWORD
 
-    if (!wordpressBaseUrl || !wordpressUsername || !wordpressPassword) {
-      // ❌ ако няма конфигурация -> fallback
+    if (!wordpressBaseUrl) {
       return NextResponse.json({
         status: "fallback",
         posts: fallbackPosts.slice(0, perPage),
@@ -50,39 +46,39 @@ export async function GET(request: NextRequest) {
       })
     }
 
-    const wordpressClient = new WordPressClient(
-      wordpressBaseUrl,
-      wordpressUsername,
-      wordpressPassword
-    )
+    let url = `${wordpressBaseUrl}/posts?per_page=${perPage}&page=${page}&_embed`
 
     if (slug) {
-      const post = await wordpressClient.getPostBySlug(slug)
-      if (!post) {
-        return NextResponse.json({ error: "Post not found" }, { status: 404 })
-      }
-      return NextResponse.json({ post })
+      url = `${wordpressBaseUrl}/posts?slug=${slug}&_embed`
     }
 
-    const result = await wordpressClient.getPosts({
-      page,
-      per_page: perPage,
-      status: "publish",
+    const response = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
     })
+
+    if (!response.ok) {
+      throw new Error(`WordPress API error: ${response.status}`)
+    }
+
+    const posts = await response.json()
+    const totalPages = response.headers.get("X-WP-TotalPages") || 1
+    const total = response.headers.get("X-WP-Total") || posts.length
 
     return NextResponse.json({
       status: "success",
-      posts: result.posts,
+      posts,
       pagination: {
         page,
         per_page: perPage,
-        total_pages: result.totalPages,
-        total: result.total,
+        total_pages: Number(totalPages),
+        total: Number(total),
       },
     })
   } catch (error) {
     console.error("Error fetching WordPress articles:", error)
-    // ❌ при грешка -> fallback
     return NextResponse.json({
       status: "fallback",
       posts: fallbackPosts,
