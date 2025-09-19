@@ -77,14 +77,10 @@ export function ArticlesGrid({ articles, title }: ArticlesGridProps) {
                 <div className="flex items-center justify-between">
                   <Link
                     href={article.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="text-primary hover:text-primary/80 text-sm font-medium flex items-center space-x-1 group/link"
                   >
                     <span>{t("readMore")}</span>
-                    <ExternalLink className="h-3 w-3 group-hover/link:translate-x-0.5 transition-transform" />
                   </Link>
-
                   {article.author && <span className="text-xs text-muted-foreground">от {article.author}</span>}
                 </div>
               </CardContent>
