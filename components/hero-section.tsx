@@ -1,58 +1,40 @@
-import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Clock, ArrowRight } from "lucide-react"
 import Image from "next/image"
 
 export function HeroSection() {
   return (
-    <section className="py-12 bg-gradient-to-br from-background to-muted/20">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          {/* Text Section */}
-          <div className="space-y-6">
-            <div className="space-y-4">
-              <Badge variant="secondary" className="text-xs sm:text-sm">
-                Киберсигурност
-              </Badge>
-              <h1 className="text-2xl sm:text-3xl lg:text-5xl font-bold leading-tight break-words">
-                Нови заплахи в киберпространството през 2025
-              </h1>
-              <p className="text-base sm:text-lg text-muted-foreground">
-                Анализ на най-актуалните киберзаплахи и как да защитим нашите данни в дигиталната ера. 
-                Експертни препоръки за бизнеса и потребителите.
-              </p>
-            </div>
+    <section className="relative min-h-[85vh] flex items-center bg-gradient-to-br from-blue-600 via-purple-700 to-black text-white">
+      {/* Background image */}
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src="/cybersecurity-shield.png"
+          alt="Киберсигурност и AI"
+          fill
+          priority
+          className="object-cover opacity-30"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-transparent" />
+      </div>
 
-            <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-muted-foreground">
-              <div className="flex items-center space-x-1">
-                <Clock className="h-4 w-4" />
-                <span>Преди 2 часа</span>
-              </div>
-              <span>•</span>
-              <span>5 мин четене</span>
-            </div>
+      {/* Content */}
+      <div className="container mx-auto px-6 text-center max-w-3xl">
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+          Lunaro News
+        </h1>
+        <p className="text-lg sm:text-xl text-gray-200 mb-10">
+          Последните новини и анализи за <span className="text-blue-300">Киберсигурност</span>,{" "}
+          <span className="text-purple-300">AI</span> и{" "}
+          <span className="text-pink-300">SEO</span> – на български език.
+          Останете информирани, защитени и една крачка пред останалите.
+        </p>
 
-            <Button size="lg" className="group w-full sm:w-auto">
-              Прочети повече
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </div>
-
-          {/* Image Section */}
-          <div className="relative">
-            <Card className="overflow-hidden">
-              <div className="aspect-[16/9] sm:aspect-[4/3] relative">
-                <Image
-                  src="/cybersecurity-shield.png"
-                  alt="Киберсигурност"
-                  fill
-                  className="object-cover rounded-md"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-              </div>
-            </Card>
-          </div>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button size="lg" asChild className="bg-white text-black hover:bg-gray-200">
+            <a href="#latest">Последни новини</a>
+          </Button>
+          <Button size="lg" variant="outline" asChild className="border-white text-white hover:bg-white/10">
+            <a href="/contact">Абонирай се</a>
+          </Button>
         </div>
       </div>
     </section>
