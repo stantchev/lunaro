@@ -6,11 +6,8 @@ import { Footer } from "@/components/footer"
 import { SEOHead } from "@/components/seo-head"
 import { generateBreadcrumbStructuredData } from "@/lib/seo-utils"
 import { Suspense } from "react"
-import Link from "next/link"
-import Image from "next/image"
-import { Badge } from "@/components/ui/badge"
-import { Clock } from "lucide-react"
 
+// 🔹 Стабилна функция за fetch от WordPress API
 async function getArticles(limit: number = 6) {
   try {
     const response = await fetch(
@@ -24,20 +21,32 @@ async function getArticles(limit: number = 6) {
 
     return data.map((article: any) => {
       const category =
-        article._embedded?.["wp:term"]?.[0]?.[0]?.name ?? "Без категория"
+        article?._embedded?.["wp:term"]?.[0]?.[0]?.name ?? "Без категория"
 
       return {
-        id: article.id?.toString() ?? "",
-        slug: article.slug ?? "",
-        title: article.title?.rendered ?? "Без заглавие",
-        description: article.excerpt?.rendered?.replace(/<[^>]*>/g, "") ?? "",
-        content: article.content?.rendered ?? "",
+        id: article?.id?.toString() ?? crypto.randomUUID(),
+        slug: article?.slug ?? "",
+        title: article?.title?.rendered ?? "Без заглавие",
+        translatedTitle: article?.title?.rendered ?? "Без заглавие",
+        description:
+          article?.excerpt?.rendered?.replace(/<[^>]*>/g, "") ??
+          "Няма описание.",
+        translatedDescription:
+          article?.excerpt?.rendered?.replace(/<[^>]*>/g, "") ??
+          "Няма описание.",
+        summary:
+          article?.excerpt?.rendered?.replace(/<[^>]*>/g, "") ??
+          "Няма описание.",
         category,
-        publishedAt: article.date ?? "",
+        publishedAt: article?.date ?? new Date().toISOString(),
         urlToImage:
-          article._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+          article?._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
           "/placeholder.svg",
-        author: article._embedded?.author?.[0]?.name ?? "Автор",
+        url: `/article/${article?.slug ?? ""}`,
+        author: article?._embedded?.author?.[0]?.name ?? "Автор",
+        source: {
+          name: "Lunaro News",
+        },
       }
     })
   } catch (error) {
@@ -51,10 +60,12 @@ export default async function HomePage() {
     { name: "Начало", url: "https://lunaro.news" },
   ])
 
-  const articles = await getArticles(10)
+  const articles = await getArticles(6)
 
+  // Последният пост за hero featured
   const latestArticle = articles[0] || null
-  const recentArticles = articles.slice(1, 4)
+  // Следващите 3 за "Последни новини"
+  const latestThree = articles.slice(1, 4)
 
   return (
     <div className="min-h-screen bg-background">
@@ -62,62 +73,14 @@ export default async function HomePage() {
       <Header />
 
       <main>
-        {/* Landing Section */}
-        {latestArticle && (
-          <section className="py-16 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20">
-            <div className="container mx-auto px-4">
-              <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-8 items-center">
-                <div className="space-y-6">
-                  <Badge variant="secondary">{latestArticle.category}</Badge>
-                  <h1
-                    className="text-4xl lg:text-5xl font-bold leading-tight"
-                    dangerouslySetInnerHTML={{ __html: latestArticle.title }}
-                  />
-                  <p className="text-lg text-muted-foreground">
-                    {latestArticle.description}
-                  </p>
-                  <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                    <span className="flex items-center space-x-1">
-                      <Clock className="h-4 w-4" />
-                      <span>
-                        {latestArticle.publishedAt
-                          ? new Date(latestArticle.publishedAt).toLocaleDateString("bg-BG", {
-                              day: "numeric",
-                              month: "long",
-                              year: "numeric",
-                            })
-                          : ""}
-                      </span>
-                    </span>
-                    <span>от {latestArticle.author}</span>
-                  </div>
-                  <Link
-                    href={`/article/${latestArticle.slug}`}
-                    className="inline-block px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition"
-                  >
-                    Прочети повече
-                  </Link>
-                </div>
-
-                <div className="relative aspect-[16/9] rounded-lg overflow-hidden shadow-lg">
-                  <Image
-                    src={latestArticle.urlToImage}
-                    alt={latestArticle.title}
-                    fill
-                    className="object-cover"
-                    priority
-                  />
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
+        {/* Hero Section */}
+        <HeroSection latestArticle={latestArticle} />
 
         {/* Последни новини */}
         <Suspense
           fallback={<div className="py-12 text-center">Зареждане на статии...</div>}
         >
-          <ArticlesGrid articles={recentArticles} title="Последни новини" />
+          <ArticlesGrid articles={latestThree} title="Последни новини" />
         </Suspense>
 
         <NewsletterSignup />
