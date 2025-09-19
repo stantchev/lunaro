@@ -4,7 +4,7 @@ import { Footer } from "@/components/footer"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import { Clock, User, Share2, Bookmark, ArrowLeft, ExternalLink } from "lucide-react"
+import { Clock, User, Share2, Bookmark, ArrowLeft } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
@@ -17,16 +17,12 @@ async function getArticle(slug: string) {
       { next: { revalidate: 60 } }
     )
 
-    if (!response.ok) {
-      return null
-    }
+    if (!response.ok) return null
 
     const data = await response.json()
-    const post = data[0] // WP връща масив, първият е нашата статия
+    const post = data[0]
 
-    if (!post) {
-      return null
-    }
+    if (!post) return null
 
     return {
       id: post.id.toString(),
@@ -39,17 +35,11 @@ async function getArticle(slug: string) {
       updatedAt: post.modified,
       author: {
         name: post._embedded?.author?.[0]?.name || "Автор",
-        bio: post._embedded?.author?.[0]?.description || "",
-        avatar: post._embedded?.author?.[0]?.avatar_urls?.["96"] || "/placeholder.svg",
       },
       featuredImage:
         post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/placeholder.svg",
       tags: post._embedded?.["wp:term"]?.[1]?.map((tag: any) => tag.name) || [],
-      readingTime: Math.ceil(post.content.rendered.split(" ").length / 200), // грубо ~200 думи = 1 мин
-      source: {
-        name: "Lunaro News",
-        url: post.link,
-      },
+      readingTime: Math.ceil(post.content.rendered.split(" ").length / 200), // ~200 думи = 1 мин
     }
   } catch (error) {
     console.error("Error fetching article:", error)
@@ -62,9 +52,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const article = await getArticle(params.slug)
 
   if (!article) {
-    return {
-      title: "Статията не е намерена - Lunaro News",
-    }
+    return { title: "Статията не е намерена - Lunaro News" }
   }
 
   return {
@@ -100,9 +88,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function ArticlePage({ params }: { params: { slug: string } }) {
   const article = await getArticle(params.slug)
 
-  if (!article) {
-    notFound()
-  }
+  if (!article) notFound()
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
@@ -128,7 +114,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                 Начало
               </Link>
               <span>/</span>
-              <Link href={`/category/${article.category.toLowerCase()}`} className="hover:text-primary transition-colors">
+              <Link href={`/${article.category.toLowerCase()}`} className="hover:text-primary transition-colors">
                 {article.category}
               </Link>
               <span>/</span>
@@ -142,7 +128,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <Link
-                href={`/category/${article.category.toLowerCase()}`}
+                href={`/${article.category.toLowerCase()}`}
                 className="inline-flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors mb-6"
               >
                 <ArrowLeft className="h-4 w-4" />
@@ -182,12 +168,6 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                     <Bookmark className="h-4 w-4 mr-2" />
                     Запази
                   </Button>
-                  <Link href={article.source.url} target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline" size="sm">
-                      <ExternalLink className="h-4 w-4 mr-2" />
-                      Източник
-                    </Button>
-                  </Link>
                 </div>
               </div>
             </div>
@@ -224,27 +204,6 @@ export default async function ArticlePage({ params }: { params: { slug: string }
         </section>
 
         <Separator className="my-12" />
-
-        {/* Author Bio */}
-        <section className="py-12">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto">
-              <div className="flex items-start space-x-4 p-6 bg-muted/30 rounded-lg">
-                <Image
-                  src={article.author.avatar}
-                  alt={article.author.name}
-                  width={64}
-                  height={64}
-                  className="rounded-full"
-                />
-                <div className="space-y-2">
-                  <h3 className="font-semibold text-lg">{article.author.name}</h3>
-                  <p className="text-muted-foreground">{article.author.bio}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* Tags */}
         <section className="pb-12">
