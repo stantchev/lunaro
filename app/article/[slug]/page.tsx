@@ -29,7 +29,7 @@ async function getArticle(slug: string) {
       id: post.id.toString(),
       slug: post.slug,
       title: post.title.rendered,
-      description: post.excerpt.rendered.replace(/<[^>]*>/g, ""),
+      excerpt: post.excerpt.rendered.replace(/<[^>]*>/g, ""),
       content: post.content.rendered,
       category: post._embedded?.["wp:term"]?.[0]?.[0]?.name || "Без категория",
       publishedAt: post.date,
@@ -41,13 +41,12 @@ async function getArticle(slug: string) {
         post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/placeholder.svg",
       readingTime: Math.ceil(post.content.rendered.split(" ").length / 200), // ~200 думи = 1 мин
 
-      // 🆕 SEO от Yoast
+      // 🆕 Yoast SEO данни
       seo: {
-        title: post._yoast_head_json?.title || post.title.rendered,
+        title: post.yoast_head_json?.title || post.title.rendered,
         description:
-          post._yoast_head_json?.description ||
+          post.yoast_head_json?.description ||
           post.excerpt.rendered.replace(/<[^>]*>/g, ""),
-        keywords: post._yoast_head_json?.keywords || "",
       },
     }
   } catch (error) {
@@ -73,8 +72,6 @@ export async function generateMetadata({
   return {
     title: article.seo.title,
     description: article.seo.description,
-    keywords: article.seo.keywords,
-    authors: [{ name: article.author.name }],
     alternates: {
       canonical: canonicalUrl,
     },
