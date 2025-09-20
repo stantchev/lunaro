@@ -184,12 +184,6 @@ export default async function ArticlePage({
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex items-center space-x-4">
-                  <ShareButton
-                    title={article.title}
-                    description={article.seo.description}
-                    slug={article.slug}
-                  />
                   <div className="flex items-center space-x-4">
                     <ShareButton
                       title={article.title}
