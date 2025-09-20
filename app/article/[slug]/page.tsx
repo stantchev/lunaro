@@ -167,11 +167,6 @@ export default async function ArticlePage({
                   <h1 className="text-4xl lg:text-5xl font-bold leading-tight text-balance">
                     {article.title}
                   </h1>
-                  {article.seo.description && (
-                    <p className="text-xl text-muted-foreground text-pretty">
-                      {article.seo.description}
-                    </p>
-                  )}
                 </div>
 
                 {/* Meta Info */}
