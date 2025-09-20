@@ -192,7 +192,6 @@ export default async function ArticlePage({
                     />
                     <SaveButton slug={article.slug} />
                   </div>
-                </div>
               </div>
             </div>
           </div>
