@@ -10,7 +10,6 @@ import { Separator } from "@/components/ui/separator"
 interface SavedArticle {
   slug: string
   title: string
-  excerpt: string
   featuredImage: string
 }
 
@@ -32,14 +31,14 @@ export default function SavedPage() {
         {articles.length === 0 ? (
           <p className="text-muted-foreground">Нямате запазени статии.</p>
         ) : (
-          <div className="grid gap-8">
+          <ul className="space-y-4">
             {articles.map((article) => (
-              <div
-                key={article.slug}
-                className="border rounded-lg overflow-hidden shadow-sm bg-card"
-              >
-                <Link href={`/article/${article.slug}`}>
-                  <div className="aspect-[16/9] relative">
+              <li key={article.slug}>
+                <Link
+                  href={`/article/${article.slug}`}
+                  className="flex items-center space-x-4 p-3 border rounded-lg hover:bg-muted transition-colors"
+                >
+                  <div className="relative w-24 h-16 flex-shrink-0 rounded-md overflow-hidden">
                     <Image
                       src={article.featuredImage || "/placeholder.svg"}
                       alt={article.title}
@@ -47,16 +46,13 @@ export default function SavedPage() {
                       className="object-cover"
                     />
                   </div>
-                  <div className="p-4 space-y-2">
-                    <h2 className="text-xl font-semibold">{article.title}</h2>
-                    <p className="text-sm text-muted-foreground line-clamp-2">
-                      {article.excerpt}
-                    </p>
-                  </div>
+                  <h2 className="text-lg font-medium line-clamp-2">
+                    {article.title}
+                  </h2>
                 </Link>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         )}
 
         <Separator className="my-12" />
