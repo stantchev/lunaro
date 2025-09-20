@@ -40,6 +40,15 @@ async function getArticle(slug: string) {
       featuredImage:
         post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/placeholder.svg",
       readingTime: Math.ceil(post.content.rendered.split(" ").length / 200), // ~200 думи = 1 мин
+
+      // 🆕 SEO от Yoast
+      seo: {
+        title: post._yoast_head_json?.title || post.title.rendered,
+        description:
+          post._yoast_head_json?.description ||
+          post.excerpt.rendered.replace(/<[^>]*>/g, ""),
+        keywords: post._yoast_head_json?.keywords || "",
+      },
     }
   } catch (error) {
     console.error("Error fetching article:", error)
@@ -48,21 +57,32 @@ async function getArticle(slug: string) {
 }
 
 // 🔹 SEO Metadata
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string }
+}): Promise<Metadata> {
   const article = await getArticle(params.slug)
 
   if (!article) {
     return { title: "Статията не е намерена - Lunaro News" }
   }
 
+  const canonicalUrl = `https://lunaro.news/article/${article.slug}`
+
   return {
-    title: `${article.title} - Lunaro News`,
-    description: article.description,
+    title: article.seo.title,
+    description: article.seo.description,
+    keywords: article.seo.keywords,
     authors: [{ name: article.author.name }],
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
-      title: article.title,
-      description: article.description,
+      title: article.seo.title,
+      description: article.seo.description,
       type: "article",
+      url: canonicalUrl,
       publishedTime: article.publishedAt,
       modifiedTime: article.updatedAt,
       authors: [article.author.name],
@@ -77,14 +97,18 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     },
     twitter: {
       card: "summary_large_image",
-      title: article.title,
-      description: article.description,
+      title: article.seo.title,
+      description: article.seo.description,
       images: [article.featuredImage],
     },
   }
 }
 
-export default async function ArticlePage({ params }: { params: { slug: string } }) {
+export default async function ArticlePage({
+  params,
+}: {
+  params: { slug: string }
+}) {
   const article = await getArticle(params.slug)
 
   if (!article) notFound()
@@ -113,7 +137,10 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                 Начало
               </Link>
               <span>/</span>
-              <Link href={`/${article.category.toLowerCase()}`} className="hover:text-primary transition-colors">
+              <Link
+                href={`/${article.category.toLowerCase()}`}
+                className="hover:text-primary transition-colors"
+              >
                 {article.category}
               </Link>
               <span>/</span>
@@ -140,6 +167,11 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                   <h1 className="text-4xl lg:text-5xl font-bold leading-tight text-balance">
                     {article.title}
                   </h1>
+                  {article.seo.description && (
+                    <p className="text-xl text-muted-foreground text-pretty">
+                      {article.seo.description}
+                    </p>
+                  )}
                 </div>
 
                 {/* Meta Info */}
@@ -162,7 +194,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                 <div className="flex items-center space-x-4">
                   <ShareButton
                     title={article.title}
-                    description={article.description}
+                    description={article.seo.description}
                     slug={article.slug}
                   />
                   <Button variant="outline" size="sm">
