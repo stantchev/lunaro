@@ -131,7 +131,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                 className="inline-flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors mb-6"
               >
                 <ArrowLeft className="h-4 w-4" />
-                <span>Назад към {article.category}</span>
+                <span>Назад</span>
               </Link>
 
               <div className="space-y-6">
@@ -140,7 +140,6 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                   <h1 className="text-4xl lg:text-5xl font-bold leading-tight text-balance">
                     {article.title}
                   </h1>
-                  <p className="text-xl text-muted-foreground text-pretty">{article.description}</p>
                 </div>
 
                 {/* Meta Info */}
