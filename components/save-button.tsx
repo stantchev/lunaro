@@ -1,36 +1,41 @@
 "use client"
 
-import { Bookmark, Trash2 } from "lucide-react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { useSavedArticles } from "@/hooks/useSavedArticles"
-import { toast } from "sonner"
+import { Bookmark } from "lucide-react"
 
-export function SaveButton({ slug }: { slug: string }) {
-  const { toggleSave, isSaved } = useSavedArticles()
-  const saved = isSaved(slug)
+interface SaveButtonProps {
+  slug: string
+  title: string
+  featuredImage: string
+}
 
-  const handleClick = () => {
-    toggleSave(slug)
-    toast.success(saved ? "Статията беше премахната" : "Статията беше запазена")
+export function SaveButton({ slug, title, featuredImage }: SaveButtonProps) {
+  const [saved, setSaved] = useState(false)
+
+  useEffect(() => {
+    const savedArticles = JSON.parse(localStorage.getItem("saved-articles") || "[]")
+    setSaved(savedArticles.some((a: any) => a.slug === slug))
+  }, [slug])
+
+  const toggleSave = () => {
+    const savedArticles = JSON.parse(localStorage.getItem("saved-articles") || "[]")
+    let updated
+
+    if (saved) {
+      updated = savedArticles.filter((a: any) => a.slug !== slug)
+    } else {
+      updated = [...savedArticles, { slug, title, featuredImage }]
+    }
+
+    localStorage.setItem("saved-articles", JSON.stringify(updated))
+    setSaved(!saved)
   }
 
   return (
-    <Button
-      variant={saved ? "destructive" : "outline"}
-      size="sm"
-      onClick={handleClick}
-    >
-      {saved ? (
-        <>
-          <Trash2 className="h-4 w-4 mr-2" />
-          Премахни
-        </>
-      ) : (
-        <>
-          <Bookmark className="h-4 w-4 mr-2" />
-          Запази
-        </>
-      )}
+    <Button variant={saved ? "default" : "outline"} size="sm" onClick={toggleSave}>
+      <Bookmark className="h-4 w-4 mr-2" />
+      {saved ? "Премахни" : "Запази"}
     </Button>
   )
 }
