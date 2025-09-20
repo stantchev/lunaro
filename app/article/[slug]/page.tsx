@@ -9,6 +9,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ShareButton } from "@/components/share-button"
+import { SaveButton } from "@/components/save-button"
 
 // 🔹 Fetch конкретна статия по slug от WP
 async function getArticle(slug: string) {
@@ -189,10 +190,14 @@ export default async function ArticlePage({
                     description={article.seo.description}
                     slug={article.slug}
                   />
-                  <Button variant="outline" size="sm">
-                    <Bookmark className="h-4 w-4 mr-2" />
-                    Запази
-                  </Button>
+                  <div className="flex items-center space-x-4">
+                    <ShareButton
+                      title={article.title}
+                      description={article.seo.description}
+                      slug={article.slug}
+                    />
+                    <SaveButton slug={article.slug} />
+                  </div>
                 </div>
               </div>
             </div>
