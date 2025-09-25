@@ -9,21 +9,46 @@ import { Input } from "@/components/ui/input"
 import { Search, BookOpen, Shield, TrendingUp } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Речник на термините - Lunaro News | Киберсигурност и SEO терминология",
-  description:
-    "Пълен речник на термините в областта на киберсигурността и SEO оптимизацията. Обяснения на български език на техническите понятия.",
-  keywords: "речник, терминология, киберсигурност термини, SEO термини, дефиниции, обяснения, България",
-  openGraph: {
-    title: "Речник на термините - Lunaro News",
-    description: "Пълен речник на термините в областта на киберсигурността и SEO",
-    url: "https://lunaro.news/glossary",
-    siteName: "Lunaro News",
-    locale: "bg_BG",
-    type: "website",
+  title: {
+    default: "Речник на термините - Lunaro News | Киберсигурност и SEO терминология",
+    template: "%s - Lunaro News",
   },
+  description:
+    "Речник на термините от Lunaro News – киберсигурност и SEO термини, обяснени ясно и разбираемо за професионалисти и начинаещи.",
+  keywords:
+    "речник на термините, киберсигурност термини, SEO терминология, речник SEO, речник киберсигурност, дигитална сигурност термини, Lunaro News речник",
+  authors: [{ name: "Lunaro News" }],
+  creator: "Lunaro News",
+  publisher: "Lunaro News",
+  robots: "index, follow",
   alternates: {
     canonical: "https://lunaro.news/glossary",
   },
+  openGraph: {
+    type: "website",
+    locale: "bg_BG",
+    url: "https://lunaro.news/glossary",
+    siteName: "Lunaro News",
+    title: "Речник на термините - Lunaro News",
+    description:
+      "SEO и киберсигурност речник – основни и напреднали термини, обяснени лесно и разбираемо от Lunaro News.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Речник на термините - Lunaro News",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Речник на термините - Lunaro News",
+    description:
+      "Lunaro News речник – киберсигурност и SEO терминология, представена ясно за експерти и начинаещи.",
+    images: ["/og-image.jpg"],
+  },
+  generator: "Lunaro News",
 }
 
 export default function GlossaryPage() {
