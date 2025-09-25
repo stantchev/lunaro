@@ -6,23 +6,46 @@ import { Badge } from "@/components/ui/badge"
 import { Brain, Search, Shield, TrendingUp, Zap } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "AI Новини - Lunaro News | Изкуствен интелект в киберсигурността и SEO",
-  description:
-    "Последните новини за изкуствения интелект в областта на киберсигурността и SEO оптимизацията. AI тенденции, инструменти и анализи на български език.",
-  keywords:
-    "AI новини, изкуствен интелект, машинно обучение, AI киберсигурност, AI SEO, ChatGPT, България, технологии",
-  openGraph: {
-    title: "AI Новини - Lunaro News",
-    description:
-      "Последните новини за изкуствения интелект в киберсигурността и SEO",
-    url: "https://lunaro.news/ai",
-    siteName: "Lunaro News",
-    locale: "bg_BG",
-    type: "website",
+  title: {
+    default: "AI Новини - Lunaro News",
+    template: "%s - Lunaro News",
   },
+  description:
+    "AI новини и анализи от Lunaro News – следете последните тенденции в изкуствения интелект, машинното обучение и бъдещето на технологиите.",
+  keywords:
+    "AI новини, изкуствен интелект, машинно обучение, технологии България, AI тенденции, бъдеще на AI, автоматизация, киберсигурност и AI, SEO и AI, Lunaro News",
+  authors: [{ name: "Lunaro News" }],
+  creator: "Lunaro News",
+  publisher: "Lunaro News",
+  robots: "index, follow",
   alternates: {
     canonical: "https://lunaro.news/ai",
   },
+  openGraph: {
+    type: "website",
+    locale: "bg_BG",
+    url: "https://lunaro.news/ai",
+    siteName: "Lunaro News",
+    title: "AI Новини - Lunaro News",
+    description:
+      "Последните AI новини и експертни анализи – изкуствен интелект, машинно обучение и бъдещето на технологиите.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "AI Новини - Lunaro News",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AI Новини - Lunaro News",
+    description:
+      "AI новини и анализи от Lunaro News – всичко за изкуствения интелект и неговото бъдеще.",
+    images: ["/og-image.jpg"],
+  },
+  generator: "Lunaro News",
 }
 
 async function getAIArticles() {
