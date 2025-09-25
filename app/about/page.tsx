@@ -7,9 +7,46 @@ import { Shield, TrendingUp, Users, Award, Mail, Phone } from "lucide-react"
 import { t } from "@/lib/i18n"
 
 export const metadata: Metadata = {
-  title: "За нас - Lunaro News",
-  description: "Научете повече за Lunaro News - водещото българско издание за киберсигурност и SEO оптимизация.",
-  keywords: "за нас, Lunaro News, киберсигурност, SEO, България, екип, мисия",
+  title: {
+    default: "За нас - Lunaro News",
+    template: "%s - Lunaro News",
+  },
+  description:
+    "Разберете кои сме ние в Lunaro News – водещото издание за киберсигурност и SEO новини в България. Експертен екип, мисия и визия.",
+  keywords:
+    "Lunaro News, за нас, киберсигурност България, SEO експерти, SEO оптимизация, хакерски новини, технологии България, мисия SEO, дигитална сигурност, SEO България",
+  authors: [{ name: "Lunaro News" }],
+  creator: "Lunaro News",
+  publisher: "Lunaro News",
+  robots: "index, follow",
+  alternates: {
+    canonical: "https://lunaro.news/about",
+  },
+  openGraph: {
+    type: "website",
+    locale: "bg_BG",
+    url: "https://lunaro.news/about",
+    siteName: "Lunaro News",
+    title: "За нас - Lunaro News",
+    description:
+      "Кои сме ние – Lunaro News. Водещо издание за киберсигурност и SEO оптимизация в България.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Lunaro News",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "За нас - Lunaro News",
+    description:
+      "Научете повече за Lunaro News – български лидер в новините за киберсигурност и SEO.",
+    images: ["/og-image.jpg"],
+  },
+  generator: "Lunaro News",
 }
 
 export default function AboutPage() {
