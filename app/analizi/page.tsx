@@ -8,23 +8,46 @@ import { ArrowRight, Calendar } from "lucide-react"
 import Link from "next/link"
 
 export const metadata: Metadata = {
-  title: "Анализи и проучвания - Lunaro News | Киберсигурност и SEO анализи",
+  title: {
+    default: "Анализи и проучвания - Lunaro News | Киберсигурност и SEO анализи",
+    template: "%s - Lunaro News",
+  },
   description:
-    "Задълбочени анализи и проучвания в областта на киберсигурността и SEO оптимизацията. Експертни мнения, статистики и тенденции за 2025 година.",
+    "Анализи и проучвания от Lunaro News – задълбочени данни, експертни мнения и стратегии за киберсигурност и SEO оптимизация в България.",
   keywords:
-    "анализи, проучвания, киберсигурност анализи, SEO анализи, статистики, тенденции 2025, експертни мнения, България",
+    "анализи киберсигурност, SEO проучвания, SEO анализи България, кибер атаки анализ, дигитални проучвания, SEO стратегии, Lunaro News анализи, сигурност и SEO данни",
+  authors: [{ name: "Lunaro News" }],
+  creator: "Lunaro News",
+  publisher: "Lunaro News",
+  robots: "index, follow",
+  alternates: {
+    canonical: "https://lunaro.news/analizi",
+  },
   openGraph: {
+    type: "website",
+    locale: "bg_BG",
+    url: "https://lunaro.news/analizi",
+    siteName: "Lunaro News",
     title: "Анализи и проучвания - Lunaro News",
     description:
-      "Задълбочени анализи и проучвания в областта на киберсигурността и SEO оптимизацията",
-    url: "https://lunaro.news/analysis",
-    siteName: "Lunaro News",
-    locale: "bg_BG",
-    type: "website",
+      "Експертни анализи и проучвания в областта на киберсигурността и SEO. Данни, изводи и стратегии за бизнеса.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Анализи и проучвания - Lunaro News",
+      },
+    ],
   },
-  alternates: {
-    canonical: "https://lunaro.news/analysis",
+  twitter: {
+    card: "summary_large_image",
+    title: "Анализи и проучвания - Lunaro News",
+    description:
+      "Анализи и проучвания от Lunaro News – експертни мнения и стратегии за киберсигурност и SEO.",
+    images: ["/og-image.jpg"],
   },
+  generator: "Lunaro News",
 }
 
 async function getAnalysisArticles() {
