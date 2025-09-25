@@ -52,7 +52,7 @@ export function Header() {
             <Link href="/ai" className="text-sm font-medium hover:text-primary transition-colors">
               {t("AI")}
             </Link>
-            <Link href="/analysis" className="text-sm font-medium hover:text-primary transition-colors">
+            <Link href="/analizi" className="text-sm font-medium hover:text-primary transition-colors">
               {t("analysis")}
             </Link>
             <Link href="/about" className="text-sm font-medium hover:text-primary transition-colors">
