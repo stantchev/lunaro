@@ -6,14 +6,46 @@ import { Badge } from "@/components/ui/badge"
 import { TrendingUp, Search, BarChart3, Target } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "SEO Новини - Lunaro News",
-  description: "Най-новите SEO техники, алгоритмични промени и стратегии за подобряване на позициите в Google.",
-  keywords: "SEO, оптимизация, Google, алгоритъм, ключови думи, SERP, България, SEO Новини",
-  openGraph: {
-    title: "SEO Новини - Lunaro News",
-    description: "Най-новите SEO техники и стратегии за подобряване на позициите в Google.",
-    type: "website",
+  title: {
+    default: "SEO Новини - Lunaro News",
+    template: "%s - Lunaro News",
   },
+  description:
+    "Последните SEO новини от Lunaro News – алгоритми на Google, стратегии за оптимизация и експертни съвети за дигитален успех.",
+  keywords:
+    "SEO новини, Google алгоритъм, оптимизация за търсачки, SEO България, дигитален маркетинг, SEO анализи, SEO стратегии, Lunaro News",
+  authors: [{ name: "Lunaro News" }],
+  creator: "Lunaro News",
+  publisher: "Lunaro News",
+  robots: "index, follow",
+  alternates: {
+    canonical: "https://lunaro.news/seo",
+  },
+  openGraph: {
+    type: "website",
+    locale: "bg_BG",
+    url: "https://lunaro.news/seo",
+    siteName: "Lunaro News",
+    title: "SEO Новини - Lunaro News",
+    description:
+      "Актуални SEO новини – Google алгоритми, оптимизация и експертни съвети за дигитален растеж от Lunaro News.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "SEO Новини - Lunaro News",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SEO Новини - Lunaro News",
+    description:
+      "Lunaro News предлага последни SEO новини, анализи и експертни насоки за оптимизация и Google алгоритми.",
+    images: ["/og-image.jpg"],
+  },
+  generator: "Lunaro News",
 }
 
 async function getSEOArticles() {
