@@ -5,25 +5,46 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Shield, Eye, Database, Mail } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Политика за поверителност - Lunaro News | Защита на личните данни",
-  description:
-    "Политика за поверителност на Lunaro News. Как събираме, използваме и защитаваме вашите лични данни в съответствие с GDPR.",
-  keywords: "политика за поверителност, GDPR, лични данни, защита на данни, cookies, Lunaro News, България",
-  openGraph: {
-    title: "Политика за поверителност - Lunaro News",
-    description: "Как защитаваме вашите лични данни в съответствие с GDPR",
-    url: "https://lunaro.news/privacy",
-    siteName: "Lunaro News",
-    locale: "bg_BG",
-    type: "website",
+  title: {
+    default: "Политика за поверителност - Lunaro News | Защита на личните данни",
+    template: "%s - Lunaro News",
   },
+  description:
+    "Политика за поверителност на Lunaro News – как защитаваме личните ви данни и гарантираме киберсигурност и прозрачност.",
+  keywords:
+    "политика за поверителност, Lunaro News лични данни, GDPR България, защита на лични данни, киберсигурност лични данни, сигурност SEO, поверителност Lunaro News",
+  authors: [{ name: "Lunaro News" }],
+  creator: "Lunaro News",
+  publisher: "Lunaro News",
+  robots: "index, follow",
   alternates: {
     canonical: "https://lunaro.news/privacy",
   },
-  robots: {
-    index: true,
-    follow: true,
+  openGraph: {
+    type: "website",
+    locale: "bg_BG",
+    url: "https://lunaro.news/privacy",
+    siteName: "Lunaro News",
+    title: "Политика за поверителност - Lunaro News",
+    description:
+      "Lunaro News политика за поверителност – защита на личните данни и киберсигурност според GDPR стандартите.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Политика за поверителност - Lunaro News",
+      },
+    ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Политика за поверителност - Lunaro News",
+    description:
+      "Прочетете политиката за поверителност на Lunaro News – гаранция за защита на вашите лични данни.",
+    images: ["/og-image.jpg"],
+  },
+  generator: "Lunaro News",
 }
 
 export default function PrivacyPage() {
