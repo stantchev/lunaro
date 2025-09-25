@@ -9,21 +9,46 @@ import { Label } from "@/components/ui/label"
 import { Mail, MapPin, Clock, Send } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Контакти - Lunaro News | Свържете се с нас",
-  description:
-    "Свържете се с екипа на Lunaro News за въпроси, предложения или партньорства. Контактна информация и форма за връзка.",
-  keywords: "контакти, Lunaro News, връзка, имейл, телефон, партньорства, въпроси, България",
-  openGraph: {
-    title: "Контакти - Lunaro News",
-    description: "Свържете се с екипа на Lunaro News за въпроси и предложения",
-    url: "https://lunaro.news/contact",
-    siteName: "Lunaro News",
-    locale: "bg_BG",
-    type: "website",
+  title: {
+    default: "Контакти - Lunaro News | Свържете се с нас",
+    template: "%s - Lunaro News",
   },
+  description:
+    "Свържете се с екипа на Lunaro News – задайте въпроси, предложете партньорства или изпратете информация за киберсигурност и SEO.",
+  keywords:
+    "Lunaro News контакти, свържете се с нас, контакт SEO новини, контакт киберсигурност, партньорства Lunaro News, SEO България, киберсигурност България",
+  authors: [{ name: "Lunaro News" }],
+  creator: "Lunaro News",
+  publisher: "Lunaro News",
+  robots: "index, follow",
   alternates: {
     canonical: "https://lunaro.news/contact",
   },
+  openGraph: {
+    type: "website",
+    locale: "bg_BG",
+    url: "https://lunaro.news/contact",
+    siteName: "Lunaro News",
+    title: "Контакти - Lunaro News",
+    description:
+      "Контакти с Lunaro News – свържете се с нас за въпроси, партньорства и медийни запитвания.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Контакти - Lunaro News",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Контакти - Lunaro News",
+    description:
+      "Свържете се с Lunaro News за въпроси, сътрудничества и информация по теми SEO и киберсигурност.",
+    images: ["/og-image.jpg"],
+  },
+  generator: "Lunaro News",
 }
 
 export default function ContactPage() {
