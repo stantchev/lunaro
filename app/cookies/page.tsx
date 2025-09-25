@@ -7,25 +7,46 @@ import { Button } from "@/components/ui/button"
 import { Cookie, Settings, BarChart3, Shield, Mail } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Политика за cookies - Lunaro News | Използване на бисквитки",
-  description:
-    "Политика за cookies на Lunaro News. Как използваме бисквитки за подобряване на потребителското изживяване и анализ на трафика.",
-  keywords: "cookies политика, бисквитки, проследяване, Google Analytics, GDPR, Lunaro News, България",
-  openGraph: {
-    title: "Политика за cookies - Lunaro News",
-    description: "Как използваме cookies за подобряване на потребителското изживяване",
-    url: "https://lunaro.news/cookies",
-    siteName: "Lunaro News",
-    locale: "bg_BG",
-    type: "website",
+  title: {
+    default: "Политика за cookies - Lunaro News | Използване на бисквитки",
+    template: "%s - Lunaro News",
   },
+  description:
+    "Политика за cookies на Lunaro News – научете как използваме бисквитки за подобряване на услугите, сигурността и потребителското изживяване.",
+  keywords:
+    "политика за cookies, бисквитки Lunaro News, използване на cookies, GDPR България, защита на лични данни, киберсигурност и бисквитки, SEO бисквитки",
+  authors: [{ name: "Lunaro News" }],
+  creator: "Lunaro News",
+  publisher: "Lunaro News",
+  robots: "index, follow",
   alternates: {
     canonical: "https://lunaro.news/cookies",
   },
-  robots: {
-    index: true,
-    follow: true,
+  openGraph: {
+    type: "website",
+    locale: "bg_BG",
+    url: "https://lunaro.news/cookies",
+    siteName: "Lunaro News",
+    title: "Политика за cookies - Lunaro News",
+    description:
+      "Прочетете политиката за cookies на Lunaro News – как използваме бисквитки за сигурност и подобрено изживяване.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Политика за cookies - Lunaro News",
+      },
+    ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Политика за cookies - Lunaro News",
+    description:
+      "Lunaro News – политика за cookies. Как използваме бисквитки за сигурност, SEO и по-добро изживяване.",
+    images: ["/og-image.jpg"],
+  },
+  generator: "Lunaro News",
 }
 
 export default function CookiesPage() {
