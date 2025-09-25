@@ -53,7 +53,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/analysis" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/analizi" className="text-muted-foreground hover:text-primary transition-colors">
                   Анализи и прогнози
                 </Link>
               </li>
