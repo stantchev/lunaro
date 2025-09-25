@@ -6,14 +6,46 @@ import { Badge } from "@/components/ui/badge"
 import { Shield, TrendingUp, AlertTriangle } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Киберсигурност - Lunaro News",
-  description: "Последни новини и анализи за киберсигурност в България. Заплахи, защитни мерки и експертни препоръки.",
-  keywords: "киберсигурност, хакерски атаки, малуер, фишинг, защита на данни, България",
-  openGraph: {
-    title: "Киберсигурност - Lunaro News",
-    description: "Последни новини и анализи за киберсигурност в България.",
-    type: "website",
+  title: {
+    default: "Киберсигурност Новини | Lunaro News",
+    template: "%s - Lunaro News",
   },
+  description:
+    "Последните новини за киберсигурност от Lunaro News – хакерски атаки, киберзащита, иновации и анализи за дигиталната сигурност.",
+  keywords:
+    "киберсигурност новини, хакери България, кибер атаки, защита на данни, киберсигурност 2025, кибер иновации, дигитална сигурност, Lunaro News",
+  authors: [{ name: "Lunaro News" }],
+  creator: "Lunaro News",
+  publisher: "Lunaro News",
+  robots: "index, follow",
+  alternates: {
+    canonical: "https://lunaro.news/cybersecurity",
+  },
+  openGraph: {
+    type: "website",
+    locale: "bg_BG",
+    url: "https://lunaro.news/cybersecurity",
+    siteName: "Lunaro News",
+    title: "Киберсигурност Новини | Lunaro News",
+    description:
+      "Актуални киберсигурност новини – атаки, защита на данни и експертни анализи от Lunaro News.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Киберсигурност Новини - Lunaro News",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Киберсигурност Новини - Lunaro News",
+    description:
+      "Последни новини за киберсигурност – хакерски атаки, кибер защита и анализи от Lunaro News.",
+    images: ["/og-image.jpg"],
+  },
+  generator: "Lunaro News",
 }
 
 // 🔹 директен fetch от WordPress API (категория ID 3)
