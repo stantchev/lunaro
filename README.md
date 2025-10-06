@@ -256,7 +256,7 @@ NODE_ENV=production
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under "All rights reserved". See the LICENSE file for details.
 
 ## Support
 
