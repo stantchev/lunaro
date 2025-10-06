@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Компоненти документация - Lunaro News</title>
+    <meta name="description" content="Пълна документация за всички React компоненти в Lunaro News">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fafc;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-bottom: 3rem;
+            border-radius: 12px;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+        
+        .nav {
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav a {
+            color: #8b5cf6;
+            text-decoration: none;
+            margin-right: 2rem;
+            font-weight: 500;
+        }
+        
+        .nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .content {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .section h2 {
+            color: #1f2937;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section h3 {
+            color: #374151;
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem 0;
+        }
+        
+        .code-block {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+        
+        .component-card {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .component-card h4 {
+            color: #1f2937;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .props-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        .props-table th,
+        .props-table td {
+            border: 1px solid #e5e7eb;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        
+        .props-table th {
+            background: #f3f4f6;
+            font-weight: 600;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: #8b5cf6;
+            text-decoration: none;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .back-link::before {
+            content: "←";
+            margin-right: 0.5rem;
+        }
+        
+        .example {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .example h5 {
+            color: #0369a1;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧩 Компоненти документация</h1>
+            <p>Пълна документация за всички React компоненти в Lunaro News</p>
+        </div>
+        
+        <div class="nav">
+            <a href="index.html">🏠 Главна</a>
+            <a href="api.html">🔌 API</a>
+            <a href="components.html">🧩 Компоненти</a>
+            <a href="deployment.html">🚀 Deployment</a>
+            <a href="tutorials.html">📚 Tutorials</a>
+        </div>
+        
+        <a href="index.html" class="back-link">Назад към главната страница</a>
+        
+        <div class="content">
+            <div class="section">
+                <h2>🎨 UI Components</h2>
+                <p>Основни UI компоненти базирани на Radix UI с Tailwind CSS стилизация.</p>
+                
+                <div class="component-card">
+                    <h4>Button</h4>
+                    <p>Многофункционален бутон компонент с различни варианти и размери.</p>
+                    
+                    <div class="example">
+                        <h5>Basic Usage</h5>
+                        <div class="code-block">
+import { Button } from "@/components/ui/button"
+
+// Basic usage
+&lt;Button&gt;Click me&lt;/Button&gt;
+
+// Variants
+&lt;Button variant="default"&gt;Default&lt;/Button&gt;
+&lt;Button variant="destructive"&gt;Destructive&lt;/Button&gt;
+&lt;Button variant="outline"&gt;Outline&lt;/Button&gt;
+&lt;Button variant="secondary"&gt;Secondary&lt;/Button&gt;
+&lt;Button variant="ghost"&gt;Ghost&lt;/Button&gt;
+&lt;Button variant="link"&gt;Link&lt;/Button&gt;
+
+// Sizes
+&lt;Button size="default"&gt;Default&lt;/Button&gt;
+&lt;Button size="sm"&gt;Small&lt;/Button&gt;
+&lt;Button size="lg"&gt;Large&lt;/Button&gt;
+&lt;Button size="icon"&gt;Icon&lt;/Button&gt;
+                        </div>
+                    </div>
+                    
+                    <table class="props-table">
+                        <thead>
+                            <tr>
+                                <th>Prop</th>
+                                <th>Type</th>
+                                <th>Default</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>variant</td>
+                                <td>"default" | "destructive" | "outline" | "secondary" | "ghost" | "link"</td>
+                                <td>"default"</td>
+                                <td>Визуален стил на бутона</td>
+                            </tr>
+                            <tr>
+                                <td>size</td>
+                                <td>"default" | "sm" | "lg" | "icon"</td>
+                                <td>"default"</td>
+                                <td>Размер на бутона</td>
+                            </tr>
+                            <tr>
+                                <td>asChild</td>
+                                <td>boolean</td>
+                                <td>false</td>
+                                <td>Използва React.cloneElement</td>
+                            </tr>
+                            <tr>
+                                <td>disabled</td>
+                                <td>boolean</td>
+                                <td>false</td>
+                                <td>Дали бутонът е деактивиран</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="component-card">
+                    <h4>Card</h4>
+                    <p>Карта за групиране на свързано съдържание.</p>
+                    
+                    <div class="example">
+                        <h5>Basic Usage</h5>
+                        <div class="code-block">
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+
+&lt;Card&gt;
+  &lt;CardHeader&gt;
+    &lt;CardTitle&gt;Card Title&lt;/CardTitle&gt;
+    &lt;CardDescription&gt;Card description&lt;/CardDescription&gt;
+  &lt;/CardHeader&gt;
+  &lt;CardContent&gt;
+    &lt;p&gt;Card content goes here&lt;/p&gt;
+  &lt;/CardContent&gt;
+&lt;/Card&gt;
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h4>Badge</h4>
+                    <p>Етикет за показване на статус или категоризация.</p>
+                    
+                    <div class="example">
+                        <h5>Basic Usage</h5>
+                        <div class="code-block">
+import { Badge } from "@/components/ui/badge"
+
+// Variants
+&lt;Badge variant="default"&gt;Default&lt;/Badge&gt;
+&lt;Badge variant="secondary"&gt;Secondary&lt;/Badge&gt;
+&lt;Badge variant="destructive"&gt;Destructive&lt;/Badge&gt;
+&lt;Badge variant="outline"&gt;Outline&lt;/Badge&gt;
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🔍 SEO Components</h2>
+                <p>Компоненти за SEO оптимизация и мета тагове.</p>
+                
+                <div class="component-card">
+                    <h4>SEOHead</h4>
+                    <p>Компонент за управление на SEO мета тагове и структурирани данни.</p>
+                    
+                    <div class="example">
+                        <h5>Basic Usage</h5>
+                        <div class="code-block">
+import { SEOHead } from "@/components/seo-head"
+
+// Basic usage
+&lt;SEOHead 
+  title="Page Title"
+  description="Page description"
+  keywords="keyword1, keyword2"
+/&gt;
+
+// With structured data
+&lt;SEOHead 
+  structuredData={[articleData, breadcrumbData, organizationData]}
+/&gt;
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🎧 Text-to-Speech Components</h2>
+                <p>Компоненти за text-to-speech функционалност.</p>
+                
+                <div class="component-card">
+                    <h4>TextToSpeech</h4>
+                    <p>Пълен контрол панел за text-to-speech функционалност.</p>
+                    
+                    <div class="example">
+                        <h5>Basic Usage</h5>
+                        <div class="code-block">
+import { TextToSpeech } from "@/components/text-to-speech"
+
+&lt;TextToSpeech 
+  text="Text to be spoken"
+  title="Article Title"
+  className="mb-8"
+/&gt;
+                        </div>
+                    </div>
+                    
+                    <table class="props-table">
+                        <thead>
+                            <tr>
+                                <th>Prop</th>
+                                <th>Type</th>
+                                <th>Default</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>text</td>
+                                <td>string</td>
+                                <td>-</td>
+                                <td>Текст за четене</td>
+                            </tr>
+                            <tr>
+                                <td>title</td>
+                                <td>string</td>
+                                <td>-</td>
+                                <td>Заглавие на статията</td>
+                            </tr>
+                            <tr>
+                                <td>autoPlay</td>
+                                <td>boolean</td>
+                                <td>false</td>
+                                <td>Автоматично стартиране</td>
+                            </tr>
+                            <tr>
+                                <td>rate</td>
+                                <td>number</td>
+                                <td>1.0</td>
+                                <td>Скорост на четене (0.1-10)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="component-card">
+                    <h4>FloatingTextToSpeech</h4>
+                    <p>Компактен floating бутон за text-to-speech.</p>
+                    
+                    <div class="example">
+                        <h5>Basic Usage</h5>
+                        <div class="code-block">
+import { FloatingTextToSpeech } from "@/components/floating-text-to-speech"
+
+&lt;FloatingTextToSpeech 
+  text="Text to be spoken"
+  title="Article Title"
+/&gt;
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🎣 Custom Hooks</h2>
+                <p>Custom React hooks за повторно използване на логика.</p>
+                
+                <div class="component-card">
+                    <h4>useTextToSpeech</h4>
+                    <p>Custom hook за text-to-speech функционалност.</p>
+                    
+                    <div class="example">
+                        <h5>Basic Usage</h5>
+                        <div class="code-block">
+import { useTextToSpeech } from "@/hooks/use-text-to-speech"
+
+function MyComponent() {
+  const {
+    isPlaying,
+    isPaused,
+    currentTime,
+    duration,
+    rate,
+    pitch,
+    volume,
+    currentWord,
+    play,
+    pause,
+    stop,
+    setRate,
+    setPitch,
+    setVolume,
+    setVoice
+  } = useTextToSpeech({
+    text: "Text to be spoken",
+    title: "Article Title",
+    autoPlay: false,
+    voice: "bg-BG"
+  });
+
+  return (
+    &lt;div&gt;
+      &lt;button onClick={play}&gt;Play&lt;/button&gt;
+      &lt;button onClick={pause}&gt;Pause&lt;/button&gt;
+      &lt;button onClick={stop}&gt;Stop&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h4>useSEO</h4>
+                    <p>Custom hook за SEO функционалност.</p>
+                    
+                    <div class="example">
+                        <h5>Basic Usage</h5>
+                        <div class="code-block">
+import { useSEO } from "@/hooks/use-seo"
+
+function MyComponent() {
+  const { 
+    setTitle, 
+    setDescription, 
+    setKeywords, 
+    setCanonical,
+    setOpenGraph,
+    setTwitter,
+    addStructuredData 
+  } = useSEO();
+
+  useEffect(() => {
+    setTitle("Page Title");
+    setDescription("Page description");
+    setKeywords("keyword1, keyword2");
+    setCanonical("https://lunaro.news/page");
+  }, []);
+
+  return &lt;div&gt;Content&lt;/div&gt;;
+}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🎨 Styling</h2>
+                <p>CSS класове и стилизация с Tailwind CSS.</p>
+                
+                <div class="example">
+                    <h5>CSS Classes</h5>
+                    <div class="code-block">
+/* Button variants */
+.btn-primary { @apply bg-blue-600 text-white hover:bg-blue-700; }
+.btn-secondary { @apply bg-gray-200 text-gray-900 hover:bg-gray-300; }
+.btn-outline { @apply border border-gray-300 bg-transparent hover:bg-gray-50; }
+
+/* Card styles */
+.card { @apply bg-white rounded-lg shadow-sm border border-gray-200; }
+.card-header { @apply p-6 border-b border-gray-200; }
+.card-content { @apply p-6; }
+
+/* Text-to-speech styles */
+.tts-controls { @apply flex items-center space-x-4 p-4 bg-gray-50 rounded-lg; }
+.tts-progress { @apply w-full h-2 bg-gray-200 rounded-full overflow-hidden; }
+.tts-progress-bar { @apply h-full bg-blue-600 transition-all duration-300; }
+                    </div>
+                </div>
+                
+                <div class="example">
+                    <h5>Responsive Design</h5>
+                    <div class="code-block">
+/* Mobile first approach */
+.container { @apply px-4 sm:px-6 lg:px-8; }
+.grid-responsive { @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6; }
+
+/* Breakpoints */
+@media (min-width: 640px) { /* sm */ }
+@media (min-width: 768px) { /* md */ }
+@media (min-width: 1024px) { /* lg */ }
+@media (min-width: 1280px) { /* xl */ }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

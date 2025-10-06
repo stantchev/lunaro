@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorials документация - Lunaro News</title>
+    <meta name="description" content="Пълна документация за всички tutorials в Lunaro News">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fafc;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #f59e0b 0%, #8b5cf6 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-bottom: 3rem;
+            border-radius: 12px;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+        
+        .nav {
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav a {
+            color: #f59e0b;
+            text-decoration: none;
+            margin-right: 2rem;
+            font-weight: 500;
+        }
+        
+        .nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .content {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .section h2 {
+            color: #1f2937;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section h3 {
+            color: #374151;
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem 0;
+        }
+        
+        .tutorial-card {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .tutorial-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .tutorial-card h4 {
+            color: #1f2937;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .tutorial-card .icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+        
+        .tutorial-card .meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .tutorial-card .meta span {
+            background: #e5e7eb;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .tutorial-card .meta .audience {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .tutorial-card .meta .time {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .tutorial-card .meta .level {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .tutorial-card p {
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tutorial-card .topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .tutorial-card .topics span {
+            background: #f3f4f6;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.875rem;
+            color: #374151;
+        }
+        
+        .code-block {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: #f59e0b;
+            text-decoration: none;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .back-link::before {
+            content: "←";
+            margin-right: 0.5rem;
+        }
+        
+        .example {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .example h5 {
+            color: #0369a1;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stats {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .stats h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-item .number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-item .label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Tutorials документация</h1>
+            <p>Пълна документация за всички tutorials в Lunaro News</p>
+        </div>
+        
+        <div class="nav">
+            <a href="index.html">🏠 Главна</a>
+            <a href="api.html">🔌 API</a>
+            <a href="components.html">🧩 Компоненти</a>
+            <a href="deployment.html">🚀 Deployment</a>
+            <a href="tutorials.html">📚 Tutorials</a>
+        </div>
+        
+        <a href="index.html" class="back-link">Назад към главната страница</a>
+        
+        <div class="content">
+            <div class="stats">
+                <h3>📊 Tutorials статистики</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="number">5</div>
+                        <div class="label">Tutorials</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number">120+</div>
+                        <div class="label">Минути съдържание</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number">50+</div>
+                        <div class="label">Практически примери</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number">100%</div>
+                        <div class="label">SEO оптимизирани</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🔍 SEO Basics</h2>
+                <div class="tutorial-card">
+                    <h4><span class="icon">🔍</span>SEO Основи - Пълно ръководство за начинаещи</h4>
+                    <div class="meta">
+                        <span class="audience">За начинаещи и напреднали</span>
+                        <span class="time">15 мин четене</span>
+                        <span class="level">Всички нива</span>
+                    </div>
+                    <p>Научете SEO от нулата с нашето пълно ръководство. От техническо SEO до ключови думи, съдържание и аналитика - всичко, което трябва да знаете за успешен уебсайт в България.</p>
+                    
+                    <h5>Съдържание:</h5>
+                    <div class="tutorial-card .topics">
+                        <span>Какво е SEO?</span>
+                        <span>Техническо SEO</span>
+                        <span>Ключови думи</span>
+                        <span>Оптимизация на съдържанието</span>
+                        <span>Аналитика и измерване</span>
+                        <span>SEO инструменти</span>
+                    </div>
+                    
+                    <div class="example">
+                        <h5>Структурирани данни</h5>
+                        <div class="code-block">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "SEO Основи - Пълно ръководство за начинаещи",
+  "description": "Научете SEO от нулата с нашето пълно ръководство",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "Разбиране на SEO основите",
+      "text": "Научете какво е SEO и защо е важно"
+    }
+  ]
+}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🤖 AI Business Tools</h2>
+                <div class="tutorial-card">
+                    <h4><span class="icon">🤖</span>AI Бизнес Инструменти - Пълно ръководство за автоматизация</h4>
+                    <div class="meta">
+                        <span class="audience">За бизнес лидери</span>
+                        <span class="time">20 мин четене</span>
+                        <span class="level">Напреднали</span>
+                    </div>
+                    <p>Открийте най-добрите AI инструменти за бизнеса. От ChatGPT и Claude до автоматизация на процеси и анализ на данни - всичко за модерния български бизнес.</p>
+                    
+                    <h5>Съдържание:</h5>
+                    <div class="tutorial-card .topics">
+                        <span>AI за комуникация</span>
+                        <span>Автоматизация</span>
+                        <span>Анализ на данни</span>
+                        <span>AI за маркетинг</span>
+                        <span>Продуктивност</span>
+                        <span>Внедряване</span>
+                    </div>
+                    
+                    <div class="example">
+                        <h5>Практически примери</h5>
+                        <div class="code-block">
+// AI за генериране на имейли
+const emailPrompt = `
+Напиши професионален имейл за:
+- Тема: Следване на продажба
+- Клиент: ${clientName}
+- Продукт: ${productName}
+- Тон: Приятелски, но професионален
+`;
+
+// AI за анализ на данни
+const dataAnalysisPrompt = `
+Анализирай следните данни и дай препоръки:
+- Продажби: ${salesData}
+- Трафик: ${trafficData}
+- Конверсия: ${conversionData}
+`;
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🔒 AI Cybersecurity</h2>
+                <div class="tutorial-card">
+                    <h4><span class="icon">🔒</span>AI Киберсигурност - Предиктивна защита с AI</h4>
+                    <div class="meta">
+                        <span class="audience">За IT експерти</span>
+                        <span class="time">25 мин четене</span>
+                        <span class="level">Експерти</span>
+                    </div>
+                    <p>Научете как AI революционизира киберсигурността. Предиктивна защита, автоматично откриване на заплахи и AI-powered решения за модерни бизнеси.</p>
+                    
+                    <h5>Съдържание:</h5>
+                    <div class="tutorial-card .topics">
+                        <span>AI за откриване на заплахи</span>
+                        <span>Предиктивна защита</span>
+                        <span>Автоматизиран отговор</span>
+                        <span>Поведенчески анализ</span>
+                        <span>Внедряване</span>
+                        <span>Бъдещи тенденции</span>
+                    </div>
+                    
+                    <div class="example">
+                        <h5>Технически детайли</h5>
+                        <div class="code-block">
+// AI за откриване на заплахи
+interface ThreatDetection {
+  anomalyScore: number;
+  riskLevel: 'low' | 'medium' | 'high' | 'critical';
+  threatType: string;
+  confidence: number;
+  recommendedActions: string[];
+}
+
+// Поведенчески анализ
+interface BehaviorAnalysis {
+  userId: string;
+  baselineBehavior: BehaviorPattern;
+  currentBehavior: BehaviorPattern;
+  deviationScore: number;
+  riskFactors: string[];
+}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🔍 Automated SEO</h2>
+                <div class="tutorial-card">
+                    <h4><span class="icon">🔍</span>Автоматизирано SEO - AI за SEO оптимизация</h4>
+                    <div class="meta">
+                        <span class="audience">За SEO експерти</span>
+                        <span class="time">30 мин четене</span>
+                        <span class="level">Напреднали</span>
+                    </div>
+                    <p>Научете как да автоматизирате SEO процесите с AI инструменти. Автоматично генериране на съдържание, анализ на ключови думи и AI-powered SEO стратегии за модерни бизнеси.</p>
+                    
+                    <h5>Съдържание:</h5>
+                    <div class="tutorial-card .topics">
+                        <span>AI за анализ на ключови думи</span>
+                        <span>Автоматично съдържание</span>
+                        <span>Техническо SEO</span>
+                        <span>Оптимизация на съдържанието</span>
+                        <span>Мониторинг и анализ</span>
+                        <span>Внедряване</span>
+                    </div>
+                    
+                    <div class="example">
+                        <h5>AI SEO инструменти</h5>
+                        <div class="code-block">
+// AI за анализ на ключови думи
+interface KeywordAnalysis {
+  keyword: string;
+  searchVolume: number;
+  difficulty: number;
+  competition: number;
+  opportunity: number;
+  relatedKeywords: string[];
+  contentSuggestions: string[];
+}
+
+// AI за генериране на съдържание
+interface ContentGeneration {
+  topic: string;
+  keywords: string[];
+  targetAudience: string;
+  tone: 'professional' | 'casual' | 'technical';
+  length: number;
+  generatedContent: string;
+  seoScore: number;
+}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>✍️ Generative AI Content</h2>
+                <div class="tutorial-card">
+                    <h4><span class="icon">✍️</span>Генеративно AI съдържание - AI за създаване на контент</h4>
+                    <div class="meta">
+                        <span class="audience">За всички нива</span>
+                        <span class="time">25 мин четене</span>
+                        <span class="level">Всички нива</span>
+                    </div>
+                    <p>Научете как да използвате AI за създаване на качествено съдържание. ChatGPT, Claude, автоматично генериране на текстове, статии и маркетингови материали за модерни бизнеси.</p>
+                    
+                    <h5>Съдържание:</h5>
+                    <div class="tutorial-card .topics">
+                        <span>AI инструменти за писане</span>
+                        <span>Стратегии за AI съдържание</span>
+                        <span>Оптимизация и редактиране</span>
+                        <span>Типове съдържание</span>
+                        <span>Най-добри практики</span>
+                        <span>Внедряване</span>
+                    </div>
+                    
+                    <div class="example">
+                        <h5>Prompt templates</h5>
+                        <div class="code-block">
+// Блог пост template
+const blogPostPrompt = `
+Напиши блог пост за:
+- Тема: ${topic}
+- Целева аудитория: ${audience}
+- Тон: ${tone}
+- Дължина: ${wordCount} думи
+- Ключови думи: ${keywords}
+- Структура: Въведение, основни точки, заключение
+`;
+
+// Маркетингов материал template
+const marketingPrompt = `
+Създай маркетингов материал за:
+- Продукт: ${product}
+- Целева аудитория: ${targetAudience}
+- Канал: ${channel}
+- Цел: ${objective}
+- Call-to-action: ${cta}
+`;
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🛠️ Създаване на нови Tutorials</h2>
+                <p>Ръководство за създаване на нови tutorials в платформата.</p>
+                
+                <div class="example">
+                    <h5>Структура на tutorial файл</h5>
+                    <div class="code-block">
+// app/tutorial/new-tutorial/page.tsx
+import { Metadata } from "next"
+import Link from "next/link"
+import { ArrowLeft, CheckCircle, ExternalLink, Icon } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { SEOHead } from "@/components/seo-head"
+import { getOrganizationStructuredData, getBreadcrumbStructuredData } from "@/lib/structured-data"
+
+export const metadata: Metadata = {
+  title: "Tutorial Title | Lunaro News",
+  description: "Tutorial description",
+  keywords: "keyword1, keyword2, keyword3",
+  openGraph: {
+    title: "Tutorial Title",
+    description: "Tutorial description",
+    type: "article",
+    url: "https://lunaro.news/tutorial/new-tutorial",
+    images: [
+      {
+        url: "https://lunaro.news/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Tutorial Title - Lunaro News"
+      }
+    ]
+  }
+}
+                    </div>
+                </div>
+                
+                <div class="example">
+                    <h5>Best Practices</h5>
+                    <div class="code-block">
+1. SEO оптимизация
+   - Уникални заглавия и описания
+   - Релевантни ключови думи
+   - Структурирани данни
+
+2. Съдържание
+   - Ясна структура с H1, H2, H3
+   - Практически примери
+   - Визуални елементи
+
+3. UX/UI
+   - Responsive дизайн
+   - Бърза навигация
+   - Четим текст
+
+4. Performance
+   - Оптимизирани изображения
+   - Lazy loading
+   - Минимален JavaScript
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

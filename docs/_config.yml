@@ -1,0 +1,166 @@
+# GitHub Pages Jekyll configuration
+title: Lunaro News Documentation
+description: Пълна документация за Lunaro News платформата
+author: Lunaro News Team
+email: support@lunaro.news
+url: https://your-username.github.io
+baseurl: /lunaro-news
+
+# Jekyll settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Navigation
+navigation:
+  - title: Главна
+    url: /
+  - title: API
+    url: /api
+  - title: Компоненти
+    url: /components
+  - title: Deployment
+    url: /deployment
+  - title: Tutorials
+    url: /tutorials
+
+# SEO
+seo:
+  type: Website
+  name: Lunaro News Documentation
+  description: Пълна документация за Lunaro News платформата
+  url: https://your-username.github.io/lunaro-news
+  image: /assets/og-image.jpg
+  twitter:
+    card: summary_large_image
+    creator: "@lunaro_news"
+
+# Social links
+social:
+  - name: GitHub
+    url: https://github.com/your-username/lunaro-news
+  - name: Twitter
+    url: https://twitter.com/lunaro_news
+  - name: LinkedIn
+    url: https://linkedin.com/company/lunaro-news
+
+# Build settings
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - package.json
+  - package-lock.json
+  - pnpm-lock.yaml
+  - .gitignore
+  - .git
+  - .github
+  - .vscode
+  - .idea
+  - *.log
+  - .DS_Store
+  - Thumbs.db
+
+include:
+  - _pages
+
+# Collections
+collections:
+  tutorials:
+    output: true
+    permalink: /:collection/:name/
+  components:
+    output: true
+    permalink: /:collection/:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+  - scope:
+      path: ""
+      type: "tutorials"
+    values:
+      layout: "tutorial"
+  - scope:
+      path: ""
+      type: "components"
+    values:
+      layout: "component"
+
+# Sass
+sass:
+  sass_dir: _sass
+  style: compressed
+
+# Kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  smart_quotes: lsquo,rsquo,ldquo,rdquo
+  enable_coderay: false
+
+# Rouge
+rouge:
+  css_class: 'highlight'
+  inline_theme: 'github'
+  theme: 'github'
+
+# Jekyll Feed
+feed:
+  path: feed.xml
+  excerpt_only: true
+
+# Jekyll Sitemap
+sitemap:
+  filename: sitemap.xml
+  exclude:
+    - /404.html
+    - /robots.txt
+    - /feed.xml
+
+# Jekyll SEO Tag
+seo:
+  type: Website
+  name: Lunaro News Documentation
+  description: Пълна документация за Lunaro News платформата
+  url: https://your-username.github.io/lunaro-news
+  image: /assets/og-image.jpg
+  twitter:
+    card: summary_large_image
+    creator: "@lunaro_news"
+  facebook:
+    app_id: "your-facebook-app-id"
+    publisher: "https://facebook.com/lunaro.news"
+  open_graph:
+    locale: "bg_BG"
+    type: "website"
+    title: "Lunaro News Documentation"
+    description: "Пълна документация за Lunaro News платформата"
+    url: "https://your-username.github.io/lunaro-news"
+    site_name: "Lunaro News"
+    image: "/assets/og-image.jpg"
+  twitter:
+    card: "summary_large_image"
+    title: "Lunaro News Documentation"
+    description: "Пълна документация за Lunaro News платформата"
+    image: "/assets/og-image.jpg"
+    creator: "@lunaro_news"
+  google:
+    site_verification: "your-google-site-verification"
+  bing:
+    site_verification: "your-bing-site-verification"
+  yandex:
+    site_verification: "your-yandex-site-verification"

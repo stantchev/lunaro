@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deployment документация - Lunaro News</title>
+    <meta name="description" content="Пълно ръководство за деплойване на Lunaro News в production">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fafc;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-bottom: 3rem;
+            border-radius: 12px;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+        
+        .nav {
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav a {
+            color: #10b981;
+            text-decoration: none;
+            margin-right: 2rem;
+            font-weight: 500;
+        }
+        
+        .nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .content {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .section h2 {
+            color: #1f2937;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section h3 {
+            color: #374151;
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem 0;
+        }
+        
+        .code-block {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+        
+        .step {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid #10b981;
+        }
+        
+        .step h4 {
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+        
+        .warning {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .warning h5 {
+            color: #92400e;
+            margin-bottom: 0.5rem;
+        }
+        
+        .success {
+            background: #d1fae5;
+            border: 1px solid #10b981;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .success h5 {
+            color: #065f46;
+            margin-bottom: 0.5rem;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: #10b981;
+            text-decoration: none;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .back-link::before {
+            content: "←";
+            margin-right: 0.5rem;
+        }
+        
+        .checklist {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .checklist h5 {
+            color: #0369a1;
+            margin-bottom: 1rem;
+        }
+        
+        .checklist ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .checklist li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e0f2fe;
+        }
+        
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+        
+        .checklist li::before {
+            content: "✅";
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Deployment документация</h1>
+            <p>Пълно ръководство за деплойване на Lunaro News в production</p>
+        </div>
+        
+        <div class="nav">
+            <a href="index.html">🏠 Главна</a>
+            <a href="api.html">🔌 API</a>
+            <a href="components.html">🧩 Компоненти</a>
+            <a href="deployment.html">🚀 Deployment</a>
+            <a href="tutorials.html">📚 Tutorials</a>
+        </div>
+        
+        <a href="index.html" class="back-link">Назад към главната страница</a>
+        
+        <div class="content">
+            <div class="section">
+                <h2>☁️ Vercel Deployment</h2>
+                <p>Стъпка по стъпка ръководство за деплойване на Vercel.</p>
+                
+                <div class="step">
+                    <h4>1. Първоначален деплой</h4>
+                    <div class="code-block">
+# Install Vercel CLI
+npm i -g vercel
+
+# Login to Vercel
+vercel login
+
+# Deploy from project directory
+vercel
+
+# Follow the prompts:
+# ? Set up and deploy "~/lunaro-news"? [Y/n] y
+# ? Which scope do you want to deploy to? Your Team
+# ? Link to existing project? [y/N] n
+# ? What's your project's name? lunaro-news
+# ? In which directory is your code located? ./
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h4>2. Production деплой</h4>
+                    <div class="code-block">
+# Deploy to production
+vercel --prod
+
+# Or use the alias
+vercel -p
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h4>3. Автоматичен деплой</h4>
+                    <p>Vercel автоматично деплойва при push към main branch:</p>
+                    <div class="code-block">
+# .github/workflows/deploy.yml
+name: Deploy to Vercel
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: npm ci
+      - run: npm run build
+      - uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.ORG_ID }}
+          vercel-project-id: ${{ secrets.PROJECT_ID }}
+          vercel-args: '--prod'
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🔧 Environment Variables</h2>
+                <p>Конфигуриране на environment variables за development и production.</p>
+                
+                <div class="step">
+                    <h4>Development Environment</h4>
+                    <div class="code-block">
+# .env.local
+NEXT_PUBLIC_WORDPRESS_URL=http://localhost:8080
+WORDPRESS_API_URL=http://localhost:8080/wp-json/wp/v2
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NEXT_PUBLIC_SITE_NAME="Lunaro News (Dev)"
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h4>Production Environment</h4>
+                    <div class="code-block">
+# Production variables (set in Vercel dashboard)
+NEXT_PUBLIC_WORDPRESS_URL=https://your-wordpress-site.com
+WORDPRESS_API_URL=https://your-wordpress-site.com/wp-json/wp/v2
+NEXT_PUBLIC_SITE_URL=https://lunaro.news
+NEXT_PUBLIC_SITE_NAME="Lunaro News"
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+NODE_ENV=production
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h4>Vercel Environment Variables</h4>
+                    <div class="code-block">
+# Set environment variables via CLI
+vercel env add NEXT_PUBLIC_WORDPRESS_URL
+vercel env add WORDPRESS_API_URL
+vercel env add NEXT_PUBLIC_SITE_URL
+vercel env add NEXT_PUBLIC_SITE_NAME
+vercel env add NEXT_PUBLIC_GA_ID
+
+# Or set them in Vercel dashboard:
+# Project Settings > Environment Variables
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🌐 Domain Configuration</h2>
+                <p>Конфигуриране на custom domain и SSL сертификати.</p>
+                
+                <div class="step">
+                    <h4>Custom Domain</h4>
+                    <div class="code-block">
+# Add custom domain
+vercel domains add lunaro.news
+
+# Configure DNS records
+# A record: @ -> 76.76.19.61
+# CNAME record: www -> cname.vercel-dns.com
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h4>SSL Certificate</h4>
+                    <p>Vercel автоматично предоставя SSL сертификати за всички домейни.</p>
+                </div>
+                
+                <div class="step">
+                    <h4>Redirects</h4>
+                    <div class="code-block">
+// vercel.json
+{
+  "redirects": [
+    {
+      "source": "/old-path",
+      "destination": "/new-path",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:slug",
+      "destination": "/article/:slug",
+      "permanent": true
+    }
+  ]
+}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>⚡ Performance Optimization</h2>
+                <p>Оптимизации за по-добра производителност.</p>
+                
+                <div class="step">
+                    <h4>Build Optimization</h4>
+                    <div class="code-block">
+// next.config.js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // Enable experimental features
+  experimental: {
+    appDir: true,
+  },
+  
+  // Image optimization
+  images: {
+    domains: ['your-wordpress-site.com'],
+    formats: ['image/webp', 'image/avif'],
+  },
+  
+  // Compression
+  compress: true,
+  
+  // Bundle analyzer
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+      };
+    }
+    return config;
+  },
+};
+
+module.exports = nextConfig;
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h4>ISR (Incremental Static Regeneration)</h4>
+                    <div class="code-block">
+// app/article/[slug]/page.tsx
+export async function generateStaticParams() {
+  const articles = await fetch(`${WORDPRESS_API_URL}/posts?per_page=100`);
+  const data = await articles.json();
+  
+  return data.map((article) => ({
+    slug: article.slug,
+  }));
+}
+
+export const revalidate = 3600; // Revalidate every hour
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>📊 Monitoring & Analytics</h2>
+                <p>Настройка на мониторинг и аналитика.</p>
+                
+                <div class="step">
+                    <h4>Google Analytics 4</h4>
+                    <div class="code-block">
+// app/layout.tsx
+import Script from 'next/script';
+
+export default function RootLayout({ children }) {
+  return (
+    &lt;html lang="bg"&gt;
+      &lt;head&gt;
+        &lt;Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+          strategy="afterInteractive"
+        /&gt;
+        &lt;Script id="google-analytics" strategy="afterInteractive"&gt;
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+          `}
+        &lt;/Script&gt;
+      &lt;/head&gt;
+      &lt;body&gt;{children}&lt;/body&gt;
+    &lt;/html&gt;
+  );
+}
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h4>Vercel Analytics</h4>
+                    <div class="code-block">
+# Install Vercel Analytics
+npm install @vercel/analytics
+
+// app/layout.tsx
+import { Analytics } from '@vercel/analytics/react';
+
+export default function RootLayout({ children }) {
+  return (
+    &lt;html&gt;
+      &lt;body&gt;
+        {children}
+        &lt;Analytics /&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
+  );
+}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🔧 Troubleshooting</h2>
+                <p>Често срещани проблеми и техните решения.</p>
+                
+                <div class="warning">
+                    <h5>⚠️ Build Failures</h5>
+                    <div class="code-block">
+# Clear Next.js cache
+rm -rf .next
+rm -rf node_modules
+npm install
+npm run build
+
+# Check for TypeScript errors
+npm run type-check
+
+# Check for ESLint errors
+npm run lint
+                    </div>
+                </div>
+                
+                <div class="warning">
+                    <h5>⚠️ Environment Variables</h5>
+                    <div class="code-block">
+# Check environment variables
+vercel env ls
+
+# Pull environment variables
+vercel env pull .env.local
+
+# Verify variables are set
+vercel env get NEXT_PUBLIC_WORDPRESS_URL
+                    </div>
+                </div>
+                
+                <div class="success">
+                    <h5>✅ Health Checks</h5>
+                    <div class="code-block">
+// app/api/health/route.ts
+export async function GET() {
+  try {
+    // Check WordPress API
+    const wpResponse = await fetch(`${WORDPRESS_API_URL}/posts?per_page=1`);
+    const wpData = await wpResponse.json();
+    
+    return Response.json({
+      status: 'healthy',
+      timestamp: new Date().toISOString(),
+      services: {
+        wordpress: wpResponse.ok ? 'healthy' : 'unhealthy',
+        database: 'healthy',
+        cache: 'healthy',
+      },
+    });
+  } catch (error) {
+    return Response.json(
+      {
+        status: 'unhealthy',
+        timestamp: new Date().toISOString(),
+        error: error.message,
+      },
+      { status: 500 }
+    );
+  }
+}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="checklist">
+                <h5>📋 Pre-deployment Checklist</h5>
+                <ul>
+                    <li>Environment variables са настроени</li>
+                    <li>WordPress API е достъпен</li>
+                    <li>Build работи локално</li>
+                    <li>Тестове минават успешно</li>
+                    <li>SSL сертификат е активен</li>
+                    <li>Analytics е конфигуриран</li>
+                    <li>Health checks работят</li>
+                    <li>Performance метрики са в нормите</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

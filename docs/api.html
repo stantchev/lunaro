@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API документация - Lunaro News</title>
+    <meta name="description" content="Пълна документация за всички API endpoints и интеграции в Lunaro News">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fafc;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-bottom: 3rem;
+            border-radius: 12px;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+        
+        .nav {
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav a {
+            color: #3b82f6;
+            text-decoration: none;
+            margin-right: 2rem;
+            font-weight: 500;
+        }
+        
+        .nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .content {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .section h2 {
+            color: #1f2937;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section h3 {
+            color: #374151;
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem 0;
+        }
+        
+        .code-block {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+        
+        .endpoint {
+            background: #f3f4f6;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .method {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.875rem;
+            margin-right: 1rem;
+        }
+        
+        .get { background: #10b981; color: white; }
+        .post { background: #3b82f6; color: white; }
+        .put { background: #f59e0b; color: white; }
+        .delete { background: #ef4444; color: white; }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: #3b82f6;
+            text-decoration: none;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .back-link::before {
+            content: "←";
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔌 API документация</h1>
+            <p>Пълна документация за всички API endpoints и интеграции</p>
+        </div>
+        
+        <div class="nav">
+            <a href="index.html">🏠 Главна</a>
+            <a href="api.html">🔌 API</a>
+            <a href="components.html">🧩 Компоненти</a>
+            <a href="deployment.html">🚀 Deployment</a>
+            <a href="tutorials.html">📚 Tutorials</a>
+        </div>
+        
+        <a href="index.html" class="back-link">Назад към главната страница</a>
+        
+        <div class="content">
+            <div class="section">
+                <h2>🌐 WordPress API</h2>
+                <p>Интеграция с WordPress Headless CMS за управление на съдържанието.</p>
+                
+                <h3>Base URL</h3>
+                <div class="code-block">
+const WORDPRESS_API_URL = process.env.WORDPRESS_API_URL || 'https://your-site.com/wp-json/wp/v2'
+                </div>
+                
+                <h3>Articles</h3>
+                
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <strong>/posts?_embed=true&per_page=10&page=1</strong>
+                    <p>Получаване на всички статии с вградени данни</p>
+                </div>
+                
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <strong>/posts/{id}?_embed=true</strong>
+                    <p>Получаване на конкретна статия по ID</p>
+                </div>
+                
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <strong>/posts?slug={slug}&_embed=true</strong>
+                    <p>Получаване на статия по slug</p>
+                </div>
+                
+                <h3>Response Example</h3>
+                <div class="code-block">
+[
+  {
+    "id": 123,
+    "title": {
+      "rendered": "Article Title"
+    },
+    "content": {
+      "rendered": "&lt;p&gt;Article content...&lt;/p&gt;"
+    },
+    "excerpt": {
+      "rendered": "&lt;p&gt;Article excerpt...&lt;/p&gt;"
+    },
+    "slug": "article-slug",
+    "date": "2025-01-27T10:00:00",
+    "modified": "2025-01-27T12:00:00",
+    "author": 1,
+    "featured_media": 456,
+    "categories": [1, 2],
+    "tags": [3, 4],
+    "_embedded": {
+      "author": [{
+        "id": 1,
+        "name": "Author Name",
+        "avatar_urls": {
+          "96": "https://example.com/avatar.jpg"
+        }
+      }]
+    }
+  }
+]
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🔍 SEO API</h2>
+                <p>API за SEO оптимизация и структурирани данни.</p>
+                
+                <h3>Structured Data</h3>
+                <div class="code-block">
+interface ArticleStructuredData {
+  "@context": "https://schema.org";
+  "@type": "Article";
+  headline: string;
+  description: string;
+  image: string;
+  author: {
+    "@type": "Person";
+    name: string;
+  };
+  publisher: {
+    "@type": "Organization";
+    name: string;
+    logo: {
+      "@type": "ImageObject";
+      url: string;
+    };
+  };
+  datePublished: string;
+  dateModified: string;
+  mainEntityOfPage: string;
+}
+                </div>
+                
+                <h3>Meta Tags</h3>
+                <div class="code-block">
+interface ArticleMetaTags {
+  title: string;
+  description: string;
+  keywords: string;
+  canonical: string;
+  openGraph: {
+    title: string;
+    description: string;
+    type: "article";
+    url: string;
+    images: Array&lt;{
+      url: string;
+      width: number;
+      height: number;
+      alt: string;
+    }&gt;;
+  };
+  twitter: {
+    card: "summary_large_image";
+    title: string;
+    description: string;
+    images: string[];
+  };
+}
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🎧 Text-to-Speech API</h2>
+                <p>Web Speech API интеграция за четене на статии.</p>
+                
+                <h3>Speech Synthesis</h3>
+                <div class="code-block">
+interface SpeechOptions {
+  text: string;
+  voice?: SpeechSynthesisVoice;
+  rate?: number; // 0.1 - 10
+  pitch?: number; // 0 - 2
+  volume?: number; // 0 - 1
+  lang?: string; // 'bg-BG', 'en-US', etc.
+}
+
+class TextToSpeechService {
+  speak(options: SpeechOptions): void;
+  pause(): void;
+  resume(): void;
+  stop(): void;
+  getVoices(): SpeechSynthesisVoice[];
+  getCurrentVoice(): SpeechSynthesisVoice | null;
+}
+                </div>
+                
+                <h3>Voice Management</h3>
+                <div class="code-block">
+// Get available voices
+const voices = speechSynthesis.getVoices();
+
+// Find Bulgarian voice
+const bulgarianVoice = voices.find(voice => 
+  voice.lang.startsWith('bg')
+);
+
+// Set voice
+utterance.voice = bulgarianVoice;
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>📊 Analytics API</h2>
+                <p>Google Analytics 4 и custom events tracking.</p>
+                
+                <h3>Page View Tracking</h3>
+                <div class="code-block">
+// Track page view
+gtag('config', 'GA_MEASUREMENT_ID', {
+  page_title: 'Article Title',
+  page_location: 'https://lunaro.news/article/slug'
+});
+
+// Track custom event
+gtag('event', 'article_read', {
+  article_title: 'Article Title',
+  article_category: 'Technology',
+  reading_time: 300
+});
+                </div>
+                
+                <h3>Custom Events</h3>
+                <div class="code-block">
+// Text-to-speech events
+gtag('event', 'tts_started', {
+  article_title: 'Article Title',
+  voice_language: 'bg-BG'
+});
+
+gtag('event', 'tts_completed', {
+  article_title: 'Article Title',
+  duration: 300
+});
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🚨 Error Handling</h2>
+                <p>HTTP статус кодове и error response формат.</p>
+                
+                <h3>HTTP Status Codes</h3>
+                <div class="code-block">
+// Success responses
+200 OK - Request successful
+201 Created - Resource created
+204 No Content - Request successful, no content
+
+// Client errors
+400 Bad Request - Invalid request
+401 Unauthorized - Authentication required
+403 Forbidden - Access denied
+404 Not Found - Resource not found
+429 Too Many Requests - Rate limit exceeded
+
+// Server errors
+500 Internal Server Error - Server error
+502 Bad Gateway - Upstream server error
+503 Service Unavailable - Service temporarily unavailable
+                </div>
+                
+                <h3>Error Response Format</h3>
+                <div class="code-block">
+interface ErrorResponse {
+  error: {
+    code: string;
+    message: string;
+    details?: any;
+    timestamp: string;
+    requestId: string;
+  };
+}
+
+// Example error response
+{
+  "error": {
+    "code": "ARTICLE_NOT_FOUND",
+    "message": "Article with ID 123 not found",
+    "details": {
+      "articleId": 123,
+      "timestamp": "2025-01-27T10:00:00Z"
+    },
+    "requestId": "req_abc123"
+  }
+}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
