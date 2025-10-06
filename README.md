@@ -268,20 +268,20 @@ For support and questions:
 
 ## Changelog
 
-### Version 2.1.0 (January 2025)
+### Version 2.1.0 (October 2025)
 - Added AI crawler optimization
 - Implemented comprehensive SEO strategy
 - Enhanced performance optimization
 - Added structured data schemas
 - Improved mobile responsiveness
 
-### Version 2.0.0 (December 2024)
+### Version 2.0.0 (October 2025)
 - Migrated to Next.js 14
 - Added PWA functionality
 - Implemented advanced caching
 - Enhanced security features
 
-### Version 1.0.0 (November 2024)
+### Version 1.0.0 (September 2025)
 - Initial release
 - Basic news platform functionality
 - WordPress integration
