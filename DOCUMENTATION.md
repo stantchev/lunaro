@@ -682,3 +682,4 @@ const sanitizeInput = (input: string): string => {
 - Prevent XSS attacks
 
 This documentation provides comprehensive guidance for developing, maintaining, and optimizing the Lunaro News platform. For additional support, refer to the README.md file or contact the development team.
+
