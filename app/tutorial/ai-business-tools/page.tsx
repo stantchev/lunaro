@@ -1,11 +1,13 @@
 import { Metadata } from "next"
 import Link from "next/link"
-import { ArrowLeft, CheckCircle, ExternalLink, Bot, TrendingUp, Target, Zap, Users, BarChart3, Brain, Sparkles, Shield } from "lucide-react"
+import { 
+  ArrowLeft, CheckCircle, ExternalLink, Bot, TrendingUp, Target, 
+  Zap, Users, BarChart3, Brain, Sparkles, Shield 
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { SEOHead } from "@/components/seo-head"
-import { getOrganizationStructuredData, getBreadcrumbStructuredData } from "@/lib/structured-data"
 
 export const metadata: Metadata = {
   title: "AI Бизнес Инструменти - Пълно ръководство за автоматизация | Lunaro News",
@@ -13,7 +15,7 @@ export const metadata: Metadata = {
   keywords: "AI бизнес инструменти, ChatGPT, Claude, AI автоматизация, бизнес AI, AI анализ, България",
   openGraph: {
     title: "AI Бизнес Инструменти - Пълно ръководство за автоматизация",
-    description: "Открийте най-добрите AI инструменти за бизнеса. ChatGPT, Claude, автоматизация, анализ на данни и AI решения.",
+    description: "Открийте най-добрите AI инструменти за бизнеса. ChatGPT, Claude, автоматизация, анализ на данни и AI решения за български компании.",
     type: "article",
     url: "https://lunaro.news/tutorial/ai-business-tools",
     images: [
@@ -28,19 +30,13 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "AI Бизнес Инструменти - Пълно ръководство за автоматизация",
-    description: "Открийте най-добрите AI инструменти за бизнеса. ChatGPT, Claude, автоматизация, анализ на данни и AI решения.",
+    description: "Открийте най-добрите AI инструменти за бизнеса. ChatGPT, Claude, автоматизация, анализ на данни и AI решения за български компании.",
     images: ["https://lunaro.news/og-image.jpg"]
   },
   alternates: {
     canonical: "https://lunaro.news/tutorial/ai-business-tools"
   }
 }
-
-const breadcrumbItems = [
-  { name: "Начало", url: "https://lunaro.news" },
-  { name: "Tutorials", url: "https://lunaro.news/tutorials" },
-  { name: "AI Бизнес Инструменти", url: "https://lunaro.news/tutorial/ai-business-tools" }
-]
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -66,33 +62,31 @@ const structuredData = {
   "step": [
     {
       "@type": "HowToStep",
-      "name": "AI инструменти за комуникация",
-      "text": "ChatGPT, Claude и други AI асистенти за бизнес комуникация"
+      "name": "AI за комуникация",
+      "text": "Използвайте ChatGPT и Claude за подобряване на бизнес комуникацията"
     },
     {
       "@type": "HowToStep",
       "name": "Автоматизация на процеси",
-      "text": "AI решения за автоматизиране на бизнес процеси"
+      "text": "Внедрете RPA и chatbots за автоматизация на рутинни задачи"
     },
     {
       "@type": "HowToStep",
       "name": "Анализ на данни",
-      "text": "AI инструменти за анализ и визуализация на данни"
+      "text": "Използвайте AI за анализ на бизнес данни и вземане на решения"
     },
     {
       "@type": "HowToStep",
       "name": "AI за маркетинг",
-      "text": "AI решения за дигитален маркетинг и реклама"
+      "text": "Персонализирайте маркетингови кампании с AI технологии"
     }
   ]
 }
 
 export default function AIBusinessToolsTutorial() {
   return (
-    <>
-      <SEOHead 
-        structuredData={[structuredData, getOrganizationStructuredData(), getBreadcrumbStructuredData(breadcrumbItems)]}
-      />
+    <div>
+      <SEOHead structuredData={structuredData} />
       
       <div className="min-h-screen bg-gradient-to-b from-purple-50 via-white to-blue-50">
         {/* Header */}
@@ -104,7 +98,7 @@ export default function AIBusinessToolsTutorial() {
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Назад към Tutorials
                 </Link>
-                <div className="h-6 w-px bg-gray-300" />
+                <div className="h-6 w-px bg-gray-300"></div>
                 <Badge variant="secondary" className="bg-purple-100 text-purple-800">
                   <Bot className="h-3 w-3 mr-1" />
                   AI Tutorial
@@ -115,89 +109,114 @@ export default function AIBusinessToolsTutorial() {
                   <CheckCircle className="h-3 w-3 mr-1" />
                   За бизнес
                 </Badge>
-                <Badge variant="outline" className="text-purple-600 border-purple-200">
-                  <Brain className="h-3 w-3 mr-1" />
-                  20 мин четене
-                </Badge>
               </div>
             </div>
           </div>
         </div>
 
         {/* Hero Section */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-medium mb-6">
-              <Bot className="h-4 w-4 mr-2" />
+        <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div className="text-center">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6">
               AI Бизнес Инструменти
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              AI Бизнес Инструменти
-              <span className="block text-purple-600">Пълно ръководство за автоматизация</span>
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Открийте най-добрите AI инструменти за бизнеса. От ChatGPT и Claude до автоматизация 
-              на процеси и анализ на данни - всичко за модерния български бизнес.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
-              <div className="flex items-center">
-                <Users className="h-4 w-4 mr-2" />
-                За бизнес лидери
+              <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-3xl mx-auto">
+                Открийте най-добрите AI инструменти за бизнеса. ChatGPT, Claude, автоматизация, 
+                анализ на данни и AI решения за модерни български компании.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button asChild size="lg" variant="secondary">
+                  <Link href="#ai-communication">
+                    <Bot className="h-5 w-5 mr-2" />
+                    Започни тук
+                  </Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="bg-white text-purple-600 hover:bg-gray-100">
+                  <Link href="/tools">
+                    <Zap className="h-5 w-5 mr-2" />
+                    AI инструменти
+                  </Link>
+                </Button>
               </div>
-              <div className="flex items-center">
-                <Zap className="h-4 w-4 mr-2" />
-                20 минути четене
-              </div>
-              <div className="flex items-center">
-                <TrendingUp className="h-4 w-4 mr-2" />
-                Практически примери
               </div>
             </div>
           </div>
 
           {/* Table of Contents */}
-          <Card className="mb-12">
+        <div className="bg-white border-b">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <Bot className="h-5 w-5 mr-2 text-purple-600" />
-                Съдържание на ръководството
-              </CardTitle>
+                <CardTitle className="text-xl">Съдържание на ръководството</CardTitle>
+                <CardDescription>
+                  Навигация по всички секции на AI бизнес ръководството
+                </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <a href="#ai-communication" className="block p-3 hover:bg-purple-50 rounded-lg transition-colors">
-                    <div className="font-medium text-gray-900">1. AI за комуникация</div>
-                    <div className="text-sm text-gray-600">ChatGPT, Claude, Perplexity</div>
-                  </a>
-                  <a href="#automation" className="block p-3 hover:bg-purple-50 rounded-lg transition-colors">
-                    <div className="font-medium text-gray-900">2. Автоматизация</div>
-                    <div className="text-sm text-gray-600">AI за бизнес процеси</div>
-                  </a>
-                  <a href="#data-analysis" className="block p-3 hover:bg-purple-50 rounded-lg transition-colors">
-                    <div className="font-medium text-gray-900">3. Анализ на данни</div>
-                    <div className="text-sm text-gray-600">AI за бизнес аналитика</div>
-                  </a>
-                </div>
-                <div className="space-y-2">
-                  <a href="#marketing-ai" className="block p-3 hover:bg-purple-50 rounded-lg transition-colors">
-                    <div className="font-medium text-gray-900">4. AI за маркетинг</div>
-                    <div className="text-sm text-gray-600">Дигитален маркетинг</div>
-                  </a>
-                  <a href="#productivity" className="block p-3 hover:bg-purple-50 rounded-lg transition-colors">
-                    <div className="font-medium text-gray-900">5. Продуктивност</div>
-                    <div className="text-sm text-gray-600">AI за ефективност</div>
-                  </a>
-                  <a href="#implementation" className="block p-3 hover:bg-purple-50 rounded-lg transition-colors">
-                    <div className="font-medium text-gray-900">6. Внедряване</div>
-                    <div className="text-sm text-gray-600">Практически стъпки</div>
-                  </a>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                      <span className="text-purple-600 font-semibold text-sm">1</span>
+                    </div>
+                    <div>
+                      <h3 className="font-medium">AI за комуникация</h3>
+                      <p className="text-sm text-gray-600">ChatGPT, Claude</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                      <span className="text-blue-600 font-semibold text-sm">2</span>
+                    </div>
+                    <div>
+                      <h3 className="font-medium">Автоматизация</h3>
+                      <p className="text-sm text-gray-600">RPA, chatbots</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                      <span className="text-green-600 font-semibold text-sm">3</span>
+                    </div>
+                    <div>
+                      <h3 className="font-medium">Анализ на данни</h3>
+                      <p className="text-sm text-gray-600">BI, ML модели</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
+                      <span className="text-orange-600 font-semibold text-sm">4</span>
+                    </div>
+                    <div>
+                      <h3 className="font-medium">AI маркетинг</h3>
+                      <p className="text-sm text-gray-600">Персонализация</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
+                      <span className="text-red-600 font-semibold text-sm">5</span>
+                    </div>
+                    <div>
+                      <h3 className="font-medium">Продуктивност</h3>
+                      <p className="text-sm text-gray-600">Управление на време</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    <div className="w-8 h-8 bg-cyan-100 rounded-full flex items-center justify-center">
+                      <span className="text-cyan-600 font-semibold text-sm">6</span>
+                    </div>
+                    <div>
+                      <h3 className="font-medium">Внедряване</h3>
+                      <p className="text-sm text-gray-600">Стратегия</p>
+                    </div>
                 </div>
               </div>
             </CardContent>
           </Card>
+          </div>
+        </div>
 
           {/* Main Content */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2">
               {/* AI Communication */}
@@ -209,54 +228,338 @@ export default function AIBusinessToolsTutorial() {
                       1. AI за комуникация
                     </CardTitle>
                     <CardDescription>
-                      Най-добрите AI асистенти за бизнес комуникация
+                      Използвайте ChatGPT и Claude за подобряване на бизнес комуникацията
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div>
-                      <h3 className="text-lg font-semibold mb-3">ChatGPT (OpenAI)</h3>
+                      <h3 className="text-lg font-semibold mb-3">ChatGPT за бизнес</h3>
                       <div className="grid md:grid-cols-2 gap-4">
-                        <div className="p-4 bg-blue-50 rounded-lg">
-                          <h4 className="font-medium text-blue-800 mb-2">Предимства</h4>
-                          <ul className="text-sm text-blue-700 space-y-1">
-                            <li>• Най-популярен AI асистент</li>
-                            <li>• Отличен за писане и редактиране</li>
-                            <li>• Интеграция с Microsoft Office</li>
-                            <li>• API за автоматизация</li>
+                        <div className="p-4 bg-green-50 rounded-lg">
+                          <h4 className="font-medium text-green-800 mb-2">Писане на имейли</h4>
+                          <ul className="text-sm text-green-700 space-y-1">
+                            <li>• Професионални имейли</li>
+                            <li>• Отговори на клиенти</li>
+                            <li>• Маркетингови съобщения</li>
+                            <li>• Вътрешна комуникация</li>
                           </ul>
                         </div>
-                        <div className="p-4 bg-green-50 rounded-lg">
-                          <h4 className="font-medium text-green-800 mb-2">Бизнес приложения</h4>
-                          <ul className="text-sm text-green-700 space-y-1">
-                            <li>• Писане на имейли и документи</li>
-                            <li>• Създаване на презентации</li>
-                            <li>• Анализ на данни</li>
-                            <li>• Код генериране</li>
+                        <div className="p-4 bg-blue-50 rounded-lg">
+                          <h4 className="font-medium text-blue-800 mb-2">Създаване на съдържание</h4>
+                          <ul className="text-sm text-blue-700 space-y-1">
+                            <li>• Блог статии</li>
+                            <li>• Социални мрежи</li>
+                            <li>• Презентации</li>
+                            <li>• Документация</li>
                           </ul>
                         </div>
                       </div>
                     </div>
 
                     <div>
-                      <h3 className="text-lg font-semibold mb-3">Claude (Anthropic)</h3>
-                      <div className="grid md:grid-cols-2 gap-4">
+                      <h3 className="text-lg font-semibold mb-3">Claude за анализ</h3>
+                      <div className="space-y-4">
                         <div className="p-4 bg-purple-50 rounded-lg">
-                          <h4 className="font-medium text-purple-800 mb-2">Предимства</h4>
-                          <ul className="text-sm text-purple-700 space-y-1">
-                            <li>• По-добър анализ на документи</li>
-                            <li>• По-безопасен и етичен</li>
-                            <li>• Отличен за сложни задачи</li>
-                            <li>• Дълги контексти</li>
-                          </ul>
+                          <h4 className="font-medium text-purple-800 mb-2">Анализ на документи</h4>
+                          <p className="text-sm text-purple-700">
+                            Claude може да анализира големи документи и да извлича ключова информация за бизнес решения.
+                          </p>
                         </div>
                         <div className="p-4 bg-orange-50 rounded-lg">
-                          <h4 className="font-medium text-orange-800 mb-2">Бизнес приложения</h4>
-                          <ul className="text-sm text-orange-700 space-y-1">
-                            <li>• Анализ на договори</li>
-                            <li>• Резюме на дълги документи</li>
-                            <li>• Иследване и анализ</li>
-                            <li>• Етични AI решения</li>
+                          <h4 className="font-medium text-orange-800 mb-2">Стратегическо планиране</h4>
+                          <p className="text-sm text-orange-700">
+                            Използвайте Claude за анализ на пазарни данни и създаване на бизнес стратегии.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </section>
+
+              {/* Process Automation */}
+              <section id="process-automation" className="mb-12">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-2xl flex items-center">
+                      <Zap className="h-6 w-6 mr-3 text-purple-600" />
+                      2. Автоматизация на процеси
+                    </CardTitle>
+                    <CardDescription>
+                      Внедрете RPA и chatbots за автоматизация на рутинни задачи
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">RPA (Robotic Process Automation)</h3>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div className="p-4 bg-green-50 rounded-lg">
+                          <h4 className="font-medium text-green-800 mb-2">Финансови процеси</h4>
+                          <ul className="text-sm text-green-700 space-y-1">
+                            <li>• Автоматично фактуриране</li>
+                            <li>• Обработка на плащания</li>
+                            <li>• Финансови отчети</li>
+                            <li>• Бюджетно планиране</li>
                           </ul>
+                        </div>
+                        <div className="p-4 bg-blue-50 rounded-lg">
+                          <h4 className="font-medium text-blue-800 mb-2">HR процеси</h4>
+                          <ul className="text-sm text-blue-700 space-y-1">
+                            <li>• Обработка на кандидатури</li>
+                            <li>• Автоматични интервюта</li>
+                            <li>• Управление на отпуски</li>
+                            <li>• Оценка на производителност</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">Chatbots за клиенти</h3>
+                      <div className="space-y-4">
+                        <div className="p-4 bg-purple-50 rounded-lg">
+                          <h4 className="font-medium text-purple-800 mb-2">24/7 поддръжка</h4>
+                          <p className="text-sm text-purple-700">
+                            Chatbots могат да отговарят на въпроси на клиентите в реално време, намалявайки натоварването на екипа.
+                          </p>
+                        </div>
+                        <div className="p-4 bg-orange-50 rounded-lg">
+                          <h4 className="font-medium text-orange-800 mb-2">Персонализирани отговори</h4>
+                          <p className="text-sm text-orange-700">
+                            AI-powered chatbots могат да предоставят персонализирани решения въз основа на историята на клиента.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </section>
+
+              {/* Data Analysis */}
+              <section id="data-analysis" className="mb-12">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-2xl flex items-center">
+                      <BarChart3 className="h-6 w-6 mr-3 text-purple-600" />
+                      3. Анализ на данни
+                    </CardTitle>
+                    <CardDescription>
+                      Използвайте AI за анализ на бизнес данни и вземане на решения
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">BI платформи с AI</h3>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div className="p-4 bg-green-50 rounded-lg">
+                          <h4 className="font-medium text-green-800 mb-2">Microsoft Power BI</h4>
+                          <ul className="text-sm text-green-700 space-y-1">
+                            <li>• Автоматични инсайти</li>
+                            <li>• Естествен език за заявки</li>
+                            <li>• Предиктивна аналитика</li>
+                            <li>• Визуализация на данни</li>
+                          </ul>
+                        </div>
+                        <div className="p-4 bg-blue-50 rounded-lg">
+                          <h4 className="font-medium text-blue-800 mb-2">Tableau AI</h4>
+                          <ul className="text-sm text-blue-700 space-y-1">
+                            <li>• Автоматично откриване на модели</li>
+                            <li>• AI-powered dashboard</li>
+                            <li>• Статистически анализ</li>
+                            <li>• Машинно обучение</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">ML модели за бизнес</h3>
+                      <div className="space-y-4">
+                        <div className="p-4 bg-purple-50 rounded-lg">
+                          <h4 className="font-medium text-purple-800 mb-2">Предиктивна аналитика</h4>
+                          <p className="text-sm text-purple-700">
+                            Използвайте ML модели за прогнозиране на продажби, търсене на клиенти и оптимизация на инвентара.
+                          </p>
+                        </div>
+                        <div className="p-4 bg-orange-50 rounded-lg">
+                          <h4 className="font-medium text-orange-800 mb-2">Класификация на клиенти</h4>
+                          <p className="text-sm text-orange-700">
+                            AI може да класифицира клиентите според техния потенциал и да предложи персонализирани стратегии.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </section>
+
+              {/* AI Marketing */}
+              <section id="ai-marketing" className="mb-12">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-2xl flex items-center">
+                      <Target className="h-6 w-6 mr-3 text-purple-600" />
+                      4. AI за маркетинг
+                    </CardTitle>
+                    <CardDescription>
+                      Персонализирайте маркетингови кампании с AI технологии
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">Персонализация</h3>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div className="p-4 bg-green-50 rounded-lg">
+                          <h4 className="font-medium text-green-800 mb-2">Динамично съдържание</h4>
+                          <ul className="text-sm text-green-700 space-y-1">
+                            <li>• Персонализирани имейли</li>
+                            <li>• Адаптивни уебсайтове</li>
+                            <li>• Целеви реклами</li>
+                            <li>• Продуктови препоръки</li>
+                          </ul>
+                        </div>
+                        <div className="p-4 bg-blue-50 rounded-lg">
+                          <h4 className="font-medium text-blue-800 mb-2">Сегментация</h4>
+                          <ul className="text-sm text-blue-700 space-y-1">
+                            <li>• Автоматично групиране</li>
+                            <li>• Поведенчески профили</li>
+                            <li>• Предиктивни сегменти</li>
+                            <li>• Lifecycle маркетинг</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">Социални мрежи</h3>
+                      <div className="space-y-4">
+                        <div className="p-4 bg-purple-50 rounded-lg">
+                          <h4 className="font-medium text-purple-800 mb-2">Автоматично създаване на съдържание</h4>
+                          <p className="text-sm text-purple-700">
+                            AI може да създава постове, капции и хештагове за различни платформи автоматично.
+                          </p>
+                        </div>
+                        <div className="p-4 bg-orange-50 rounded-lg">
+                          <h4 className="font-medium text-orange-800 mb-2">Анализ на настроенията</h4>
+                          <p className="text-sm text-orange-700">
+                            Проследявайте какво казват клиентите за вашия бранд в социалните мрежи с AI анализ.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </section>
+
+              {/* Productivity */}
+              <section id="productivity" className="mb-12">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-2xl flex items-center">
+                      <TrendingUp className="h-6 w-6 mr-3 text-purple-600" />
+                      5. Продуктивност
+                    </CardTitle>
+                    <CardDescription>
+                      Подобрете ефективността с AI инструменти за управление на време
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">Управление на време</h3>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div className="p-4 bg-green-50 rounded-lg">
+                          <h4 className="font-medium text-green-800 mb-2">AI календари</h4>
+                          <ul className="text-sm text-green-700 space-y-1">
+                            <li>• Автоматично планиране</li>
+                            <li>• Оптимизация на срещи</li>
+                            <li>• Приоритизиране на задачи</li>
+                            <li>• Time blocking</li>
+                          </ul>
+                        </div>
+                        <div className="p-4 bg-blue-50 rounded-lg">
+                          <h4 className="font-medium text-blue-800 mb-2">Task management</h4>
+                          <ul className="text-sm text-blue-700 space-y-1">
+                            <li>• Автоматично разпределение</li>
+                            <li>• Deadline прогнози</li>
+                            <li>• Resource optimization</li>
+                            <li>• Progress tracking</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">Комуникация</h3>
+                      <div className="space-y-4">
+                        <div className="p-4 bg-purple-50 rounded-lg">
+                          <h4 className="font-medium text-purple-800 mb-2">AI асистенти</h4>
+                          <p className="text-sm text-purple-700">
+                            Използвайте AI асистенти за автоматизиране на рутинни комуникационни задачи.
+                          </p>
+                        </div>
+                        <div className="p-4 bg-orange-50 rounded-lg">
+                          <h4 className="font-medium text-orange-800 mb-2">Meeting optimization</h4>
+                          <p className="text-sm text-orange-700">
+                            AI може да анализира срещите и да предложи начини за подобряване на ефективността.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </section>
+
+              {/* Implementation */}
+              <section id="implementation" className="mb-12">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-2xl flex items-center">
+                      <Shield className="h-6 w-6 mr-3 text-purple-600" />
+                      6. Внедряване
+                    </CardTitle>
+                    <CardDescription>
+                      Стратегия за успешно внедряване на AI в бизнеса
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">Стратегия</h3>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div className="p-4 bg-green-50 rounded-lg">
+                          <h4 className="font-medium text-green-800 mb-2">Планиране</h4>
+                          <ul className="text-sm text-green-700 space-y-1">
+                            <li>• Анализ на нуждите</li>
+                            <li>• Избор на инструменти</li>
+                            <li>• Обучение на екипа</li>
+                            <li>• Постепенно внедряване</li>
+                          </ul>
+                        </div>
+                        <div className="p-4 bg-blue-50 rounded-lg">
+                          <h4 className="font-medium text-blue-800 mb-2">Измерване</h4>
+                          <ul className="text-sm text-blue-700 space-y-1">
+                            <li>• KPI дефиниране</li>
+                            <li>• ROI проследяване</li>
+                            <li>• Performance метрики</li>
+                            <li>• Feedback системи</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">Препятствия и решения</h3>
+                      <div className="space-y-4">
+                        <div className="p-4 bg-purple-50 rounded-lg">
+                          <h4 className="font-medium text-purple-800 mb-2">Съпротива на промяната</h4>
+                          <p className="text-sm text-purple-700">
+                            Обучете екипа за ползите от AI и започнете с малки, лесно видими подобрения.
+                          </p>
+                        </div>
+                        <div className="p-4 bg-orange-50 rounded-lg">
+                          <h4 className="font-medium text-orange-800 mb-2">Технически предизвикателства</h4>
+                          <p className="text-sm text-orange-700">
+                            Работете с експерти и използвайте готови решения за по-лесно внедряване.
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -272,18 +575,18 @@ export default function AIBusinessToolsTutorial() {
                       Готови да внедрите AI в бизнеса си?
                     </h2>
                     <p className="text-xl mb-8 opacity-90">
-                      Използвайте нашите AI инструменти и започнете автоматизацията днес!
+                      Използвайте нашите AI инструменти и започнете автоматизацията на вашия бизнес днес!
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                       <Button asChild size="lg" variant="secondary">
                         <Link href="/tools">
-                          <Bot className="h-5 w-5 mr-2" />
+                          <Zap className="h-5 w-5 mr-2" />
                           AI инструменти
                         </Link>
                       </Button>
                       <Button asChild size="lg" variant="outline" className="bg-white text-purple-600 hover:bg-gray-100">
                         <Link href="/tutorials">
-                          <Shield className="h-5 w-5 mr-2" />
+                          <Bot className="h-5 w-5 mr-2" />
                           Още уроци
                         </Link>
                       </Button>
@@ -310,14 +613,14 @@ export default function AIBusinessToolsTutorial() {
                     </Button>
                     <Button asChild variant="outline" className="w-full">
                       <Link href="/ai">
-                        <Bot className="h-4 w-4 mr-2" />
+                        <TrendingUp className="h-4 w-4 mr-2" />
                         AI новини
                       </Link>
                     </Button>
                     <Button asChild variant="outline" className="w-full">
                       <Link href="/contact">
                         <Users className="h-4 w-4 mr-2" />
-                        AI консултация
+                        Консултация
                       </Link>
                     </Button>
                   </CardContent>
@@ -327,6 +630,6 @@ export default function AIBusinessToolsTutorial() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
