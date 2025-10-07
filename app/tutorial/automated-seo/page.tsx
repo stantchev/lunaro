@@ -1,11 +1,13 @@
 import { Metadata } from "next"
 import Link from "next/link"
-import { ArrowLeft, CheckCircle, ExternalLink, Search, TrendingUp, Target, Zap, Users, BarChart3, Brain, Sparkles, Globe } from "lucide-react"
+import { 
+  ArrowLeft, CheckCircle, ExternalLink, Search, TrendingUp, Target, 
+  Zap, Users, BarChart3, Brain, Sparkles, Globe 
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { SEOHead } from "@/components/seo-head"
-import { getOrganizationStructuredData, getBreadcrumbStructuredData } from "@/lib/structured-data"
 
 export const metadata: Metadata = {
   title: "Автоматизирано SEO - AI за SEO оптимизация | Lunaro News",
@@ -36,12 +38,6 @@ export const metadata: Metadata = {
   }
 }
 
-const breadcrumbItems = [
-  { name: "Начало", url: "https://lunaro.news" },
-  { name: "Tutorials", url: "https://lunaro.news/tutorials" },
-  { name: "Автоматизирано SEO", url: "https://lunaro.news/tutorial/automated-seo" }
-]
-
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "HowTo",
@@ -67,27 +63,30 @@ const structuredData = {
     {
       "@type": "HowToStep",
       "name": "AI за анализ на ключови думи",
-      "text": "Автоматично изследване и анализ на ключови думи с AI"
+      "text": "Използвайте NLP и ML за автоматичен анализ на ключови думи"
     },
     {
       "@type": "HowToStep",
-      "name": "Автоматично генериране на съдържание",
-      "text": "AI инструменти за създаване на SEO-оптимизирано съдържание"
+      "name": "Автоматично създаване на съдържание",
+      "text": "Внедрете generative AI за създаване на SEO-оптимизирано съдържание"
     },
     {
       "@type": "HowToStep",
       "name": "Техническо SEO автоматизация",
-      "text": "AI за автоматизиране на технически SEO задачи"
+      "text": "Автоматизирайте техническите SEO задачи с AI инструменти"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Мониторинг и анализ",
+      "text": "Настройте автоматични отчети и alerts за SEO резултати"
     }
   ]
 }
 
 export default function AutomatedSEOTutorial() {
   return (
-    <>
-      <SEOHead 
-        structuredData={[structuredData, getOrganizationStructuredData(), getBreadcrumbStructuredData(breadcrumbItems)]}
-      />
+    <div>
+      <SEOHead structuredData={structuredData} />
       
       <div className="min-h-screen bg-gradient-to-b from-green-50 via-white to-blue-50">
         {/* Header */}
@@ -99,20 +98,16 @@ export default function AutomatedSEOTutorial() {
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Назад към Tutorials
                 </Link>
-                <div className="h-6 w-px bg-gray-300" />
+                <div className="h-6 w-px bg-gray-300"></div>
                 <Badge variant="secondary" className="bg-green-100 text-green-800">
                   <Search className="h-3 w-3 mr-1" />
-                  SEO Automation
+                  SEO Tutorial
                 </Badge>
               </div>
               <div className="flex items-center space-x-2">
                 <Badge variant="outline" className="text-green-600 border-green-200">
                   <CheckCircle className="h-3 w-3 mr-1" />
-                  За напреднали
-                </Badge>
-                <Badge variant="outline" className="text-green-600 border-green-200">
-                  <Brain className="h-3 w-3 mr-1" />
-                  30 мин четене
+                  За експерти
                 </Badge>
               </div>
             </div>
@@ -120,83 +115,112 @@ export default function AutomatedSEOTutorial() {
         </div>
 
         {/* Hero Section */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-medium mb-6">
-              <Search className="h-4 w-4 mr-2" />
+        <div className="bg-gradient-to-r from-green-600 to-blue-600 text-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div className="text-center">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6">
               Автоматизирано SEO
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Автоматизирано SEO
-              <span className="block text-green-600">AI за SEO оптимизация</span>
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+              <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-3xl mx-auto">
               Научете как да автоматизирате SEO процесите с AI инструменти. Автоматично генериране на съдържание, 
               анализ на ключови думи и AI-powered SEO стратегии за модерни бизнеси.
             </p>
-            <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
-              <div className="flex items-center">
-                <Users className="h-4 w-4 mr-2" />
-                За SEO експерти
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button asChild size="lg" variant="secondary">
+                  <Link href="#keyword-analysis">
+                    <Search className="h-5 w-5 mr-2" />
+                    Започни тук
+                  </Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="bg-white text-green-600 hover:bg-gray-100">
+                  <Link href="/tools">
+                    <Zap className="h-5 w-5 mr-2" />
+                    SEO инструменти
+                  </Link>
+                </Button>
               </div>
-              <div className="flex items-center">
-                <Zap className="h-4 w-4 mr-2" />
-                30 минути четене
-              </div>
-              <div className="flex items-center">
-                <TrendingUp className="h-4 w-4 mr-2" />
-                AI техники
               </div>
             </div>
           </div>
 
           {/* Table of Contents */}
-          <Card className="mb-12">
+        <div className="bg-white border-b">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <Card>
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <Search className="h-5 w-5 mr-2 text-green-600" />
-                Съдържание на ръководството
-              </CardTitle>
+                <CardTitle className="text-xl">Съдържание на ръководството</CardTitle>
+                <CardDescription>
+                  Навигация по всички секции на автоматизирано SEO ръководството
+                </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <a href="#keyword-research" className="block p-3 hover:bg-green-50 rounded-lg transition-colors">
-                    <div className="font-medium text-gray-900">1. AI за анализ на ключови думи</div>
-                    <div className="text-sm text-gray-600">Автоматично изследване</div>
-                  </a>
-                  <a href="#content-generation" className="block p-3 hover:bg-green-50 rounded-lg transition-colors">
-                    <div className="font-medium text-gray-900">2. Автоматично съдържание</div>
-                    <div className="text-sm text-gray-600">AI генериране на съдържание</div>
-                  </a>
-                  <a href="#technical-seo" className="block p-3 hover:bg-green-50 rounded-lg transition-colors">
-                    <div className="font-medium text-gray-900">3. Техническо SEO</div>
-                    <div className="text-sm text-gray-600">Автоматизация на технически задачи</div>
-                  </a>
-                </div>
-                <div className="space-y-2">
-                  <a href="#content-optimization" className="block p-3 hover:bg-green-50 rounded-lg transition-colors">
-                    <div className="font-medium text-gray-900">4. Оптимизация на съдържанието</div>
-                    <div className="text-sm text-gray-600">AI за съдържателна оптимизация</div>
-                  </a>
-                  <a href="#monitoring" className="block p-3 hover:bg-green-50 rounded-lg transition-colors">
-                    <div className="font-medium text-gray-900">5. Мониторинг и анализ</div>
-                    <div className="text-sm text-gray-600">AI за проследяване на резултати</div>
-                  </a>
-                  <a href="#implementation" className="block p-3 hover:bg-green-50 rounded-lg transition-colors">
-                    <div className="font-medium text-gray-900">6. Внедряване</div>
-                    <div className="text-sm text-gray-600">Практически стъпки</div>
-                  </a>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                      <span className="text-green-600 font-semibold text-sm">1</span>
+                    </div>
+                    <div>
+                      <h3 className="font-medium">Анализ на ключови думи</h3>
+                      <p className="text-sm text-gray-600">NLP, ML</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                      <span className="text-blue-600 font-semibold text-sm">2</span>
+                    </div>
+                    <div>
+                      <h3 className="font-medium">Автоматично съдържание</h3>
+                      <p className="text-sm text-gray-600">Generative AI</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                      <span className="text-purple-600 font-semibold text-sm">3</span>
+                    </div>
+                    <div>
+                      <h3 className="font-medium">Техническо SEO</h3>
+                      <p className="text-sm text-gray-600">Автоматизация</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
+                      <span className="text-orange-600 font-semibold text-sm">4</span>
+                    </div>
+                    <div>
+                      <h3 className="font-medium">Оптимизация</h3>
+                      <p className="text-sm text-gray-600">AI инструменти</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
+                      <span className="text-red-600 font-semibold text-sm">5</span>
+                    </div>
+                    <div>
+                      <h3 className="font-medium">Мониторинг</h3>
+                      <p className="text-sm text-gray-600">Автоматични отчети</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    <div className="w-8 h-8 bg-cyan-100 rounded-full flex items-center justify-center">
+                      <span className="text-cyan-600 font-semibold text-sm">6</span>
+                    </div>
+                    <div>
+                      <h3 className="font-medium">Внедряване</h3>
+                      <p className="text-sm text-gray-600">Стратегия</p>
+                    </div>
                 </div>
               </div>
             </CardContent>
           </Card>
+          </div>
+        </div>
 
           {/* Main Content */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2">
-              {/* Keyword Research */}
-              <section id="keyword-research" className="mb-12">
+              {/* Keyword Analysis */}
+              <section id="keyword-analysis" className="mb-12">
                 <Card>
                   <CardHeader>
                     <CardTitle className="text-2xl flex items-center">
@@ -204,53 +228,337 @@ export default function AutomatedSEOTutorial() {
                       1. AI за анализ на ключови думи
                     </CardTitle>
                     <CardDescription>
-                      Автоматично изследване и анализ на ключови думи с AI
+                      Използвайте NLP и ML за автоматичен анализ на ключови думи
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div>
-                      <h3 className="text-lg font-semibold mb-3">AI инструменти за ключови думи</h3>
+                      <h3 className="text-lg font-semibold mb-3">NLP технологии</h3>
                       <div className="grid md:grid-cols-2 gap-4">
                         <div className="p-4 bg-green-50 rounded-lg">
-                          <h4 className="font-medium text-green-800 mb-2">Традиционни методи</h4>
+                          <h4 className="font-medium text-green-800 mb-2">Semantic Analysis</h4>
                           <ul className="text-sm text-green-700 space-y-1">
-                            <li>• Ръчно изследване</li>
-                            <li>• Ограничени данни</li>
-                            <li>• Статични резултати</li>
-                            <li>• Времеемки процеси</li>
+                            <li>• Intent recognition</li>
+                            <li>• Topic modeling</li>
+                            <li>• Keyword clustering</li>
+                            <li>• Related terms</li>
                           </ul>
                         </div>
                         <div className="p-4 bg-blue-50 rounded-lg">
-                          <h4 className="font-medium text-blue-800 mb-2">AI подходи</h4>
+                          <h4 className="font-medium text-blue-800 mb-2">Competition Analysis</h4>
                           <ul className="text-sm text-blue-700 space-y-1">
-                            <li>• Автоматично изследване</li>
-                            <li>• Големи обеми данни</li>
-                            <li>• Динамични резултати</li>
-                            <li>• Бързи процеси</li>
+                            <li>• SERP analysis</li>
+                            <li>• Competitor keywords</li>
+                            <li>• Content gaps</li>
+                            <li>• Opportunity detection</li>
                           </ul>
                         </div>
                       </div>
                     </div>
 
                     <div>
-                      <h3 className="text-lg font-semibold mb-3">AI технологии за SEO</h3>
+                      <h3 className="text-lg font-semibold mb-3">ML модели</h3>
                       <div className="space-y-4">
                         <div className="p-4 bg-purple-50 rounded-lg">
-                          <h4 className="font-medium text-purple-800 mb-2">Natural Language Processing</h4>
+                          <h4 className="font-medium text-purple-800 mb-2">Keyword Difficulty Prediction</h4>
                           <p className="text-sm text-purple-700">
-                            Анализ на семантични връзки и контекст на ключови думи
+                            AI модели могат да предсказват трудността на ключови думи въз основа на конкурентния анализ.
                           </p>
                         </div>
                         <div className="p-4 bg-orange-50 rounded-lg">
-                          <h4 className="font-medium text-orange-800 mb-2">Machine Learning</h4>
+                          <h4 className="font-medium text-orange-800 mb-2">Trend Analysis</h4>
                           <p className="text-sm text-orange-700">
-                            Предвиждане на трендове и класиране на ключови думи
+                            ML алгоритми анализират исторически данни за прогнозиране на бъдещи трендове в търсенето.
                           </p>
                         </div>
-                        <div className="p-4 bg-cyan-50 rounded-lg">
-                          <h4 className="font-medium text-cyan-800 mb-2">Deep Learning</h4>
-                          <p className="text-sm text-cyan-700">
-                            Сложни модели за анализ на конкурентност и потенциал
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </section>
+
+              {/* Automated Content */}
+              <section id="automated-content" className="mb-12">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-2xl flex items-center">
+                      <Brain className="h-6 w-6 mr-3 text-green-600" />
+                      2. Автоматично създаване на съдържание
+                    </CardTitle>
+                    <CardDescription>
+                      Внедрете generative AI за създаване на SEO-оптимизирано съдържание
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">Generative AI</h3>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div className="p-4 bg-green-50 rounded-lg">
+                          <h4 className="font-medium text-green-800 mb-2">Content Generation</h4>
+                          <ul className="text-sm text-green-700 space-y-1">
+                            <li>• Blog posts</li>
+                            <li>• Product descriptions</li>
+                            <li>• Meta descriptions</li>
+                            <li>• Social media posts</li>
+                          </ul>
+                        </div>
+                        <div className="p-4 bg-blue-50 rounded-lg">
+                          <h4 className="font-medium text-blue-800 mb-2">Content Optimization</h4>
+                          <ul className="text-sm text-blue-700 space-y-1">
+                            <li>• Keyword integration</li>
+                            <li>• Readability improvement</li>
+                            <li>• Structure optimization</li>
+                            <li>• SEO scoring</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">Prompt Engineering</h3>
+                      <div className="space-y-4">
+                        <div className="p-4 bg-purple-50 rounded-lg">
+                          <h4 className="font-medium text-purple-800 mb-2">SEO-focused Prompts</h4>
+                          <p className="text-sm text-purple-700">
+                            Създавайте специфични prompts за генериране на SEO-оптимизирано съдържание с правилна структура.
+                          </p>
+                        </div>
+                        <div className="p-4 bg-orange-50 rounded-lg">
+                          <h4 className="font-medium text-orange-800 mb-2">Quality Control</h4>
+                          <p className="text-sm text-orange-700">
+                            Използвайте AI за автоматична проверка на качеството и SEO оптимизацията на генерираното съдържание.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </section>
+
+              {/* Technical SEO Automation */}
+              <section id="technical-seo" className="mb-12">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-2xl flex items-center">
+                      <Zap className="h-6 w-6 mr-3 text-green-600" />
+                      3. Техническо SEO автоматизация
+                    </CardTitle>
+                    <CardDescription>
+                      Автоматизирайте техническите SEO задачи с AI инструменти
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">Автоматични аудити</h3>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div className="p-4 bg-green-50 rounded-lg">
+                          <h4 className="font-medium text-green-800 mb-2">Site Health</h4>
+                          <ul className="text-sm text-green-700 space-y-1">
+                            <li>• Broken links detection</li>
+                            <li>• Duplicate content</li>
+                            <li>• Missing alt tags</li>
+                            <li>• Schema markup</li>
+                          </ul>
+                        </div>
+                        <div className="p-4 bg-blue-50 rounded-lg">
+                          <h4 className="font-medium text-blue-800 mb-2">Performance</h4>
+                          <ul className="text-sm text-blue-700 space-y-1">
+                            <li>• Page speed optimization</li>
+                            <li>• Core Web Vitals</li>
+                            <li>• Mobile optimization</li>
+                            <li>• Image optimization</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">Автоматични оптимизации</h3>
+                      <div className="space-y-4">
+                        <div className="p-4 bg-purple-50 rounded-lg">
+                          <h4 className="font-medium text-purple-800 mb-2">Auto-fixing Issues</h4>
+                          <p className="text-sm text-purple-700">
+                            AI системи могат автоматично да поправят технически SEO проблеми като липсващи meta тагове.
+                          </p>
+                        </div>
+                        <div className="p-4 bg-orange-50 rounded-lg">
+                          <h4 className="font-medium text-orange-800 mb-2">Continuous Monitoring</h4>
+                          <p className="text-sm text-orange-700">
+                            Настройте автоматичен мониторинг за откриване на нови SEO проблеми в реално време.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </section>
+
+              {/* Content Optimization */}
+              <section id="content-optimization" className="mb-12">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-2xl flex items-center">
+                      <Target className="h-6 w-6 mr-3 text-green-600" />
+                      4. Оптимизация на съдържанието
+                    </CardTitle>
+                    <CardDescription>
+                      Използвайте AI инструменти за автоматична оптимизация на съдържанието
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">AI инструменти</h3>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div className="p-4 bg-green-50 rounded-lg">
+                          <h4 className="font-medium text-green-800 mb-2">Content Analysis</h4>
+                          <ul className="text-sm text-green-700 space-y-1">
+                            <li>• Keyword density</li>
+                            <li>• Readability scores</li>
+                            <li>• Content length</li>
+                            <li>• Internal linking</li>
+                          </ul>
+                        </div>
+                        <div className="p-4 bg-blue-50 rounded-lg">
+                          <h4 className="font-medium text-blue-800 mb-2">A/B Testing</h4>
+                          <ul className="text-sm text-blue-700 space-y-1">
+                            <li>• Title optimization</li>
+                            <li>• Meta descriptions</li>
+                            <li>• CTA buttons</li>
+                            <li>• Content variations</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">Автоматични предложения</h3>
+                      <div className="space-y-4">
+                        <div className="p-4 bg-purple-50 rounded-lg">
+                          <h4 className="font-medium text-purple-800 mb-2">Content Recommendations</h4>
+                          <p className="text-sm text-purple-700">
+                            AI анализира съществуващото съдържание и предлага подобрения за по-добро SEO класиране.
+                          </p>
+                        </div>
+                        <div className="p-4 bg-orange-50 rounded-lg">
+                          <h4 className="font-medium text-orange-800 mb-2">Topic Expansion</h4>
+                          <p className="text-sm text-orange-700">
+                            AI може да предложи допълнителни теми и подтеми за разширяване на съдържанието.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </section>
+
+              {/* Monitoring and Analysis */}
+              <section id="monitoring" className="mb-12">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-2xl flex items-center">
+                      <BarChart3 className="h-6 w-6 mr-3 text-green-600" />
+                      5. Мониторинг и анализ
+                    </CardTitle>
+                    <CardDescription>
+                      Настройте автоматични отчети и alerts за SEO резултати
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">Автоматични отчети</h3>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div className="p-4 bg-green-50 rounded-lg">
+                          <h4 className="font-medium text-green-800 mb-2">Performance Reports</h4>
+                          <ul className="text-sm text-green-700 space-y-1">
+                            <li>• Ranking changes</li>
+                            <li>• Traffic analysis</li>
+                            <li>• Conversion tracking</li>
+                            <li>• Competitor analysis</li>
+                          </ul>
+                        </div>
+                        <div className="p-4 bg-blue-50 rounded-lg">
+                          <h4 className="font-medium text-blue-800 mb-2">Technical Reports</h4>
+                          <ul className="text-sm text-blue-700 space-y-1">
+                            <li>• Site health status</li>
+                            <li>• Error tracking</li>
+                            <li>• Performance metrics</li>
+                            <li>• Security alerts</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">Intelligent Alerts</h3>
+                      <div className="space-y-4">
+                        <div className="p-4 bg-purple-50 rounded-lg">
+                          <h4 className="font-medium text-purple-800 mb-2">Anomaly Detection</h4>
+                          <p className="text-sm text-purple-700">
+                            AI открива необичайни промени в SEO метриките и изпраща автоматични alerts.
+                          </p>
+                        </div>
+                        <div className="p-4 bg-orange-50 rounded-lg">
+                          <h4 className="font-medium text-orange-800 mb-2">Predictive Insights</h4>
+                          <p className="text-sm text-orange-700">
+                            AI анализира тенденциите и предсказва бъдещи промени в SEO резултатите.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </section>
+
+              {/* Implementation */}
+              <section id="implementation" className="mb-12">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-2xl flex items-center">
+                      <Globe className="h-6 w-6 mr-3 text-green-600" />
+                      6. Внедряване
+                    </CardTitle>
+                    <CardDescription>
+                      Стратегия за успешно внедряване на автоматизирано SEO
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">Стратегия</h3>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div className="p-4 bg-green-50 rounded-lg">
+                          <h4 className="font-medium text-green-800 mb-2">Планиране</h4>
+                          <ul className="text-sm text-green-700 space-y-1">
+                            <li>• SEO audit</li>
+                            <li>• Tool selection</li>
+                            <li>• Process mapping</li>
+                            <li>• Team training</li>
+                          </ul>
+                        </div>
+                        <div className="p-4 bg-blue-50 rounded-lg">
+                          <h4 className="font-medium text-blue-800 mb-2">Измерване</h4>
+                          <ul className="text-sm text-blue-700 space-y-1">
+                            <li>• KPI definition</li>
+                            <li>• ROI tracking</li>
+                            <li>• Performance metrics</li>
+                            <li>• Success criteria</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">Best Practices</h3>
+                      <div className="space-y-4">
+                        <div className="p-4 bg-purple-50 rounded-lg">
+                          <h4 className="font-medium text-purple-800 mb-2">Quality Control</h4>
+                          <p className="text-sm text-purple-700">
+                            Винаги проверявайте AI-генерираното съдържание преди публикуване за точност и качество.
+                          </p>
+                        </div>
+                        <div className="p-4 bg-orange-50 rounded-lg">
+                          <h4 className="font-medium text-orange-800 mb-2">Human Oversight</h4>
+                          <p className="text-sm text-orange-700">
+                            AI трябва да допълва, а не да заменя човешката експертиза в SEO стратегията.
                           </p>
                         </div>
                       </div>
@@ -267,18 +575,18 @@ export default function AutomatedSEOTutorial() {
                       Готови да автоматизирате SEO?
                     </h2>
                     <p className="text-xl mb-8 opacity-90">
-                      Използвайте нашите AI SEO инструменти и оптимизирайте сайта си автоматично!
+                      Използвайте нашите AI инструменти и започнете автоматизацията на SEO процесите днес!
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                       <Button asChild size="lg" variant="secondary">
                         <Link href="/tools">
-                          <Search className="h-5 w-5 mr-2" />
+                          <Zap className="h-5 w-5 mr-2" />
                           SEO инструменти
                         </Link>
                       </Button>
                       <Button asChild size="lg" variant="outline" className="bg-white text-green-600 hover:bg-gray-100">
                         <Link href="/tutorials">
-                          <Globe className="h-5 w-5 mr-2" />
+                          <Search className="h-5 w-5 mr-2" />
                           Още уроци
                         </Link>
                       </Button>
@@ -305,14 +613,14 @@ export default function AutomatedSEOTutorial() {
                     </Button>
                     <Button asChild variant="outline" className="w-full">
                       <Link href="/seo">
-                        <Search className="h-4 w-4 mr-2" />
+                        <TrendingUp className="h-4 w-4 mr-2" />
                         SEO новини
                       </Link>
                     </Button>
                     <Button asChild variant="outline" className="w-full">
                       <Link href="/contact">
                         <Users className="h-4 w-4 mr-2" />
-                        SEO консултация
+                        Консултация
                       </Link>
                     </Button>
                   </CardContent>
@@ -322,6 +630,6 @@ export default function AutomatedSEOTutorial() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
