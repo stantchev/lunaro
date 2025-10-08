@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Search, Menu, X, Pin } from "lucide-react"
+import { Search, Menu, X } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { t } from "@/lib/i18n"
 import Image from "next/image"
@@ -48,7 +48,7 @@ export function Header() {
               Инструменти
             </Link>
             <Link href="/saved" className="text-sm font-medium hover:text-primary transition-colors">
-              <Pin />
+              Запазени
             </Link>
           </nav>
 
