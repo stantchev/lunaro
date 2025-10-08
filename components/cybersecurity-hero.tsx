@@ -49,11 +49,11 @@ export function CybersecurityHero({ featuredArticle }: CybersecurityHeroProps) {
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.05%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%221%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
       
-      <div className="relative container mx-auto px-4 py-8 md:py-16">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      <div className="relative container mx-auto px-4 py-6 md:py-16">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
           {/* Left Column - Featured Story */}
-          <div className="space-y-6">
-            <div className="space-y-4">
+          <div className="space-y-4 lg:space-y-6">
+            <div className="space-y-3 lg:space-y-4">
               <div className="flex items-center space-x-3">
                 <Shield className="h-6 w-6 text-red-300" />
                 <Badge variant="destructive" className="text-sm px-3 py-1">
@@ -63,11 +63,11 @@ export function CybersecurityHero({ featuredArticle }: CybersecurityHeroProps) {
               
               {featuredArticle ? (
                 <>
-                  <h1 className="text-2xl sm:text-3xl lg:text-5xl font-bold leading-tight">
+                  <h1 className="text-xl sm:text-2xl lg:text-5xl font-bold leading-tight">
                     {featuredArticle.translatedTitle || featuredArticle.title}
                   </h1>
                   
-                  <p className="text-lg text-red-100 leading-relaxed">
+                  <p className="text-base lg:text-lg text-red-100 leading-relaxed hidden sm:block">
                     {truncateAfterSecondSentence(featuredArticle.summary || featuredArticle.translatedDescription || featuredArticle.description)}
                   </p>
                   
@@ -87,7 +87,7 @@ export function CybersecurityHero({ featuredArticle }: CybersecurityHeroProps) {
                     </div>
                   </div>
                   
-                  <div className="flex flex-col sm:flex-row gap-4">
+                  <div className="flex flex-col sm:flex-row gap-3 lg:gap-4">
                     <Link 
                       href={featuredArticle.url}
                       className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
@@ -104,16 +104,16 @@ export function CybersecurityHero({ featuredArticle }: CybersecurityHeroProps) {
                 </>
               ) : (
                 <>
-                  <h1 className="text-3xl lg:text-5xl font-bold leading-tight">
+                  <h1 className="text-2xl lg:text-5xl font-bold leading-tight">
                     Киберсигурност Новини
                   </h1>
                   
-                  <p className="text-lg text-red-100 leading-relaxed">
+                  <p className="text-base lg:text-lg text-red-100 leading-relaxed hidden sm:block">
                     Следи най-актуалните заплахи, уязвимости и защитни мерки в киберпространството. 
                     Експертни анализи и препоръки за защита на данните.
                   </p>
                   
-                  <div className="flex flex-col sm:flex-row gap-4">
+                  <div className="flex flex-col sm:flex-row gap-3 lg:gap-4">
                     <Link 
                       href="#articles"
                       className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
@@ -133,9 +133,9 @@ export function CybersecurityHero({ featuredArticle }: CybersecurityHeroProps) {
           </div>
 
           {/* Right Column - Featured Image */}
-          <div className="relative">
+          <div className="relative order-first lg:order-last">
             {featuredArticle?.urlToImage ? (
-              <div className="relative aspect-[16/10] rounded-lg overflow-hidden shadow-2xl">
+              <div className="relative aspect-[16/9] sm:aspect-[16/10] lg:aspect-[16/10] rounded-lg overflow-hidden shadow-2xl max-w-md mx-auto lg:max-w-none">
                 <Image
                   src={featuredArticle.urlToImage}
                   alt={featuredArticle.translatedTitle || featuredArticle.title}
@@ -143,7 +143,7 @@ export function CybersecurityHero({ featuredArticle }: CybersecurityHeroProps) {
                   height={244}
                   className="object-cover w-full h-full"
                   priority
-                  sizes="(max-width: 768px) 433px, (max-width: 1200px) 50vw, 33vw"
+                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 80vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                 <div className="absolute bottom-4 left-4 right-4">
@@ -154,7 +154,7 @@ export function CybersecurityHero({ featuredArticle }: CybersecurityHeroProps) {
                 </div>
               </div>
             ) : (
-              <div className="relative aspect-[16/10] rounded-lg overflow-hidden shadow-2xl bg-red-700 flex items-center justify-center">
+              <div className="relative aspect-[16/9] sm:aspect-[16/10] lg:aspect-[16/10] rounded-lg overflow-hidden shadow-2xl bg-red-700 flex items-center justify-center max-w-md mx-auto lg:max-w-none">
                 <div className="text-center space-y-4">
                   <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto">
                     <Shield className="h-8 w-8 text-white" />
