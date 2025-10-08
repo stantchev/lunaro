@@ -26,8 +26,8 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Categories & Resources - Two columns */}
-          <div className="grid grid-cols-2 gap-4 md:gap-8 max-w-4xl mx-auto">
+          {/* Three columns layout - Mobile: stacked, Desktop: 3 columns */}
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-8 max-w-6xl mx-auto">
             {/* Categories */}
             <div className="space-y-3 md:space-y-4">
               <h3 className="font-semibold flex items-center space-x-2 text-sm md:text-base">
@@ -87,29 +87,29 @@ export function Footer() {
                 </li>
               </ul>
             </div>
-          </div>
 
-          {/* Contact & Social - Centered */}
-          <div className="space-y-3 md:space-y-4 text-center">
-            <h3 className="font-semibold flex items-center justify-center space-x-2 text-sm md:text-base">
-              <Mail className="h-3 w-3 md:h-4 md:w-4" />
-              <span>Свържи се с нас</span>
-            </h3>
-            <div className="space-y-1 md:space-y-2 text-xs md:text-sm text-muted-foreground">
-              <p>contact@lunaro-news.bg</p>
-              <p>+359 2 XXX XXXX</p>
-            </div>
+            {/* Contact & Social */}
+            <div className="col-span-2 md:col-span-1 space-y-3 md:space-y-4 text-center md:text-left">
+              <h3 className="font-semibold flex items-center justify-center md:justify-start space-x-2 text-sm md:text-base">
+                <Mail className="h-3 w-3 md:h-4 md:w-4" />
+                <span>Свържи се с нас</span>
+              </h3>
+              <div className="space-y-1 md:space-y-2 text-xs md:text-sm text-muted-foreground">
+                <p>contact@lunaro-news.bg</p>
+                <p>+359 2 XXX XXXX</p>
+              </div>
 
-            <div className="flex justify-center space-x-3 md:space-x-4">
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Facebook className="h-4 w-4 md:h-5 md:w-5" />
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Twitter className="h-4 w-4 md:h-5 md:w-5" />
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Linkedin className="h-4 w-4 md:h-5 md:w-5" />
-              </Link>
+              <div className="flex justify-center md:justify-start space-x-3 md:space-x-4">
+                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <Facebook className="h-4 w-4 md:h-5 md:w-5" />
+                </Link>
+                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <Twitter className="h-4 w-4 md:h-5 md:w-5" />
+                </Link>
+                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  <Linkedin className="h-4 w-4 md:h-5 md:w-5" />
+                </Link>
+              </div>
             </div>
           </div>
         </div>
