@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Search, Menu, X, Pin } from "lucide-react"
+import { Search, Menu, X } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { LanguageSelector } from "./language-selector"
 import { t } from "@/lib/i18n"
@@ -18,22 +18,12 @@ export function Header() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            {/* Desktop Logo */}
             <Image
               src="/logo-desktop.png"
               alt="Lunaro News Logo"
               width={150}
               height={50}
-              className="hidden md:block"
-              priority
-            />
-            {/* Mobile Logo */}
-            <Image
-              src="/logo-mobile.png"
-              alt="Lunaro News Mobile Logo"
-              width={40}
-              height={40}
-              className="block md:hidden"
+              className="h-10 md:h-12 w-auto"
               priority
             />
           </Link>
@@ -58,9 +48,6 @@ export function Header() {
             <Link href="/tools" className="text-sm font-medium hover:text-primary transition-colors">
               Инструменти
             </Link>
-            <Link href="/saved" className="text-sm font-medium hover:text-primary transition-colors">
-              <Pin />
-            </Link>
           </nav>
 
           {/* Search + Actions */}
@@ -72,6 +59,8 @@ export function Header() {
               <Input placeholder={t("searchPlaceholder")} className="pl-8 w-48 lg:w-64" />
             </div>
           </div>
+
+            <LanguageSelector />
 
             {/* Mobile Menu Toggle */}
             <Button
@@ -108,9 +97,6 @@ export function Header() {
             </Link>
             <Link href="/tools" className="text-sm font-medium hover:text-primary transition-colors">
               Инструменти
-            </Link>
-            <Link href="/tools" className="text-sm font-medium hover:text-primary transition-colors">
-              Запазени
             </Link>
           </nav>
         </div>
