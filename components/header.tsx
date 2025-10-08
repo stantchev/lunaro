@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Search, Menu, X } from "lucide-react"
+import { Search, Menu, X, Pin } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { LanguageSelector } from "./language-selector"
 import { t } from "@/lib/i18n"
@@ -47,6 +47,9 @@ export function Header() {
             </Link>
             <Link href="/tools" className="text-sm font-medium hover:text-primary transition-colors">
               Инструменти
+            </Link>
+            <Link href="/saved" className="text-sm font-medium hover:text-primary transition-colors">
+              <Pin />
             </Link>
           </nav>
 
@@ -97,6 +100,9 @@ export function Header() {
             </Link>
             <Link href="/tools" className="text-sm font-medium hover:text-primary transition-colors">
               Инструменти
+            </Link>
+            <Link href="/tools" className="text-sm font-medium hover:text-primary transition-colors">
+              Запазени
             </Link>
           </nav>
         </div>
