@@ -151,7 +151,7 @@ export default async function ArticlePage({
 
       <main>
         {/* Breadcrumb */}
-        <section className="py-4 border-b">
+        <section className="py-4 border-b hidden sm:block">
           <div className="container mx-auto px-4">
             <div className="flex items-center space-x-2 text-sm text-muted-foreground">
               <Link href="/" className="hover:text-primary transition-colors">
@@ -171,32 +171,32 @@ export default async function ArticlePage({
         </section>
 
         {/* Article Header */}
-        <section className="py-12">
+        <section className="py-6 md:py-12">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <Link
                 href={getCategoryUrl(article.category)}
-                className="inline-flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors mb-6"
+                className="inline-flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors mb-4 md:mb-6"
               >
                 <ArrowLeft className="h-4 w-4" />
                 <span>Назад</span>
               </Link>
 
-              <div className="space-y-6">
-                <div className="space-y-4">
+              <div className="space-y-4 md:space-y-6">
+                <div className="space-y-3 md:space-y-4">
                   <Badge variant="secondary">{article.category}</Badge>
-                  <h1 className="text-4xl lg:text-5xl font-bold leading-tight text-balance">
+                  <h1 className="text-2xl sm:text-3xl lg:text-5xl font-bold leading-tight text-balance">
                     {article.title}
                   </h1>
                   {article.seo.description && (
-                    <p className="text-lg text-muted-foreground leading-relaxed">
+                    <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
                       {article.seo.description}
                     </p>
                   )}
                 </div>
 
                 {/* Meta Info */}
-                <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
+                <div className="flex flex-wrap items-center gap-4 md:gap-6 text-sm text-muted-foreground">
                   <div className="flex items-center space-x-2">
                     <User className="h-4 w-4" />
                     <span>{article.author.name}</span>
@@ -212,7 +212,7 @@ export default async function ArticlePage({
                 </div>
 
                 {/* Action Buttons */}
-                  <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-3 md:space-x-4">
                     <ShareButton
                       title={article.title}
                       description={article.seo.description}
@@ -231,7 +231,7 @@ export default async function ArticlePage({
         </section>
 
         {/* Featured Image */}
-        <section className="pb-12">
+        <section className="pb-6 md:pb-12">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <div className="aspect-[16/9] relative rounded-lg overflow-hidden">
@@ -242,7 +242,7 @@ export default async function ArticlePage({
                   height={244}
                   className="object-cover w-full h-full"
                   priority
-                  sizes="(max-width: 768px) 433px, (max-width: 1200px) 80vw, 70vw"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
                 />
               </div>
             </div>
@@ -250,7 +250,7 @@ export default async function ArticlePage({
         </section>
 
         {/* Article Content */}
-        <section className="pb-12">
+        <section className="pb-6 md:pb-12">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
               <div
@@ -261,7 +261,7 @@ export default async function ArticlePage({
           </div>
         </section>
 
-        <Separator className="my-12" />
+        <Separator className="my-6 md:my-12" />
       </main>
 
       <Footer />
