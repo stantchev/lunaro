@@ -4,23 +4,36 @@ import { Clock, User, Eye } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
-// Function to truncate text after the second sentence
-function truncateAfterSecondSentence(text: string): string {
+// Function to truncate text after the first sentence
+function truncateAfterFirstSentence(text: string): string {
   if (!text) return ""
   
+  // Clean up HTML tags first
+  const cleanText = text.replace(/<[^>]*>/g, "").trim()
+  
   // Split by sentence endings (. ! ?)
-  const sentences = text.split(/([.!?]+)/)
+  const sentences = cleanText.split(/([.!?]+)/)
   const result = []
   
-  for (let i = 0; i < sentences.length; i += 2) {
-    if (i >= 4) break // Stop after second sentence (2 sentences = 4 parts: sentence + punctuation)
-    result.push(sentences[i])
-    if (sentences[i + 1]) {
-      result.push(sentences[i + 1])
+  // Take first complete sentence (sentence + punctuation)
+  for (let i = 0; i < sentences.length && result.length < 2; i += 2) {
+    if (sentences[i] && sentences[i].trim()) {
+      result.push(sentences[i])
+      if (sentences[i + 1]) {
+        result.push(sentences[i + 1])
+        break // Stop after first sentence
+      }
     }
   }
   
-  return result.join('').trim()
+  const truncated = result.join('').trim()
+  
+  // If we have more content, add ellipsis
+  if (truncated.length < cleanText.length && truncated.length > 0) {
+    return truncated + "..."
+  }
+  
+  return truncated
 }
 
 interface Article {
@@ -66,7 +79,7 @@ export function HeroSection({ latestArticle }: HeroSectionProps) {
                   </h1>
                   
                   <p className="text-base lg:text-lg text-slate-300 leading-relaxed hidden sm:block">
-                    {truncateAfterSecondSentence(latestArticle.summary || latestArticle.translatedDescription || latestArticle.description)}
+                    {truncateAfterFirstSentence(latestArticle.summary || latestArticle.translatedDescription || latestArticle.description)}
                   </p>
                   
                   <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-6 text-sm text-slate-400">
