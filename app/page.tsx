@@ -54,11 +54,58 @@ async function getArticles(limit: number = 6) {
   }
 }
 
+// 🔹 Fetch latest article from category ID 7
+async function getLatestArticleFromCategory7() {
+  try {
+    const response = await fetch(
+      `https://lunaro.sofia-today.org/wp-json/wp/v2/posts?categories=7&per_page=1&orderby=date&order=desc&_embed`,
+      { next: { revalidate: 60 } }
+    )
+
+    if (!response.ok) return null
+
+    const data = await response.json()
+    
+    if (!data || data.length === 0) return null
+
+    const article = data[0]
+    const category = article?._embedded?.["wp:term"]?.[0]?.[0]?.name ?? "Без категория"
+
+    return {
+      id: article?.id?.toString() ?? crypto.randomUUID(),
+      slug: article?.slug ?? "",
+      title: article?.title?.rendered ?? "Без заглавие",
+      translatedTitle: article?.title?.rendered ?? "Без заглавие",
+      description:
+        article?.excerpt?.rendered?.replace(/<[^>]*>/g, "") ?? "Няма описание.",
+      translatedDescription:
+        article?.excerpt?.rendered?.replace(/<[^>]*>/g, "") ?? "Няма описание.",
+      summary:
+        article?.excerpt?.rendered?.replace(/<[^>]*>/g, "") ?? "Няма описание.",
+      category,
+      publishedAt: article?.date ?? new Date().toISOString(),
+      urlToImage:
+        article?._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+        "/placeholder.svg",
+      url: `/article/${article?.slug ?? ""}`,
+      author: article?._embedded?.author?.[0]?.name ?? "Автор",
+      source: { name: "Lunaro News" },
+    }
+  } catch (error) {
+    console.error("Error fetching latest article from category 7:", error)
+    return null
+  }
+}
+
 export default async function HomePage() {
   const breadcrumbData = generateBreadcrumbStructuredData([
     { name: "Начало", url: "https://lunaro.news" },
   ])
 
+  // Fetch latest article from category 7 for hero section
+  const heroArticle = await getLatestArticleFromCategory7()
+  
+  // Fetch regular articles for other sections
   const articles = await getArticles(12)
 
   const latestArticle = articles[0] || null
@@ -105,7 +152,7 @@ export default async function HomePage() {
 
       <main>
         {/* Hero Section */}
-        <HeroSection latestArticle={latestArticle} />
+        <HeroSection latestArticle={heroArticle} />
 
         {/* Main Content with Sidebar */}
         <div className="container mx-auto px-4 py-8">
