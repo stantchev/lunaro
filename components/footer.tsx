@@ -6,11 +6,11 @@ import Image from "next/image"
 export function Footer() {
   return (
     <footer className="bg-muted/50 border-t">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid md:grid-cols-4 gap-8">
+      <div className="container mx-auto px-4 py-6 md:py-12">
+        <div className="space-y-6 md:space-y-8">
           {/* Brand */}
-          <div className="space-y-4">
-            <Link href="/" className="flex items-center">
+          <div className="space-y-3 md:space-y-4 text-center">
+            <Link href="/" className="flex items-center justify-center">
               {/* Desktop logo */}
               <Image
                 src="/logo-desktop.png"
@@ -24,108 +24,111 @@ export function Footer() {
               <Image
                 src="/logo-mobile.png"
                 alt="Lunaro News Mobile Logo"
-                width={40}
-                height={40}
+                width={32}
+                height={32}
                 className="block md:hidden"
                 priority
               />
             </Link>
-            <p className="text-sm text-muted-foreground">
-              Lunaro News - Водещо българско медийно издание за технологии, киберсигурност и дигитални иновации. 
-              Актуални новини, задълбочени анализи и експертни мнения.
+            <p className="text-xs md:text-sm text-muted-foreground max-w-2xl mx-auto">
+              Lunaro News - Водещо българско медийно издание за технологии, киберсигурност и дигитални иновации.
+              <span className="hidden sm:inline"> Актуални новини, задълбочени анализи и експертни мнения.</span>
             </p>
           </div>
 
-          {/* Categories */}
-          <div className="space-y-4">
-            <h3 className="font-semibold flex items-center space-x-2">
-              <Shield className="h-4 w-4" />
-              <span>Категории</span>
-            </h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="/cybersecurity" className="text-muted-foreground hover:text-primary transition-colors">
-                  Киберсигурност
-                </Link>
-              </li>
-              <li>
-                <Link href="/seo" className="text-muted-foreground hover:text-primary transition-colors">
-                  SEO Оптимизация
-                </Link>
-              </li>
-              <li>
-                <Link href="/analizi" className="text-muted-foreground hover:text-primary transition-colors">
-                  Анализи и прогнози
-                </Link>
-              </li>
-              <li>
-                <Link href="/tutorials" className="text-muted-foreground hover:text-primary transition-colors">
-                  Ръководства
-                </Link>
-              </li>
-            </ul>
+          {/* Categories & Resources - Two columns */}
+          <div className="grid grid-cols-2 gap-4 md:gap-8 max-w-4xl mx-auto">
+            {/* Categories */}
+            <div className="space-y-3 md:space-y-4">
+              <h3 className="font-semibold flex items-center space-x-2 text-sm md:text-base">
+                <Shield className="h-3 w-3 md:h-4 md:w-4" />
+                <span>Категории</span>
+              </h3>
+              <ul className="space-y-1 md:space-y-2 text-xs md:text-sm">
+                <li>
+                  <Link href="/cybersecurity" className="text-muted-foreground hover:text-primary transition-colors">
+                    Киберсигурност
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/seo" className="text-muted-foreground hover:text-primary transition-colors">
+                    SEO Оптимизация
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/analizi" className="text-muted-foreground hover:text-primary transition-colors">
+                    Анализи и прогнози
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/tutorials" className="text-muted-foreground hover:text-primary transition-colors">
+                    Ръководства
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Resources */}
+            <div className="space-y-3 md:space-y-4">
+              <h3 className="font-semibold flex items-center space-x-2 text-sm md:text-base">
+                <TrendingUp className="h-3 w-3 md:h-4 md:w-4" />
+                <span>Ресурси</span>
+              </h3>
+              <ul className="space-y-1 md:space-y-2 text-xs md:text-sm">
+                <li>
+                  <Link href="/tools" className="text-muted-foreground hover:text-primary transition-colors">
+                    SEO Инструменти
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/security-tools" className="text-muted-foreground hover:text-primary transition-colors">
+                    Инструменти за сигурност
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/glossary" className="text-muted-foreground hover:text-primary transition-colors">
+                    Речник на термините
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact" className="text-muted-foreground hover:text-primary transition-colors">
+                    Контакти
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
 
-          {/* Resources */}
-          <div className="space-y-4">
-            <h3 className="font-semibold flex items-center space-x-2">
-              <TrendingUp className="h-4 w-4" />
-              <span>Ресурси</span>
-            </h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="/tools" className="text-muted-foreground hover:text-primary transition-colors">
-                  SEO Инструменти
-                </Link>
-              </li>
-              <li>
-                <Link href="/security-tools" className="text-muted-foreground hover:text-primary transition-colors">
-                  Инструменти за сигурност
-                </Link>
-              </li>
-              <li>
-                <Link href="/glossary" className="text-muted-foreground hover:text-primary transition-colors">
-                  Речник на термините
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-muted-foreground hover:text-primary transition-colors">
-                  Контакти
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact & Social */}
-          <div className="space-y-4">
-            <h3 className="font-semibold flex items-center space-x-2">
-              <Mail className="h-4 w-4" />
+          {/* Contact & Social - Centered */}
+          <div className="space-y-3 md:space-y-4 text-center">
+            <h3 className="font-semibold flex items-center justify-center space-x-2 text-sm md:text-base">
+              <Mail className="h-3 w-3 md:h-4 md:w-4" />
               <span>Свържи се с нас</span>
             </h3>
-            <div className="space-y-2 text-sm text-muted-foreground">
+            <div className="space-y-1 md:space-y-2 text-xs md:text-sm text-muted-foreground">
               <p>contact@lunaro-news.bg</p>
               <p>+359 2 XXX XXXX</p>
             </div>
 
-            <div className="flex space-x-4">
+            <div className="flex justify-center space-x-3 md:space-x-4">
               <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Facebook className="h-5 w-5" />
+                <Facebook className="h-4 w-4 md:h-5 md:w-5" />
               </Link>
               <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Twitter className="h-5 w-5" />
+                <Twitter className="h-4 w-4 md:h-5 md:w-5" />
               </Link>
               <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Linkedin className="h-5 w-5" />
+                <Linkedin className="h-4 w-4 md:h-5 md:w-5" />
               </Link>
             </div>
           </div>
         </div>
 
-        <Separator className="my-8" />
+        <Separator className="my-6 md:my-8" />
 
-        <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <div className="text-sm text-muted-foreground">© 2025 Lunaro News. Всички права запазени.</div>
-          <div className="flex space-x-6 text-sm">
+        <div className="flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
+          <div className="text-xs md:text-sm text-muted-foreground text-center md:text-left">© 2025 Lunaro News. Всички права запазени.</div>
+          <div className="flex flex-wrap justify-center md:justify-end gap-3 md:gap-6 text-xs md:text-sm">
             <Link href="/privacy" className="text-muted-foreground hover:text-primary transition-colors">
               Политика за поверителност
             </Link>
