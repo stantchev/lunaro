@@ -11,22 +11,12 @@ export function Footer() {
           {/* Brand */}
           <div className="space-y-3 md:space-y-4 text-center">
             <Link href="/" className="flex items-center justify-center">
-              {/* Desktop logo */}
               <Image
                 src="/logo-desktop.png"
                 alt="Lunaro News Logo"
                 width={150}
                 height={40}
-                className="hidden md:block"
-                priority
-              />
-              {/* Mobile logo */}
-              <Image
-                src="/logo-mobile.png"
-                alt="Lunaro News Mobile Logo"
-                width={32}
-                height={32}
-                className="block md:hidden"
+                className="h-12 md:h-14 w-auto"
                 priority
               />
             </Link>
