@@ -4,7 +4,6 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Search, Menu, X, Pin } from "lucide-react"
 import { Input } from "@/components/ui/input"
-import { LanguageSelector } from "./language-selector"
 import { t } from "@/lib/i18n"
 import Image from "next/image"
 import { useState } from "react"
@@ -62,9 +61,7 @@ export function Header() {
               <Input placeholder={t("searchPlaceholder")} className="pl-8 w-48 lg:w-64" />
             </div>
           </div>
-
-            <LanguageSelector />
-
+            
             {/* Mobile Menu Toggle */}
             <Button
               variant="ghost"
