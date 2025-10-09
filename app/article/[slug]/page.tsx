@@ -14,24 +14,37 @@ import { SaveButton } from "@/components/save-button"
 // 🔹 Позволи динамично генериране за нови статии
 export const dynamicParams = true
 
+// 🔹 ISR настройки за Vercel
+export const revalidate = 3600 // Revalidate на всеки час
+export const dynamic = 'force-dynamic' // Принуди динамично генериране
+
 // 🔹 Fetch всички статии за статично генериране
 async function getAllArticles() {
   try {
+    console.log("🔍 Заявявам ВСИЧКИ статии за статично генериране...")
+    
     const response = await fetch(
-      `https://lunaro.sofia-today.org/wp-json/wp/v2/posts?per_page=500&_fields=slug,status`,
-      { next: { revalidate: 1800 } } // кеширай за 30 минути
+      `https://lunaro.sofia-today.org/wp-json/wp/v2/posts?per_page=1000&_fields=slug,status`,
+      { next: { revalidate: 0 } } // БЕЗ кеширане за build време
     )
 
+    console.log(`📡 Статус за всички статии: ${response.status}`)
+
     if (!response.ok) {
-      console.error("Error fetching all articles:", response.statusText)
+      console.error("❌ Error fetching all articles:", response.statusText)
       return []
     }
 
     const articles = await response.json()
+    console.log(`📄 Получени ${articles.length} статии от API`)
+    
     // Филтрирай само публикуваните статии
-    return articles.filter((article: any) => article.status === 'publish')
+    const publishedArticles = articles.filter((article: any) => article.status === 'publish')
+    console.log(`✅ Филтрирани ${publishedArticles.length} публикувани статии`)
+    
+    return publishedArticles
   } catch (error) {
-    console.error("Error fetching all articles:", error)
+    console.error("💥 Error fetching all articles:", error)
     return []
   }
 }
@@ -43,7 +56,12 @@ async function getArticle(slug: string) {
     
     const response = await fetch(
       `https://lunaro.sofia-today.org/wp-json/wp/v2/posts?slug=${slug}&_embed`,
-      { next: { revalidate: 60 } }
+      { 
+        next: { revalidate: 300 }, // Кеширай за 5 минути
+        headers: {
+          'Cache-Control': 'public, max-age=300, stale-while-revalidate=3600'
+        }
+      }
     )
 
     console.log(`📡 Статус за ${slug}: ${response.status}`)
@@ -93,17 +111,15 @@ async function getArticle(slug: string) {
   }
 }
 
-// 🔹 Генерирай статични параметри за най-важните статии
+// 🔹 Генерирай статични параметри за ВСИЧКИ статии
 export async function generateStaticParams() {
   try {
     const articles = await getAllArticles()
     
-    // Генерирай само първите 50 статии статично (най-новите/важните)
-    const staticArticles = articles.slice(0, 50)
+    // Генерирай ВСИЧКИ статии статично
+    console.log(`📄 Генерирам ВСИЧКИ ${articles.length} статии статично`)
     
-    console.log(`📄 Генерирам ${staticArticles.length} статични статии от ${articles.length} общо`)
-    
-    return staticArticles.map((article: any) => ({
+    return articles.map((article: any) => ({
       slug: article.slug,
     }))
   } catch (error) {
@@ -163,9 +179,16 @@ export default async function ArticlePage({
 }: {
   params: { slug: string }
 }) {
+  console.log(`📖 Зареждам статия: ${params.slug}`)
+  
   const article = await getArticle(params.slug)
 
-  if (!article) notFound()
+  if (!article) {
+    console.log(`❌ Статия ${params.slug} не е намерена - показвам 404`)
+    notFound()
+  }
+  
+  console.log(`✅ Статия ${params.slug} заредена успешно`)
 
   // Map Bulgarian category names to English URLs
   const getCategoryUrl = (category: string) => {
