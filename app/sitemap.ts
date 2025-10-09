@@ -12,21 +12,39 @@ import type { MetadataRoute } from "next"
 
 async function getWordPressArticles() {
   try {
+    console.log("🔍 Заявявам статии от WordPress API...")
+    
     const response = await fetch(
       `https://lunaro.sofia-today.org/wp-json/wp/v2/posts?per_page=500&_fields=slug,modified,date,status`,
-      { next: { revalidate: 1800 } } // кеширай за 30 минути за по-актуални данни
+      { next: { revalidate: 0 } } // БЕЗ кеширане за debug
     )
 
+    console.log(`📡 Response status: ${response.status} ${response.statusText}`)
+
     if (!response.ok) {
-      console.error("Error fetching WP articles:", response.statusText)
+      console.error("❌ Error fetching WP articles:", response.statusText)
       return []
     }
 
     const articles = await response.json()
+    console.log(`📄 Получени ${articles.length} статии от API`)
+    
+    // Покажи първите 3 статии за debug
+    if (articles.length > 0) {
+      console.log("📋 Първи 3 статии:")
+      articles.slice(0, 3).forEach((article: any, index: number) => {
+        console.log(`  ${index + 1}. ${article.slug} (${article.status}) - ${article.date}`)
+      })
+    }
+    
     // Филтрирай само публикуваните статии
-    return articles.filter((article: any) => article.status === 'publish')
+    const publishedArticles = articles.filter((article: any) => article.status === 'publish')
+    
+    console.log(`✅ Филтрирани ${publishedArticles.length} публикувани статии от ${articles.length} общо`)
+    
+    return publishedArticles
   } catch (error) {
-    console.error("Error fetching articles for sitemap:", error)
+    console.error("💥 Error fetching articles for sitemap:", error)
     return []
   }
 }
@@ -75,6 +93,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // 🔹 Динамични статии с оптимизирани приоритети
   const articles = await getWordPressArticles()
+  
+  // Fallback ако няма статии
+  if (articles.length === 0) {
+    console.log("⚠️ Няма намерени статии от WordPress API - използвам fallback")
+  }
+  
   const articlePages = articles.map((article: any) => {
     const articleDate = new Date(article.date)
     const daysSincePublished = Math.floor((now.getTime() - articleDate.getTime()) / (1000 * 60 * 60 * 24))
@@ -98,5 +122,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const allPages = [...staticPages, ...articlePages]
   allPages.sort((a, b) => (b.priority || 0) - (a.priority || 0))
 
+  // Debug информация
+  console.log(`🗺️ Sitemap генериран: ${staticPages.length} статични + ${articlePages.length} статии = ${allPages.length} общо страници`)
+  
+  // Покажи първите 5 URL-а за debug
+  if (allPages.length > 0) {
+    console.log("🔗 Първи 5 URL-а в sitemap:")
+    allPages.slice(0, 5).forEach((page, index) => {
+      console.log(`  ${index + 1}. ${page.url} (priority: ${page.priority})`)
+    })
+  }
+  
   return allPages
 }
