@@ -11,8 +11,8 @@ import { notFound } from "next/navigation"
 import { ShareButton } from "@/components/share-button"
 import { SaveButton } from "@/components/save-button"
 
-// 🔹 Забрани динамично генериране - само предварително генерираните статии
-export const dynamicParams = false
+// 🔹 Позволи динамично генериране за нови статии
+export const dynamicParams = true
 
 // 🔹 Fetch всички статии за статично генериране
 async function getAllArticles() {
@@ -39,17 +39,29 @@ async function getAllArticles() {
 // 🔹 Fetch конкретна статия по slug от WP
 async function getArticle(slug: string) {
   try {
+    console.log(`🔍 Търся статия: ${slug}`)
+    
     const response = await fetch(
       `https://lunaro.sofia-today.org/wp-json/wp/v2/posts?slug=${slug}&_embed`,
       { next: { revalidate: 60 } }
     )
 
-    if (!response.ok) return null
+    console.log(`📡 Статус за ${slug}: ${response.status}`)
+
+    if (!response.ok) {
+      console.log(`❌ Статия ${slug} не е намерена (${response.status})`)
+      return null
+    }
 
     const data = await response.json()
     const post = data[0]
 
-    if (!post) return null
+    if (!post) {
+      console.log(`❌ Статия ${slug} не е намерена в отговора`)
+      return null
+    }
+    
+    console.log(`✅ Статия ${slug} намерена успешно`)
 
     return {
       id: post.id.toString(),
@@ -81,13 +93,23 @@ async function getArticle(slug: string) {
   }
 }
 
-// 🔹 Генерирай статични параметри за всички статии
+// 🔹 Генерирай статични параметри за най-важните статии
 export async function generateStaticParams() {
-  const articles = await getAllArticles()
-  
-  return articles.map((article: any) => ({
-    slug: article.slug,
-  }))
+  try {
+    const articles = await getAllArticles()
+    
+    // Генерирай само първите 50 статии статично (най-новите/важните)
+    const staticArticles = articles.slice(0, 50)
+    
+    console.log(`📄 Генерирам ${staticArticles.length} статични статии от ${articles.length} общо`)
+    
+    return staticArticles.map((article: any) => ({
+      slug: article.slug,
+    }))
+  } catch (error) {
+    console.error("Error generating static params:", error)
+    return []
+  }
 }
 
 // 🔹 SEO Metadata
