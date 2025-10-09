@@ -11,6 +11,31 @@ import { notFound } from "next/navigation"
 import { ShareButton } from "@/components/share-button"
 import { SaveButton } from "@/components/save-button"
 
+// 🔹 Забрани динамично генериране - само предварително генерираните статии
+export const dynamicParams = false
+
+// 🔹 Fetch всички статии за статично генериране
+async function getAllArticles() {
+  try {
+    const response = await fetch(
+      `https://lunaro.sofia-today.org/wp-json/wp/v2/posts?per_page=500&_fields=slug,status`,
+      { next: { revalidate: 1800 } } // кеширай за 30 минути
+    )
+
+    if (!response.ok) {
+      console.error("Error fetching all articles:", response.statusText)
+      return []
+    }
+
+    const articles = await response.json()
+    // Филтрирай само публикуваните статии
+    return articles.filter((article: any) => article.status === 'publish')
+  } catch (error) {
+    console.error("Error fetching all articles:", error)
+    return []
+  }
+}
+
 // 🔹 Fetch конкретна статия по slug от WP
 async function getArticle(slug: string) {
   try {
@@ -54,6 +79,15 @@ async function getArticle(slug: string) {
     console.error("Error fetching article:", error)
     return null
   }
+}
+
+// 🔹 Генерирай статични параметри за всички статии
+export async function generateStaticParams() {
+  const articles = await getAllArticles()
+  
+  return articles.map((article: any) => ({
+    slug: article.slug,
+  }))
 }
 
 // 🔹 SEO Metadata
