@@ -14,12 +14,23 @@ async function getWordPressArticles() {
   try {
     console.log("🔍 Заявявам статии от WordPress API...")
     
-    const response = await fetch(
-      `https://lunaro.sofia-today.org/wp-json/wp/v2/posts?per_page=500&_fields=slug,modified,date,status`,
+    // Първа опитай с опростена заявка
+    let response = await fetch(
+      `https://lunaro.sofia-today.org/wp-json/wp/v2/posts?per_page=100`,
       { next: { revalidate: 0 } } // БЕЗ кеширане за debug
     )
 
     console.log(`📡 Response status: ${response.status} ${response.statusText}`)
+
+    // Ако първата заявка не работи, опитай с още по-проста
+    if (!response.ok) {
+      console.log("🔄 Първата заявка не работи, опитвам с по-проста...")
+      response = await fetch(
+        `https://lunaro.sofia-today.org/wp-json/wp/v2/posts`,
+        { next: { revalidate: 0 } }
+      )
+      console.log(`📡 Втора заявка status: ${response.status} ${response.statusText}`)
+    }
 
     if (!response.ok) {
       console.error("❌ Error fetching WP articles:", response.statusText)
