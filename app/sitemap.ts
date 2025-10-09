@@ -1,5 +1,15 @@
 import type { MetadataRoute } from "next"
 
+/**
+ * 🔹 Lunaro News Sitemap Generator
+ * 
+ * Генерира пълен sitemap за lunaro.news включващ:
+ * - Всички статични страници с оптимизирани приоритети
+ * - Tutorial страници за образователен контент
+ * - Динамични статии от WordPress с време-базирани приоритети
+ * - Автоматично сортиране по приоритет за по-добро SEO
+ */
+
 async function getWordPressArticles() {
   try {
     const response = await fetch(
@@ -38,8 +48,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     
     // Инструменти и ресурси - висок приоритет
     { url: `${baseUrl}/tools`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.85 },
+    { url: `${baseUrl}/security-tools`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.85 },
     { url: `${baseUrl}/tutorials`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.85 },
     { url: `${baseUrl}/glossary`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
+    
+    // Tutorial страници - висок приоритет за образователен контент
+    { url: `${baseUrl}/tutorial/ai-business-tools`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
+    { url: `${baseUrl}/tutorial/ai-cybersecurity`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
+    { url: `${baseUrl}/tutorial/automated-seo`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
+    { url: `${baseUrl}/tutorial/generative-ai-content`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
+    { url: `${baseUrl}/tutorial/seo-basics`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
     
     // Запазени статии и търсене
     { url: `${baseUrl}/saved`, lastModified: now, changeFrequency: "daily" as const, priority: 0.7 },
@@ -63,10 +81,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     
     // Приоритетът намалява с времето, но новите статии имат висок приоритет
     let priority = 0.8
-    if (daysSincePublished <= 7) priority = 0.9 // Нови статии
+    if (daysSincePublished <= 7) priority = 0.9 // Нови статии (последна седмица)
     else if (daysSincePublished <= 30) priority = 0.8 // Месечни статии
     else if (daysSincePublished <= 90) priority = 0.7 // Тримесечни статии
-    else priority = 0.6 // Стари статии
+    else priority = 0.6 // Стари статии (над 3 месеца)
 
     return {
       url: `${baseUrl}/article/${article.slug}`,
