@@ -6,7 +6,7 @@ async function getNewsArticles() {
     console.log("🔍 Заявявам статии за Google News Sitemap...")
     
     const response = await fetch(
-      `https://lunaro.sofia-today.org/wp-json/wp/v2/posts?per_page=100`,
+      `https://lunaro.sofia-today.org/wp-json/wp/v2/posts?per_page=200&_embed`,
       { next: { revalidate: 0 } } // БЕЗ кеширане за актуални новини
     )
 
@@ -20,16 +20,12 @@ async function getNewsArticles() {
     const articles = await response.json()
     console.log(`📄 Получени ${articles.length} статии за News Sitemap`)
     
-    // Филтрирай само публикуваните статии от последните 2 дни
-    const now = new Date()
-    const twoDaysAgo = new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000)
-    
+    // Филтрирай само публикуваните статии (всички, не само от последните 2 дни)
     const publishedArticles = articles.filter((article: any) => {
-      const articleDate = new Date(article.date)
-      return article.status === 'publish' && articleDate >= twoDaysAgo
+      return article.status === 'publish'
     })
     
-    console.log(`✅ Филтрирани ${publishedArticles.length} свежи статии за News Sitemap`)
+    console.log(`✅ Филтрирани ${publishedArticles.length} публикувани статии за News Sitemap`)
     
     return publishedArticles
   } catch (error) {
@@ -124,4 +120,3 @@ export async function GET(): Promise<Response> {
     })
   }
 }
-
