@@ -3,31 +3,22 @@ import type { MetadataRoute } from "next"
 // 🔹 Fetch статии за RSS Feed
 async function getRSSArticles() {
   try {
-    console.log("🔍 Заявявам статии за RSS Feed...")
-    
     const response = await fetch(
       `https://lunaro.sofia-today.org/wp-json/wp/v2/posts?per_page=50&_embed`,
       { next: { revalidate: 0 } } // БЕЗ кеширане за актуални новини
     )
 
-    console.log(`📡 RSS Feed Response status: ${response.status} ${response.statusText}`)
-
     if (!response.ok) {
-      console.error("❌ Error fetching RSS articles:", response.statusText)
       return []
     }
 
     const articles = await response.json()
-    console.log(`📄 Получени ${articles.length} статии за RSS Feed`)
     
     // Филтрирай само публикуваните статии
     const publishedArticles = articles.filter((article: any) => article.status === 'publish')
     
-    console.log(`✅ Филтрирани ${publishedArticles.length} публикувани статии за RSS Feed`)
-    
     return publishedArticles
   } catch (error) {
-    console.error("💥 Error fetching RSS articles:", error)
     return []
   }
 }
@@ -115,8 +106,6 @@ export async function GET(): Promise<Response> {
   </channel>
 </rss>`
 
-    console.log(`📡 RSS Feed генериран с ${articles.length} статии`)
-    
     return new Response(rssFeed, {
       status: 200,
       headers: {
@@ -125,8 +114,6 @@ export async function GET(): Promise<Response> {
       },
     })
   } catch (error) {
-    console.error("💥 Error generating RSS feed:", error)
-    
     // Връщай празен RSS при грешка
     const emptyRSS = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
