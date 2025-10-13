@@ -64,7 +64,11 @@ export default function robots(): MetadataRoute.Robots {
         crawlDelay: 0,
       },
     ],
-    sitemap: "https://lunaro.news/sitemap.xml",
+    sitemap: [
+      "https://lunaro.news/sitemap.xml",
+      "https://lunaro.news/news-sitemap.xml",
+      "https://lunaro.news/sitemap-index.xml",
+    ],
     host: "https://lunaro.news",
   }
 }
