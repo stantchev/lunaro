@@ -12,50 +12,31 @@ import type { MetadataRoute } from "next"
 
 async function getWordPressArticles() {
   try {
-    console.log("🔍 Заявявам статии от WordPress API...")
-    
     // Първа опитай с опростена заявка
     let response = await fetch(
       `https://lunaro.sofia-today.org/wp-json/wp/v2/posts?per_page=100`,
-      { next: { revalidate: 0 } } // БЕЗ кеширане за debug
+      { next: { revalidate: 0 } }
     )
-
-    console.log(`📡 Response status: ${response.status} ${response.statusText}`)
 
     // Ако първата заявка не работи, опитай с още по-проста
     if (!response.ok) {
-      console.log("🔄 Първата заявка не работи, опитвам с по-проста...")
       response = await fetch(
         `https://lunaro.sofia-today.org/wp-json/wp/v2/posts`,
         { next: { revalidate: 0 } }
       )
-      console.log(`📡 Втора заявка status: ${response.status} ${response.statusText}`)
     }
 
     if (!response.ok) {
-      console.error("❌ Error fetching WP articles:", response.statusText)
       return []
     }
 
     const articles = await response.json()
-    console.log(`📄 Получени ${articles.length} статии от API`)
-    
-    // Покажи първите 3 статии за debug
-    if (articles.length > 0) {
-      console.log("📋 Първи 3 статии:")
-      articles.slice(0, 3).forEach((article: any, index: number) => {
-        console.log(`  ${index + 1}. ${article.slug} (${article.status}) - ${article.date}`)
-      })
-    }
     
     // Филтрирай само публикуваните статии
     const publishedArticles = articles.filter((article: any) => article.status === 'publish')
     
-    console.log(`✅ Филтрирани ${publishedArticles.length} публикувани статии от ${articles.length} общо`)
-    
     return publishedArticles
   } catch (error) {
-    console.error("💥 Error fetching articles for sitemap:", error)
     return []
   }
 }
@@ -74,6 +55,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/seo`, lastModified: now, changeFrequency: "daily" as const, priority: 0.95 },
     { url: `${baseUrl}/ai`, lastModified: now, changeFrequency: "daily" as const, priority: 0.95 },
     { url: `${baseUrl}/analizi`, lastModified: now, changeFrequency: "daily" as const, priority: 0.9 },
+    { url: `${baseUrl}/world`, lastModified: now, changeFrequency: "daily" as const, priority: 0.95 },
     
     // Инструменти и ресурси - висок приоритет
     { url: `${baseUrl}/tools`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.85 },
@@ -92,6 +74,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/saved`, lastModified: now, changeFrequency: "daily" as const, priority: 0.7 },
     { url: `${baseUrl}/search`, lastModified: now, changeFrequency: "daily" as const, priority: 0.7 },
     
+    // RSS и Sitemap файлове - висок приоритет за търсачките
+    { url: `${baseUrl}/feed.xml`, lastModified: now, changeFrequency: "hourly" as const, priority: 0.9 },
+    { url: `${baseUrl}/news-sitemap.xml`, lastModified: now, changeFrequency: "hourly" as const, priority: 0.9 },
+    
     // Информационни страници
     { url: `${baseUrl}/about`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.6 },
     { url: `${baseUrl}/contact`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.6 },
@@ -105,10 +91,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 🔹 Динамични статии с оптимизирани приоритети
   const articles = await getWordPressArticles()
   
-  // Fallback ако няма статии
-  if (articles.length === 0) {
-    console.log("⚠️ Няма намерени статии от WordPress API - използвам fallback")
-  }
+  // Fallback ако няма статии - продължи с празен масив
   
   const articlePages = articles.map((article: any) => {
     const articleDate = new Date(article.date)
@@ -132,17 +115,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 🔹 Сортирай по приоритет (най-високите първи)
   const allPages = [...staticPages, ...articlePages]
   allPages.sort((a, b) => (b.priority || 0) - (a.priority || 0))
-
-  // Debug информация
-  console.log(`🗺️ Sitemap генериран: ${staticPages.length} статични + ${articlePages.length} статии = ${allPages.length} общо страници`)
-  
-  // Покажи първите 5 URL-а за debug
-  if (allPages.length > 0) {
-    console.log("🔗 Първи 5 URL-а в sitemap:")
-    allPages.slice(0, 5).forEach((page, index) => {
-      console.log(`  ${index + 1}. ${page.url} (priority: ${page.priority})`)
-    })
-  }
   
   return allPages
 }
