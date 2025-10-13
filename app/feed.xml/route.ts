@@ -120,7 +120,7 @@ export async function GET(): Promise<Response> {
     return new Response(rssFeed, {
       status: 200,
       headers: {
-        'Content-Type': 'application/rss+xml',
+        'Content-Type': 'application/rss+xml; charset=utf-8',
         'Cache-Control': 'public, max-age=1800, s-maxage=1800', // Кеширай за 30 минути
       },
     })
@@ -142,7 +142,7 @@ export async function GET(): Promise<Response> {
     return new Response(emptyRSS, {
       status: 200,
       headers: {
-        'Content-Type': 'application/rss+xml',
+        'Content-Type': 'application/rss+xml; charset=utf-8',
         'Cache-Control': 'public, max-age=300', // Кеширай за 5 минути при грешка
       },
     })
