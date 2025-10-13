@@ -6,7 +6,7 @@ async function getNewsArticles() {
     console.log("🔍 Заявявам статии за Google News Sitemap...")
     
     const response = await fetch(
-      `https://lunaro.sofia-today.org/wp-json/wp/v2/posts?per_page=200&_embed`,
+      `https://lunaro.sofia-today.org/wp-json/wp/v2/posts?per_page=100&_embed`,
       { next: { revalidate: 0 } } // БЕЗ кеширане за актуални новини
     )
 
@@ -26,6 +26,12 @@ async function getNewsArticles() {
     })
     
     console.log(`✅ Филтрирани ${publishedArticles.length} публикувани статии за News Sitemap`)
+    
+    // Логвай първите няколко статии за дебъг
+    if (publishedArticles.length > 0) {
+      console.log(`🔍 Първа статия: ${publishedArticles[0].title?.rendered}`)
+      console.log(`🔍 Категория: ${publishedArticles[0]._embedded?.["wp:term"]?.[0]?.[0]?.name}`)
+    }
     
     return publishedArticles
   } catch (error) {
