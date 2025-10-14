@@ -9,6 +9,8 @@ import { useState, useEffect } from "react"
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
+
+  // Close menu when clicking outside or on escape
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -34,6 +36,7 @@ export function Header() {
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4">
           <div className="flex h-16 items-center justify-between">
+            {/* Logo */}
             <Link href="/" className="flex items-center">
               <Image
                 src="/logo-desktop.png"
@@ -44,6 +47,8 @@ export function Header() {
                 priority
               />
             </Link>
+
+            {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
               <Link href="/" className="text-sm font-semibold hover:text-primary transition-colors border-b-2 border-transparent hover:border-primary pb-1">
                 Начало
@@ -67,13 +72,18 @@ export function Header() {
                 Запазени
               </Link>
             </nav>
+
+            {/* Search + Actions */}
             <div className="flex items-center space-x-4">
+            {/* Desktop Search */}
             <div className="hidden md:flex items-center space-x-2">
               <div className="relative">
                 <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input placeholder={t("searchPlaceholder")} className="pl-8 w-48 lg:w-64" />
+                <Input placeholder="Търсене..." className="pl-8 w-48 lg:w-64" />
               </div>
             </div>
+              
+              {/* Mobile Menu Toggle */}
               <Button
                 variant="ghost"
                 size="icon"
@@ -87,17 +97,25 @@ export function Header() {
           </div>
         </div>
       </header>
+
+      {/* Mobile Navigation - Bottom Sheet */}
       {isOpen && (
         <>
+          {/* Backdrop */}
           <div 
             className="fixed inset-0 bg-black/50 z-40 md:hidden"
             onClick={() => setIsOpen(false)}
           />
+          
+          {/* Bottom Sheet */}
           <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden">
             <div className="bg-background rounded-t-3xl shadow-2xl border-t border-border animate-in slide-in-from-bottom-4 duration-300 ease-out">
+              {/* Handle */}
               <div className="flex justify-center pt-3 pb-2">
                 <div className="w-12 h-1 bg-muted-foreground/30 rounded-full"></div>
               </div>
+              
+              {/* Navigation */}
               <nav className="px-6 pb-8 space-y-1">
                 <Link 
                   href="/" 
@@ -148,6 +166,7 @@ export function Header() {
                 >
                   Запазени
                 </Link>
+                
               </nav>
             </div>
           </div>
