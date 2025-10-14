@@ -275,7 +275,7 @@ export default function PrivacyPage() {
 
                   <div className="space-y-2">
                     <p>
-                      <strong>Имейл:</strong> privacy@lunaro.news
+                      <strong>Имейл:</strong> lunaro.news@gmail.com
                     </p>
                     <p>
                       <strong>Адрес:</strong> София, България
