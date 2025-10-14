@@ -11,7 +11,7 @@ import { Globe, TrendingUp, Users, MapPin, Zap } from "lucide-react"
 async function getWorldArticles() {
   try {
     const response = await fetch(
-      `https://lunaro.sofia-today.org/wp-json/wp/v2/posts?categories=6&per_page=8&_embed`,
+      `https://lunaro.sofia-today.org/wp-json/wp/v2/posts?categories=8&per_page=8&_embed`,
       { next: { revalidate: 60 } }
     )
 
@@ -173,4 +173,5 @@ export default async function WorldPage() {
       <Footer />
     </div>
   )
+
 }
