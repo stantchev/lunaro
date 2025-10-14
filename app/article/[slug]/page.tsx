@@ -10,6 +10,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ShareButton } from "@/components/share-button"
 import { SaveButton } from "@/components/save-button"
+import Script from "next/script"
 
 // 🔹 Позволи динамично генериране за нови статии
 export const dynamicParams = true
@@ -21,30 +22,22 @@ export const dynamic = 'force-dynamic' // Принуди динамично ге
 // 🔹 Fetch всички статии за статично генериране
 async function getAllArticles() {
   try {
-    console.log("🔍 Заявявам ВСИЧКИ статии за статично генериране...")
-    
     const response = await fetch(
       `https://lunaro.sofia-today.org/wp-json/wp/v2/posts?per_page=1000&_fields=slug,status`,
       { next: { revalidate: 0 } } // БЕЗ кеширане за build време
     )
 
-    console.log(`📡 Статус за всички статии: ${response.status}`)
-
     if (!response.ok) {
-      console.error("❌ Error fetching all articles:", response.statusText)
       return []
     }
 
     const articles = await response.json()
-    console.log(`📄 Получени ${articles.length} статии от API`)
     
     // Филтрирай само публикуваните статии
     const publishedArticles = articles.filter((article: any) => article.status === 'publish')
-    console.log(`✅ Филтрирани ${publishedArticles.length} публикувани статии`)
     
     return publishedArticles
   } catch (error) {
-    console.error("💥 Error fetching all articles:", error)
     return []
   }
 }
@@ -52,8 +45,6 @@ async function getAllArticles() {
 // 🔹 Fetch конкретна статия по slug от WP
 async function getArticle(slug: string) {
   try {
-    console.log(`🔍 Търся статия: ${slug}`)
-    
     const response = await fetch(
       `https://lunaro.sofia-today.org/wp-json/wp/v2/posts?slug=${slug}&_embed`,
       { 
@@ -64,10 +55,7 @@ async function getArticle(slug: string) {
       }
     )
 
-    console.log(`📡 Статус за ${slug}: ${response.status}`)
-
     if (!response.ok) {
-      console.log(`❌ Статия ${slug} не е намерена (${response.status})`)
       return null
     }
 
@@ -75,11 +63,8 @@ async function getArticle(slug: string) {
     const post = data[0]
 
     if (!post) {
-      console.log(`❌ Статия ${slug} не е намерена в отговора`)
       return null
     }
-    
-    console.log(`✅ Статия ${slug} намерена успешно`)
 
     return {
       id: post.id.toString(),
@@ -106,7 +91,6 @@ async function getArticle(slug: string) {
       },
     }
   } catch (error) {
-    console.error("Error fetching article:", error)
     return null
   }
 }
@@ -117,13 +101,10 @@ export async function generateStaticParams() {
     const articles = await getAllArticles()
     
     // Генерирай ВСИЧКИ статии статично
-    console.log(`📄 Генерирам ВСИЧКИ ${articles.length} статии статично`)
-    
     return articles.map((article: any) => ({
       slug: article.slug,
     }))
   } catch (error) {
-    console.error("Error generating static params:", error)
     return []
   }
 }
@@ -179,16 +160,11 @@ export default async function ArticlePage({
 }: {
   params: { slug: string }
 }) {
-  console.log(`📖 Зареждам статия: ${params.slug}`)
-  
   const article = await getArticle(params.slug)
 
   if (!article) {
-    console.log(`❌ Статия ${params.slug} не е намерена - показвам 404`)
     notFound()
   }
-  
-  console.log(`✅ Статия ${params.slug} заредена успешно`)
 
   // Map Bulgarian category names to English URLs
   const getCategoryUrl = (category: string) => {
@@ -226,6 +202,30 @@ export default async function ArticlePage({
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Google News Subscription Script - Only on article pages */}
+      <Script
+        async
+        type="application/javascript"
+        src="https://news.google.com/swg/js/v1/swg-basic.js"
+        strategy="afterInteractive"
+      />
+      <Script
+        id="google-news-subscription"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            (self.SWG_BASIC = self.SWG_BASIC || []).push( basicSubscriptions => {
+              basicSubscriptions.init({
+                type: "NewsArticle",
+                isPartOfType: ["Product"],
+                isPartOfProductId: "CAow5drCDA:openaccess",
+                clientOptions: { theme: "light", lang: "bg" },
+              });
+            });
+          `,
+        }}
+      />
+      
       <Header />
 
       <main>
