@@ -274,7 +274,7 @@ export default function TermsPage() {
 
                   <div className="space-y-2">
                     <p>
-                      <strong>Имейл:</strong> legal@lunaro.news
+                      <strong>Имейл:</strong> lunaronews@gmail.com
                     </p>
                     <p>
                       <strong>Адрес:</strong> София, България
