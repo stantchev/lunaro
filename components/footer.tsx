@@ -51,8 +51,8 @@ export function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/tutorials" className="text-muted-foreground hover:text-primary transition-colors">
-                    Ръководства
+                  <Link href="/world" className="text-muted-foreground hover:text-primary transition-colors">
+                    Светът
                   </Link>
                 </li>
               </ul>
@@ -80,9 +80,9 @@ export function Footer() {
                     Речник на термините
                   </Link>
                 </li>
-                <li>
-                  <Link href="/contact" className="text-muted-foreground hover:text-primary transition-colors">
-                    Контакти
+                  <li>
+                  <Link href="/tutorials" className="text-muted-foreground hover:text-primary transition-colors">
+                    Ръководства
                   </Link>
                 </li>
               </ul>
@@ -94,9 +94,13 @@ export function Footer() {
                 <Mail className="h-3 w-3 md:h-4 md:w-4" />
                 <span>Свържи се с нас</span>
               </h3>
+                <li>
+                  <Link href="/contact" className="text-muted-foreground hover:text-primary transition-colors">
+                    Контакти
+                  </Link>
+                </li>
               <div className="space-y-1 md:space-y-2 text-xs md:text-sm text-muted-foreground">
-                <p>contact@lunaro-news.bg</p>
-                <p>+359 2 XXX XXXX</p>
+                <p>lunaronews@gmail.com</p>
               </div>
 
               <div className="flex justify-center md:justify-start space-x-3 md:space-x-4">
