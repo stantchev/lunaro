@@ -15,9 +15,12 @@ export function NewsTicker({ news }: NewsTickerProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
+    const isMobile = window.innerWidth < 768
+    const intervalTime = isMobile ? 2000 : 4000
+    
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % news.length)
-    }, 4000)
+    }, intervalTime)
 
     return () => clearInterval(interval)
   }, [news.length])
@@ -44,7 +47,6 @@ export function NewsTicker({ news }: NewsTickerProps) {
                 href={item.url}
                 className="text-sm hover:text-primary transition-colors whitespace-nowrap"
               >
-                <span className="text-muted-foreground text-xs mr-2">[{item.category}]</span>
                 {item.title}
               </a>
             ))}
