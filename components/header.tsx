@@ -44,8 +44,8 @@ export function Header() {
             <Link href="/analizi" className="text-sm font-medium hover:text-primary transition-colors">
               Анализи
             </Link>
-            <Link href="/tools" className="text-sm font-medium hover:text-primary transition-colors">
-              Инструменти
+            <Link href="/world" className="text-sm font-medium hover:text-primary transition-colors">
+              Светът
             </Link>
             <Link href="/saved" className="text-sm font-medium hover:text-primary transition-colors">
               Запазени
@@ -94,6 +94,9 @@ export function Header() {
             </Link>
             <Link href="/analizi" className="text-sm font-medium hover:text-primary transition-colors">
               Анализи
+            </Link>
+            <Link href="/world" className="text-sm font-medium hover:text-primary transition-colors">
+              Светът
             </Link>
             <Link href="/tools" className="text-sm font-medium hover:text-primary transition-colors">
               Инструменти
