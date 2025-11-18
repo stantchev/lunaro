@@ -149,15 +149,15 @@ export default async function CybersecurityPage() {
         }}
       />
 
-      {/* Cybersecurity Hero */}
-      <CybersecurityHero featuredArticle={featuredArticle} />
-
       {/* Threat Level Banner */}
       <ThreatLevelBanner 
         level="HIGH"
         description="Нарастващи фишинг атаки и ransomware заплахи в региона"
         trendingThreats={["Ransomware", "Phishing", "DDoS атаки"]}
       />
+
+      {/* Cybersecurity Hero */}
+      <CybersecurityHero featuredArticle={featuredArticle} />
 
       {/* SEO Intro Section */}
       <section className="bg-muted/30 border-y">
