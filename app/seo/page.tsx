@@ -6,16 +6,17 @@ import { SEOHero } from "@/components/seo-hero"
 import { TrendingSidebar } from "@/components/trending-sidebar"
 import { Badge } from "@/components/ui/badge"
 import { TrendingUp, Search, BarChart3, Target } from "lucide-react"
+import Script from "next/script"
 
 export const metadata: Metadata = {
   title: {
-    default: "SEO Новини - Lunaro News",
+    default: "SEO Новини България | Lunaro News",
     template: "%s - Lunaro News",
   },
   description:
-    "Последните SEO новини от Lunaro News – алгоритми на Google, стратегии за оптимизация и експертни съвети за дигитален успех.",
+    "Най-актуалните SEO новини в България – Google алгоритми, локално SEO, линк билдинг стратегии и експертни анализи от Lunaro News.",
   keywords:
-    "SEO новини, Google алгоритъм, оптимизация за търсачки, SEO България, дигитален маркетинг, SEO анализи, SEO стратегии, Lunaro News",
+    "SEO новини, SEO новини България, Google алгоритъм, оптимизация за търсачки, SEO анализи, локално SEO, дигитален маркетинг, Lunaro News",
   authors: [{ name: "Lunaro News" }],
   creator: "Lunaro News",
   publisher: "Lunaro News",
@@ -28,23 +29,23 @@ export const metadata: Metadata = {
     locale: "bg_BG",
     url: "https://lunaro.news/seo",
     siteName: "Lunaro News",
-    title: "SEO Новини - Lunaro News",
+    title: "SEO Новини България | Lunaro News",
     description:
-      "Актуални SEO новини – Google алгоритми, оптимизация и експертни съвети за дигитален растеж от Lunaro News.",
+      "Акценти от българската SEO сцена – актуални новини, алгоритмични промени и анализи за дигитални екипи.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "SEO Новини - Lunaro News",
+        alt: "SEO Новини България - Lunaro News",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "SEO Новини - Lunaro News",
+    title: "SEO Новини България - Lunaro News",
     description:
-      "Lunaro News предлага последни SEO новини, анализи и експертни насоки за оптимизация и Google алгоритми.",
+      "Следете SEO новини за България – Google Updates, SERP промени и експертни насоки за оптимизация.",
     images: ["/og-image.jpg"],
   },
   generator: "Lunaro News",
@@ -95,7 +96,9 @@ export default async function SEOPage() {
   const otherArticles = seoArticles.slice(1)
   
   // Mock trending items for SEO
-  const trendingItems = seoArticles.slice(0, 8).map((article, index) => ({
+  type SEOArticle = Awaited<ReturnType<typeof getSEOArticles>>[number]
+
+  const trendingItems = seoArticles.slice(0, 8).map((article: SEOArticle, index: number) => ({
     id: article.id,
     title: article.translatedTitle || article.title,
     url: article.url,
@@ -105,9 +108,47 @@ export default async function SEOPage() {
     rank: index + 1
   }))
 
+  const faqItems = [
+    {
+      question: "Къде да следя надеждни SEO новини за България?",
+      answer:
+        "Lunaro News покрива Google Updates, SERP промени и локални казуси за агенции и вътрешни екипи в България.",
+    },
+    {
+      question: "Какво включва разделът „SEO новини“?",
+      answer:
+        "Включваме алгоритмични обновления, стратегии за техническо и локално SEO, линк билдинг и контент оптимизация.",
+    },
+    {
+      question: "За кого са полезни SEO новините на Lunaro News?",
+      answer:
+        "За маркетинг екипи, SEO специалисти, агенции и собственици на бизнес, които искат да реагират първи при промени.",
+    },
+  ]
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
+
+      <Script
+        id="seo-faq-schema"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: faqItems.map((item) => ({
+              "@type": "Question",
+              name: item.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: item.answer,
+              },
+            })),
+          }),
+        }}
+      />
 
       {/* SEO Hero */}
       <SEOHero featuredArticle={featuredArticle} />
@@ -120,6 +161,41 @@ export default async function SEOPage() {
             <span className="font-medium">
               Последно обновление: Google March 2025 Core Update - Проверете позициите си
             </span>
+          </div>
+        </div>
+      </section>
+
+      {/* SEO Intro Section */}
+      <section className="bg-muted/30 border-y">
+        <div className="container mx-auto px-4 py-12 space-y-6">
+          <div className="flex flex-col gap-4 max-w-3xl">
+            <Badge variant="outline" className="w-fit">
+              SEO новини България
+            </Badge>
+            <h1 className="text-3xl lg:text-4xl font-bold leading-tight">
+              SEO новини и анализи за българския пазар – алгоритми, SERP промени и доказани практики
+            </h1>
+            <p className="text-muted-foreground text-lg">
+              Тук събираме най-важните <strong>SEO новини</strong> и локални казуси. Екипът ни следи Google Update-и,
+              експериментира с SERP функции и публикува практически насоки за екипи, които търсят <strong>„SEO новини България“</strong>.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="p-6 rounded-xl bg-background shadow border">
+              <TrendingUp className="h-9 w-9 text-primary mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Алгоритми & SERP</h3>
+              <p className="text-muted-foreground">Обясняваме как актуализациите удрят българските сайтове и как да реагирате.</p>
+            </div>
+            <div className="p-6 rounded-xl bg-background shadow border">
+              <BarChart3 className="h-9 w-9 text-primary mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Техническо SEO</h3>
+              <p className="text-muted-foreground">Гайдове за Core Web Vitals, crawl бюджет и структурирани данни.</p>
+            </div>
+            <div className="p-6 rounded-xl bg-background shadow border">
+              <Target className="h-9 w-9 text-primary mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Локално & eCommerce</h3>
+              <p className="text-muted-foreground">Стратегии за магазини, услуги и B2B екипи, насочени към български клиенти.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -180,6 +256,30 @@ export default async function SEOPage() {
                 <p className="text-sm text-muted-foreground">Бъдещето на SEO</p>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="container mx-auto px-4 py-16 space-y-8">
+          <div className="max-w-3xl">
+            <Badge variant="outline" className="mb-4">
+              Често задавани въпроси
+            </Badge>
+            <h2 className="text-3xl font-bold mb-4">
+              FAQ: SEO новини и алгоритми за България
+            </h2>
+            <p className="text-muted-foreground">
+              Отговаряме на въпросите, които получаваме от SEO специалисти, агенции и маркетинг екипи,
+              когато търсят свежи <strong>SEO новини</strong>.
+            </p>
+          </div>
+          <div className="space-y-6">
+            {faqItems.map((item) => (
+              <div key={item.question} className="p-6 rounded-2xl border bg-background shadow-sm">
+                <h3 className="text-xl font-semibold mb-2">{item.question}</h3>
+                <p className="text-muted-foreground">{item.answer}</p>
+              </div>
+            ))}
           </div>
         </section>
       </main>
