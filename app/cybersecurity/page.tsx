@@ -7,16 +7,17 @@ import { ThreatLevelBanner } from "@/components/threat-level-banner"
 import { TrendingSidebar } from "@/components/trending-sidebar"
 import { Badge } from "@/components/ui/badge"
 import { Shield, TrendingUp, AlertTriangle } from "lucide-react"
+import Script from "next/script"
 
 export const metadata: Metadata = {
   title: {
-    default: "Киберсигурност Новини | Lunaro News",
+    default: "Киберсигурност Новини в България | Lunaro News",
     template: "%s - Lunaro News",
   },
   description:
-    "Последните новини за киберсигурност от Lunaro News – хакерски атаки, киберзащита, иновации и анализи за дигиталната сигурност.",
+    "Lunaro News предлага най-актуалните киберсигурност новини и анализи за България – атаки, регулации, експертни съвети и решения за защита.",
   keywords:
-    "киберсигурност новини, хакери България, кибер атаки, защита на данни, киберсигурност 2025, кибер иновации, дигитална сигурност, Lunaro News",
+    "киберсигурност новини, киберсигурност новини България, хакери България, кибер атаки, защита на данни, киберсигурност 2025, дигитална сигурност, Lunaro News",
   authors: [{ name: "Lunaro News" }],
   creator: "Lunaro News",
   publisher: "Lunaro News",
@@ -29,23 +30,23 @@ export const metadata: Metadata = {
     locale: "bg_BG",
     url: "https://lunaro.news/cybersecurity",
     siteName: "Lunaro News",
-    title: "Киберсигурност Новини | Lunaro News",
+    title: "Киберсигурност Новини в България | Lunaro News",
     description:
-      "Актуални киберсигурност новини – атаки, защита на данни и експертни анализи от Lunaro News.",
+      "Актуални киберсигурност новини и анализи за България – атаки, защита на данни и експертни препоръки от Lunaro News.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Киберсигурност Новини - Lunaro News",
+        alt: "Киберсигурност Новини България - Lunaro News",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Киберсигурност Новини - Lunaro News",
+    title: "Киберсигурност Новини България - Lunaro News",
     description:
-      "Последни новини за киберсигурност – хакерски атаки, кибер защита и анализи от Lunaro News.",
+      "Следете последните киберсигурност новини и тенденции в България – хакерски атаки, защита и експертни анализи.",
     images: ["/og-image.jpg"],
   },
   generator: "Lunaro News",
@@ -87,6 +88,8 @@ async function getCybersecurityArticles() {
   }
 }
 
+type CybersecurityArticle = Awaited<ReturnType<typeof getCybersecurityArticles>>[number]
+
 export default async function CybersecurityPage() {
   const cybersecurityArticles = await getCybersecurityArticles()
   
@@ -94,7 +97,7 @@ export default async function CybersecurityPage() {
   const otherArticles = cybersecurityArticles.slice(1)
   
   // Mock trending items for cybersecurity
-  const trendingItems = cybersecurityArticles.slice(0, 8).map((article, index) => ({
+  const trendingItems = cybersecurityArticles.slice(0, 8).map((article: CybersecurityArticle, index: number) => ({
     id: article.id,
     title: article.translatedTitle || article.title,
     url: article.url,
@@ -104,9 +107,47 @@ export default async function CybersecurityPage() {
     rank: index + 1
   }))
 
+  const faqItems = [
+    {
+      question: "Къде да следя най-важните киберсигурност новини в България?",
+      answer:
+        "Lunaro News публикува всекидневни анализи за българския пазар – инциденти, заплахи и държавни регулации.",
+    },
+    {
+      question: "Какво включва разделът „киберсигурност новини“?",
+      answer:
+        "Обхващаме хакерски атаки, пробиви в компании, кибер престъпност в България и практически насоки за защита.",
+    },
+    {
+      question: "Защо е важно да следя киберсигурност новини България?",
+      answer:
+        "Локалните заплахи често са насочени към български бизнеси и институции, затова реакцията в реално време е ключова.",
+    },
+  ]
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
+
+      <Script
+        id="cybersecurity-faq-schema"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: faqItems.map((item) => ({
+              "@type": "Question",
+              name: item.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: item.answer,
+              },
+            })),
+          }),
+        }}
+      />
 
       {/* Cybersecurity Hero */}
       <CybersecurityHero featuredArticle={featuredArticle} />
@@ -117,6 +158,48 @@ export default async function CybersecurityPage() {
         description="Нарастващи фишинг атаки и ransomware заплахи в региона"
         trendingThreats={["Ransomware", "Phishing", "DDoS атаки"]}
       />
+
+      {/* SEO Intro Section */}
+      <section className="bg-muted/30 border-y">
+        <div className="container mx-auto px-4 py-10 space-y-6">
+          <div className="flex flex-col gap-4 max-w-3xl">
+            <Badge variant="outline" className="w-fit">
+              Киберсигурност новини България
+            </Badge>
+            <h1 className="text-3xl lg:text-4xl font-bold leading-tight">
+              Киберсигурност новини и анализи за България – реална картина на дигиталните заплахи
+            </h1>
+            <p className="text-muted-foreground text-lg">
+              В този раздел събираме най-важните <strong>киберсигурност новини</strong> за българския бизнес, държавни институции
+              и технологични екипи. Екипът на Lunaro News следи локални инциденти, пробиви, регулации и защитни стратегии,
+              за да имате надежден източник при търсения като <strong>„киберсигурност новини България“</strong>.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="p-6 rounded-xl bg-background shadow border">
+              <Shield className="h-10 w-10 text-primary mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Локални инциденти</h3>
+              <p className="text-muted-foreground">
+                Отразяваме български кибер атаки, реакции на CERT екипи и практични уроци за организациите.
+              </p>
+            </div>
+            <div className="p-6 rounded-xl bg-background shadow border">
+              <TrendingUp className="h-10 w-10 text-primary mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Тенденции и регулации</h3>
+              <p className="text-muted-foreground">
+                Проследяваме как НИСД и европейските политики влияят върху сигурността в България.
+              </p>
+            </div>
+            <div className="p-6 rounded-xl bg-background shadow border">
+              <AlertTriangle className="h-10 w-10 text-primary mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Експертни ръководства</h3>
+              <p className="text-muted-foreground">
+                Подготвяме чеклисти, гайдове и препоръки за реакция при пробиви или фишинг кампании.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <main>
         {/* Main Content with Sidebar */}
@@ -163,6 +246,30 @@ export default async function CybersecurityPage() {
                 Речник на термините
               </a>
             </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="container mx-auto px-4 py-16 space-y-8">
+          <div className="max-w-3xl">
+            <Badge variant="outline" className="mb-4">
+              Често задавани въпроси
+            </Badge>
+            <h2 className="text-3xl font-bold mb-4">
+              FAQ: Киберсигурност новини за българския бизнес
+            </h2>
+            <p className="text-muted-foreground">
+              Събрахме отговори на най-честите въпроси, които получаваме от читатели и екипи,
+              търсещи надежден източник за „киберсигурност новини“ и новини за България.
+            </p>
+          </div>
+          <div className="space-y-6">
+            {faqItems.map((item) => (
+              <div key={item.question} className="p-6 rounded-2xl border bg-background shadow-sm">
+                <h3 className="text-xl font-semibold mb-2">{item.question}</h3>
+                <p className="text-muted-foreground">{item.answer}</p>
+              </div>
+            ))}
           </div>
         </section>
       </main>
