@@ -225,14 +225,14 @@ export default async function HomePage() {
         }}
       />
 
-      {/* Hero Section - главната новина най-отгоре */}
-      <HeroSection latestArticle={heroArticle} />
-
       {/* Breaking News Banner */}
       <BreakingNewsBanner breakingNews={breakingNews} />
 
       {/* News Ticker */}
       <NewsTicker news={newsTicker} />
+
+      {/* Hero Section - главната новина под breaking и трендове */}
+      <HeroSection latestArticle={heroArticle} />
 
       {/* Intro Section */}
       <section className="bg-muted/30 border-y">
