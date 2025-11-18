@@ -150,9 +150,6 @@ export default async function SEOPage() {
         }}
       />
 
-      {/* SEO Hero */}
-      <SEOHero featuredArticle={featuredArticle} />
-
       {/* Google Update Alert */}
       <section className="py-4 bg-blue-50 border-y border-blue-200">
         <div className="container mx-auto px-4">
@@ -164,6 +161,9 @@ export default async function SEOPage() {
           </div>
         </div>
       </section>
+
+      {/* SEO Hero */}
+      <SEOHero featuredArticle={featuredArticle} />
 
       {/* SEO Intro Section */}
       <section className="bg-muted/30 border-y">
