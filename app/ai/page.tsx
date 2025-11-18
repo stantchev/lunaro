@@ -6,16 +6,17 @@ import { AIHero } from "@/components/ai-hero"
 import { TrendingSidebar } from "@/components/trending-sidebar"
 import { Badge } from "@/components/ui/badge"
 import { Brain, Search, Shield, TrendingUp, Zap } from "lucide-react"
+import Script from "next/script"
 
 export const metadata: Metadata = {
   title: {
-    default: "AI Новини - Lunaro News",
+    default: "AI и технологични новини България | Lunaro News",
     template: "%s - Lunaro News",
   },
   description:
-    "AI новини и анализи от Lunaro News – следете последните тенденции в изкуствения интелект, машинното обучение и бъдещето на технологиите.",
+    "Следете най-важните AI и технологични новини за България – генеративен AI, автоматизация, регулации и въздействие върху бизнеса.",
   keywords:
-    "AI новини, изкуствен интелект, машинно обучение, технологии България, AI тенденции, бъдеще на AI, автоматизация, киберсигурност и AI, SEO и AI, Lunaro News",
+    "AI новини, AI новини България, технологични новини, изкуствен интелект, машинно обучение, генеративен AI, автоматизация в България, Lunaro News",
   authors: [{ name: "Lunaro News" }],
   creator: "Lunaro News",
   publisher: "Lunaro News",
@@ -28,23 +29,23 @@ export const metadata: Metadata = {
     locale: "bg_BG",
     url: "https://lunaro.news/ai",
     siteName: "Lunaro News",
-    title: "AI Новини - Lunaro News",
+    title: "AI и технологични новини България | Lunaro News",
     description:
-      "Последните AI новини и експертни анализи – изкуствен интелект, машинно обучение и бъдещето на технологиите.",
+      "Актуални новини за изкуствен интелект и технологии – анализи, регулации и бизнес въздействие в България.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "AI Новини - Lunaro News",
+        alt: "AI и технологични новини България - Lunaro News",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI Новини - Lunaro News",
+    title: "AI и технологични новини България - Lunaro News",
     description:
-      "AI новини и анализи от Lunaro News – всичко за изкуствения интелект и неговото бъдеще.",
+      "Генеративен AI, автоматизация и технологични тенденции за българския бизнес – всичко в Lunaro News.",
     images: ["/og-image.jpg"],
   },
   generator: "Lunaro News",
@@ -95,7 +96,9 @@ export default async function AINewsPage() {
   const otherArticles = aiArticles.slice(1)
   
   // Mock trending items for AI
-  const trendingItems = aiArticles.slice(0, 8).map((article, index) => ({
+  type AIArticle = Awaited<ReturnType<typeof getAIArticles>>[number]
+
+  const trendingItems = aiArticles.slice(0, 8).map((article: AIArticle, index: number) => ({
     id: article.id,
     title: article.translatedTitle || article.title,
     url: article.url,
@@ -105,12 +108,85 @@ export default async function AINewsPage() {
     rank: index + 1
   }))
 
+  const faqItems = [
+    {
+      question: "Какви AI новини и технологии следи Lunaro News?",
+      answer:
+        "Отразяваме генеративен AI, машинно обучение, регулации на ЕС и как те влияят на българските компании.",
+    },
+    {
+      question: "Има ли фокус върху български AI иновации?",
+      answer:
+        "Да – следим локални стартъпи, университетски проекти и корпоративни внедрявания на изкуствен интелект.",
+    },
+    {
+      question: "За кого са полезни AI и технологичните новини?",
+      answer:
+        "За продуктовите екипи, ИТ лидери и маркетинг специалисти, които искат да интегрират AI в работата си.",
+    },
+  ]
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
 
+      <Script
+        id="ai-faq-schema"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: faqItems.map((item) => ({
+              "@type": "Question",
+              name: item.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: item.answer,
+              },
+            })),
+          }),
+        }}
+      />
+
       {/* AI Hero */}
       <AIHero featuredArticle={featuredArticle} />
+
+      {/* AI Intro Section */}
+      <section className="bg-muted/30 border-y">
+        <div className="container mx-auto px-4 py-12 space-y-6">
+          <div className="flex flex-col gap-4 max-w-3xl">
+            <Badge variant="outline" className="w-fit">
+              AI и технологични новини България
+            </Badge>
+            <h1 className="text-3xl lg:text-4xl font-bold leading-tight">
+              AI новини, регулации и бизнес импакт за България – един източник за технологичните лидери
+            </h1>
+            <p className="text-muted-foreground text-lg">
+              Разделът събира най-горещите <strong>AI новини</strong>, анализи на регулации и реални внедрявания.
+              Ако търсите <strong>„AI и технологични новини България“</strong>, тук ще намерите проверена информация и експертни оценки.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="p-6 rounded-xl bg-background shadow border">
+              <Brain className="h-9 w-9 text-primary mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Генеративен AI</h3>
+              <p className="text-muted-foreground">Анализираме как GPT, Claude и други модели навлизат в българския бизнес.</p>
+            </div>
+            <div className="p-6 rounded-xl bg-background shadow border">
+              <Shield className="h-9 w-9 text-primary mb-4" />
+              <h3 className="text-xl font-semibold mb-2">AI & Киберсигурност</h3>
+              <p className="text-muted-foreground">Проследяваме как изкуственият интелект усилва защитата и атаките.</p>
+            </div>
+            <div className="p-6 rounded-xl bg-background shadow border">
+              <TrendingUp className="h-9 w-9 text-primary mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Пазарни тенденции</h3>
+              <p className="text-muted-foreground">Как AI влияе върху индустрии като финтех, здравеопазване и маркетинг.</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <main>
         {/* Main Content with Sidebar */}
@@ -167,6 +243,30 @@ export default async function AINewsPage() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="container mx-auto px-4 py-16 space-y-8">
+          <div className="max-w-3xl">
+            <Badge variant="outline" className="mb-4">
+              Често задавани въпроси
+            </Badge>
+            <h2 className="text-3xl font-bold mb-4">
+              FAQ: AI и технологични новини за България
+            </h2>
+            <p className="text-muted-foreground">
+              Отговаряме на ключови въпроси за изкуствения интелект, които ни задават продуктови и IT екипи,
+              когато търсят надеждни <strong>AI новини</strong>.
+            </p>
+          </div>
+          <div className="space-y-6">
+            {faqItems.map((item) => (
+              <div key={item.question} className="p-6 rounded-2xl border bg-background shadow-sm">
+                <h3 className="text-xl font-semibold mb-2">{item.question}</h3>
+                <p className="text-muted-foreground">{item.answer}</p>
+              </div>
+            ))}
           </div>
         </section>
       </main>
