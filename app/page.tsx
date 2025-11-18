@@ -148,14 +148,15 @@ export default async function HomePage() {
   // Fetch regular articles for other sections
   const articles = await getArticles(12)
 
+  type HomepageArticle = Awaited<ReturnType<typeof getArticles>>[number]
+
   const latestArticle = articles[0] || null
   const latestThree = articles.slice(1, 4)
-  const cybersecurity = articles.filter((a) => a.category === "Киберсигурност").slice(0, 3)
-  const seo = articles.filter((a) => a.category === "SEO").slice(0, 3)
-  const ai = articles.filter((a) => a.category === "AI").slice(0, 3)
+  const cybersecurity = articles.filter((a: HomepageArticle) => a.category === "Киберсигурност").slice(0, 3)
+  const seo = articles.filter((a: HomepageArticle) => a.category === "SEO").slice(0, 3)
+  const ai = articles.filter((a: HomepageArticle) => a.category === "AI").slice(0, 3)
   
   // Mock data for trending items
-  type HomepageArticle = Awaited<ReturnType<typeof getArticles>>[number]
 
   const trendingItems = articles.slice(0, 10).map((article: HomepageArticle, index: number) => ({
     id: article.id,
@@ -224,6 +225,9 @@ export default async function HomePage() {
         }}
       />
 
+      {/* Hero Section - главната новина най-отгоре */}
+      <HeroSection latestArticle={heroArticle} />
+
       {/* Breaking News Banner */}
       <BreakingNewsBanner breakingNews={breakingNews} />
 
@@ -268,9 +272,6 @@ export default async function HomePage() {
       </section>
 
       <main>
-        {/* Hero Section */}
-        <HeroSection latestArticle={heroArticle} />
-
         {/* Main Content with Sidebar */}
         <div className="container mx-auto px-4 py-8">
           <div className="grid lg:grid-cols-4 gap-6 lg:gap-8">
