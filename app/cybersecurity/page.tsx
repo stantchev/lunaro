@@ -8,6 +8,7 @@ import { TrendingSidebar } from "@/components/trending-sidebar"
 import { Badge } from "@/components/ui/badge"
 import { Shield, TrendingUp, AlertTriangle } from "lucide-react"
 import Script from "next/script"
+import https from "https"
 
 export const metadata: Metadata = {
   title: {
@@ -53,15 +54,18 @@ export const metadata: Metadata = {
 }
 
 // 🔹 директен fetch от WordPress API (категория ID 3)
-async function getCybersecurityArticles() {
+export async function getCybersecurityArticles() {
   try {
+    const agent = new https.Agent({ rejectUnauthorized: false })
+
     const response = await fetch(
       `https://lunaro.sofia-today.org/wp-json/wp/v2/posts?categories=3&per_page=6&_embed`,
-      { next: { revalidate: 60 } } // ISR: кеш за 60 сек
+      { agent, next: { revalidate: 60 } } // ISR: кеш за 60 сек
     )
 
     if (!response.ok) {
-      console.error("WordPress API error:", response.statusText)
+      const text = await response.text()
+      console.error("WordPress API error:", response.status, text)
       return []
     }
 
@@ -69,17 +73,21 @@ async function getCybersecurityArticles() {
 
     return data.map((article: any) => ({
       id: article.id.toString(),
-      title: article.title.rendered,
-      translatedTitle: article.title.rendered,
-      description: article.excerpt.rendered.replace(/<[^>]*>/g, ""),
-      translatedDescription: article.excerpt.rendered.replace(/<[^>]*>/g, ""),
-      summary: article.excerpt.rendered.replace(/<[^>]*>/g, ""),
+      title: article.title?.rendered || "Без заглавие",
+      translatedTitle: article.title?.rendered || "Без заглавие",
+      description: article.excerpt?.rendered.replace(/<[^>]*>/g, "") || "",
+      translatedDescription: article.excerpt?.rendered.replace(/<[^>]*>/g, "") || "",
+      summary: article.excerpt?.rendered.replace(/<[^>]*>/g, "") || "",
       category: "Киберсигурност",
-      publishedAt: article.date,
+      publishedAt: article.date || new Date().toISOString(),
       urlToImage:
-        article._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/placeholder.svg",
-      url: `/article/${article.slug}`,
-      author: article._embedded?.author?.[0]?.name || "Автор",
+        article._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+        "/placeholder.svg",
+      url: `/article/${article.slug || article.id}`,
+      author:
+        article._embedded?.author?.[0]?.name ||
+        article._embedded?.author?.name ||
+        "Автор",
       source: { name: "Lunaro News" },
     }))
   } catch (error) {
